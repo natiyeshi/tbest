@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { BrandArrow } from "@/components/brand";
+import { TypeIn } from "@/components/type-in";
 import { practices } from "@/lib/practices";
 import { getPracticeImage } from "@/lib/practice-images";
 
@@ -21,11 +22,13 @@ export function Practices() {
           <div className="max-w-2xl">
             <p className="eyebrow flex items-center gap-3 text-copper-300">
               <span className="h-px w-8 bg-copper-400" />
-              Practice areas
+              <TypeIn text="Practice areas" />
             </p>
-            <h2 className="mt-7 font-display text-4xl leading-[1.12] tracking-tight text-white sm:text-5xl">
-              Nine practices, advised end to end.
-            </h2>
+            <TypeIn
+              as="h2"
+              text="Nine practices, advised end to end."
+              className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-white sm:text-5xl"
+            />
           </div>
           <Link
             href="/practices"

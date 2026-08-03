@@ -183,21 +183,23 @@ export function Hero() {
 
       <dl
         data-nav-tone="dark"
-        className="grid grid-cols-3 border-b border-white/10 bg-brand-950"
+        className="border-b border-white/10 bg-brand-950"
       >
-        {stats.map((stat) => (
-          <div
-            key={stat.label}
-            className="border-l border-white/10 px-3 py-5 first:border-l-0 sm:px-7 sm:py-7 lg:px-10"
-          >
-            <dt className="font-display text-xl leading-none text-copper-300 sm:text-3xl lg:text-4xl">
-              {stat.value}
-            </dt>
-            <dd className="mt-1.5 max-w-[15rem] text-[0.625rem] leading-snug text-brand-100/70 sm:mt-2.5 sm:text-[0.8125rem] sm:leading-relaxed">
-              {stat.label}
-            </dd>
-          </div>
-        ))}
+        <div className="mx-auto grid max-w-7xl grid-cols-3 px-6 lg:px-10">
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="border-l border-white/10 py-5 pl-4 first:border-l-0 first:pl-0 sm:py-7 sm:pl-7 lg:pl-10"
+            >
+              <dt className="font-display text-xl leading-none text-copper-300 sm:text-3xl lg:text-4xl">
+                {stat.value}
+              </dt>
+              <dd className="mt-1.5 max-w-[15rem] text-[0.625rem] leading-snug text-brand-100/70 sm:mt-2.5 sm:text-[0.8125rem] sm:leading-relaxed">
+                {stat.label}
+              </dd>
+            </div>
+          ))}
+        </div>
       </dl>
     </>
   );

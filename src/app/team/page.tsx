@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MarkPattern } from "@/components/brand";
 import { ContactCTA } from "@/components/contact-cta";
 import { DiamondFieldReveal } from "@/components/diamond-field-reveal";
+import { TypeIn } from "@/components/type-in";
 import { partners, team } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -96,12 +97,15 @@ export default function TeamPage() {
         >
           <p className="eyebrow flex items-center justify-center gap-3 text-copper-300">
             <span className="h-px w-8 bg-copper-400" />
-            The team
+            <TypeIn text="The team" />
             <span className="h-px w-8 bg-copper-400" />
           </p>
-          <h1 className="mt-5 font-display text-4xl leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            The people you will work with.
-          </h1>
+          <TypeIn
+            as="h1"
+            text="The people you will work with."
+            speed={22}
+            className="mt-5 block font-display text-4xl leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
+          />
           <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-brand-100/75 sm:text-base">
             Our partners, associates and support staff advise business across
             corporate, commercial and investment law in Ethiopia.

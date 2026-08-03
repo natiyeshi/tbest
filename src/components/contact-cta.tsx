@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { LogoMark } from "@/components/brand";
+import { TypeIn } from "@/components/type-in";
 import { firm } from "@/lib/content";
 
 /**
@@ -32,9 +33,11 @@ export function ContactCTA({
         data-reveal
       >
         <div className="max-w-2xl">
-          <h2 className="font-display text-3xl leading-tight tracking-tight text-white sm:text-4xl">
-            {heading}
-          </h2>
+          <TypeIn
+            as="h2"
+            text={heading}
+            className="block font-display text-3xl leading-tight tracking-tight text-white sm:text-4xl"
+          />
           <p className="mt-4 text-base leading-relaxed text-copper-50/90">{body}</p>
         </div>
         <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col">

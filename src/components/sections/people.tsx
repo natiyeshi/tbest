@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { BrandArrow, MarkPattern } from "@/components/brand";
+import { TypeIn } from "@/components/type-in";
 import { partners } from "@/lib/content";
 
 export function People() {
@@ -15,11 +16,13 @@ export function People() {
           <div className="max-w-2xl">
             <p className="eyebrow flex items-center gap-3 text-copper-500">
               <span className="h-px w-8 bg-copper-400" />
-              The partners
+              <TypeIn text="The partners" />
             </p>
-            <h2 className="mt-7 font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl">
-              The people who helped write the rules.
-            </h2>
+            <TypeIn
+              as="h2"
+              text="The people who helped write the rules."
+              className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl"
+            />
             <p className="mt-7 text-base leading-relaxed text-muted">
               Our partners have practised in academia, in government and in the
               private sector, and contributed to the drafting of the laws they

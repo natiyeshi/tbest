@@ -1,3 +1,4 @@
+import { TypeIn } from "@/components/type-in";
 import { rankings } from "@/lib/recognition";
 
 /**
@@ -21,11 +22,13 @@ export function Recognition({
         <div className="max-w-2xl" data-reveal>
           <p className="eyebrow flex items-center gap-3 text-copper-500">
             <span className="h-px w-8 bg-copper-400" />
-            Recognition
+            <TypeIn text="Recognition" />
           </p>
-          <h2 className="mt-7 font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl">
-            {heading}
-          </h2>
+          <TypeIn
+            as="h2"
+            text={heading}
+            className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl"
+          />
           <p className="mt-6 text-base leading-relaxed text-muted">{lead}</p>
         </div>
 

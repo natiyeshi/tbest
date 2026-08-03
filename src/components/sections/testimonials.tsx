@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { LogoMark } from "@/components/brand";
+import { TypeIn } from "@/components/type-in";
 import { testimonials } from "@/lib/recognition";
 
 const ROTATE_MS = 6000;
@@ -57,7 +58,7 @@ export function Testimonials({
           }`}
         >
           <span className="h-px w-8 bg-copper-400" />
-          In their words
+          <TypeIn text="In their words" />
           <span className="h-px w-8 bg-copper-400" />
         </p>
 
