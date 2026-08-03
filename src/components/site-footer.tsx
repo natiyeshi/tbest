@@ -16,7 +16,10 @@ const explore = [
 
 export function SiteFooter() {
   return (
-    <footer className="relative isolate overflow-hidden bg-brand-950 pt-20 pb-10">
+    <footer
+      data-nav-tone="dark"
+      className="relative isolate overflow-hidden bg-brand-950 pt-20 pb-10"
+    >
       <DiamondFieldReveal
         id="footer-diamond"
         size={78}

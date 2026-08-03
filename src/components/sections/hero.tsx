@@ -15,6 +15,14 @@ const ROTATE_MS = 4000;
 
 export function Hero() {
   const [active, setActive] = useState(0);
+  // Bumped whenever the reader takes manual control, to restart the timer so a
+  // practice they just chose isn't whisked away a moment later.
+  const [nudge, setNudge] = useState(0);
+
+  const select = (index: number) => {
+    setActive(index);
+    setNudge((n) => n + 1);
+  };
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -25,7 +33,7 @@ export function Hero() {
       ROTATE_MS,
     );
     return () => window.clearInterval(timer);
-  }, []);
+  }, [nudge]);
 
   return (
     <>
@@ -117,7 +125,7 @@ export function Hero() {
                 <button
                   key={practice.name}
                   type="button"
-                  onClick={() => setActive(index)}
+                  onClick={() => select(index)}
                   aria-label={practice.name}
                   aria-current={index === active}
                   className={`h-1 rounded-full transition-all duration-500 ${
@@ -136,6 +144,39 @@ export function Hero() {
             <div className="rounded-3xl bg-white p-6 shadow-2xl shadow-brand-950/40 lg:bg-transparent lg:p-0 lg:shadow-none">
               <ServiceStage active={active} />
             </div>
+          </div>
+        </div>
+
+        {/* Movement controls — bottom-left, aligned to the content column so
+            they share the CTA button's left edge. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-8 z-20">
+          <div className="mx-auto flex max-w-7xl items-center gap-3 px-6 lg:px-10">
+            <div className="pointer-events-auto flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => select((active - 1 + practices.length) % practices.length)}
+              aria-label="Previous practice"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:border-white/70 hover:bg-white/10"
+            >
+              <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true">
+                <path d="M10 3l-5 5 5 5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => select((active + 1) % practices.length)}
+              aria-label="Next practice"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:border-white/70 hover:bg-white/10"
+            >
+              <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true">
+                <path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </div>
+            <span className="font-display text-sm text-white/70">
+              {String(active + 1).padStart(2, "0")}
+              <span className="text-white/40"> / {String(practices.length).padStart(2, "0")}</span>
+            </span>
           </div>
         </div>
       </section>

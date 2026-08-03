@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { BrandArrow, LogoMark } from "@/components/brand";
+import { TypeIn } from "@/components/type-in";
 import { fallbackImage } from "@/lib/practice-images";
 
 const iconProps = {
@@ -62,11 +63,13 @@ export function Firm() {
           <div className="lg:col-span-5" data-reveal>
             <p className="eyebrow flex items-center gap-3 text-copper-500">
               <span className="h-px w-8 bg-copper-400" />
-              The firm
+              <TypeIn text="The firm" />
             </p>
-            <h2 className="mt-7 font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl">
-              A leading full service firm for corporate and commercial work.
-            </h2>
+            <TypeIn
+              as="h2"
+              text="A leading full service firm for corporate and commercial work."
+              className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl"
+            />
             <p className="mt-7 text-base leading-relaxed text-muted">
               TBeST Law provides legal services across a wide range of sectors
               and practice areas, acting as trusted advisors for the legal and

@@ -2,6 +2,8 @@ import type { StaticImageData } from "next/image";
 
 import teamExperience from "./team-experience.json";
 
+import menenPortrait from "../../public/team/menen-mitiku/no-bg.png";
+import menenPhoto from "../../public/team/menen-mitiku/a.png";
 import benyamPortrait from "../../public/team/benyam-tafesse/benyam-2-nobg.png";
 import beroketPortrait from "../../public/team/bereket-teshome/bereket-2-nobg.png";
 import bezawitFekedePortrait from "../../public/team/bezawit-fekede/beza-2-final-nobg.png";
@@ -169,6 +171,17 @@ export const team: readonly TeamMember[] = [
       "LL.M, International Business Law, Central European University (2015)",
       "LL.M, Comparative Law, Economics and Finance, International University College of Turin, with Great Distinction (2016)",
     ],
+  },
+  {
+    slug: "menen-mitiku",
+    name: "Menen Mitiku",
+    role: "Office Manager",
+    portrait: menenPortrait,
+    photo: menenPhoto,
+    focus: [],
+    strapline: "Office manager keeping the firm running day to day.",
+    bio: "Menen Mitiku is an Office Manager at TBeST Law. She graduated from Ambo University in Health Science. Prior to joining TBeST Law, Menen worked as a call centre agent and in front-desk customer care at Ison Xperience, and as a Telesales Representative at Heineken Ethiopia.",
+    credentials: ["BSc, Ambo University (2011)"],
   },
   {
     slug: "michael-mengistu",

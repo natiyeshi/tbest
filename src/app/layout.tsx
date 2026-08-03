@@ -61,7 +61,7 @@ export default function RootLayout({
           <style
             dangerouslySetInnerHTML={{
               __html:
-                "[data-reveal]{opacity:1!important;transform:none!important}",
+                "[data-reveal]{opacity:1!important;transform:none!important}[data-typein] .tw-char{opacity:1!important}.tw-caret{display:none!important}",
             }}
           />
         </noscript>

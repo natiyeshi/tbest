@@ -10,6 +10,7 @@ import {
   teamMemberBySlug,
   teamMemberExperience,
 } from "@/lib/content";
+import { partnerRecognitionBySlug } from "@/lib/recognition";
 
 export function generateStaticParams() {
   return team.map((member) => ({ slug: member.slug }));
@@ -40,6 +41,7 @@ export default async function TeamMemberPage({
   if (!member) notFound();
 
   const experience = teamMemberExperience(member.slug);
+  const recognition = partnerRecognitionBySlug(member.slug);
   const others = team.filter((m) => m.slug !== member.slug);
 
   return (
@@ -159,6 +161,61 @@ export default async function TeamMemberPage({
           )}
         </div>
       </section>
+
+      {/* Directory recognition + client testimonials (partners) */}
+      {recognition && (
+        <section
+          data-nav-tone="dark"
+          className="relative isolate overflow-hidden bg-brand-900 py-16 lg:py-24"
+        >
+          <DiamondFieldReveal
+            id={`member-reco-${member.slug}`}
+            size={78}
+            className="text-brand-200/[0.05]"
+          />
+          <div className="relative mx-auto max-w-7xl px-6 lg:px-10" data-reveal>
+            <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+              <div className="lg:col-span-5">
+                <p className="eyebrow flex items-center gap-3 text-copper-300">
+                  <span className="h-px w-8 bg-copper-400" />
+                  Recognition
+                </p>
+                {recognition.iflr && (
+                  <div className="mt-7 flex flex-wrap gap-2">
+                    <span className="rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold text-white">
+                      IFLR1000 · {recognition.iflr.rating}
+                    </span>
+                    <span className="rounded-full border border-white/20 px-4 py-1.5 text-xs text-brand-100/85">
+                      {recognition.iflr.area}
+                    </span>
+                  </div>
+                )}
+                {recognition.chambers && (
+                  <p className="mt-7 text-base leading-relaxed text-brand-100/80">
+                    {recognition.chambers.summary}
+                  </p>
+                )}
+              </div>
+
+              {recognition.chambers && (
+                <ul className="space-y-6 lg:col-span-6 lg:col-start-7">
+                  {recognition.chambers.testimonials.map((quote) => (
+                    <li
+                      key={quote}
+                      className="border-l-2 border-copper-400 pl-6 font-display text-xl leading-snug text-white sm:text-2xl"
+                    >
+                      &ldquo;{quote}&rdquo;
+                      <span className="mt-3 block text-xs font-semibold uppercase tracking-wider text-copper-300">
+                        Chambers &amp; Partners — client testimonial
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Other partners */}
       <section className="border-t border-line bg-bone py-16 lg:py-20">

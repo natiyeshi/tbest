@@ -4,6 +4,8 @@ import Link from "next/link";
 import { LogoMark } from "@/components/brand";
 import { ContactCTA } from "@/components/contact-cta";
 import { PageHero } from "@/components/page-hero";
+import { Recognition } from "@/components/sections/recognition";
+import { Testimonials } from "@/components/sections/testimonials";
 import { stats } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -136,6 +138,10 @@ export default function AboutPage() {
           </ul>
         </div>
       </section>
+
+      <Recognition />
+
+      <Testimonials />
 
       <ContactCTA />
     </>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { DiamondFieldReveal } from "@/components/diamond-field-reveal";
+import { TypeIn } from "@/components/type-in";
 
 export type Crumb = { label: string; href?: string };
 
@@ -92,12 +93,15 @@ export function PageHero({
 
         <p className="eyebrow flex items-center gap-3 text-copper-300">
           <span className="h-px w-8 bg-copper-400" />
-          {eyebrow}
+          <TypeIn text={eyebrow} />
         </p>
 
-        <h1 className="mt-6 max-w-4xl font-display text-4xl leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-          {title}
-        </h1>
+        <TypeIn
+          as="h1"
+          text={title}
+          speed={22}
+          className="mt-6 block max-w-4xl font-display text-4xl leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
+        />
 
         {lead && (
           <p className="mt-7 max-w-2xl text-base leading-relaxed text-brand-100/75 sm:text-lg">
