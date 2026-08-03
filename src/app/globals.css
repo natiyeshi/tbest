@@ -1,26 +1,170 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Brand typography */
+  --font-display: var(--font-butler), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand teal — sampled from the logo artwork (#005860) */
+  --color-brand-50: #eef5f5;
+  --color-brand-100: #d5e6e7;
+  --color-brand-200: #abcdd0;
+  --color-brand-300: #74aab0;
+  --color-brand-400: #3d858d;
+  --color-brand-500: #00727c;
+  --color-brand-600: #005860;
+  --color-brand-700: #00464e;
+  --color-brand-800: #00343a;
+  --color-brand-900: #002529;
+  --color-brand-950: #00181b;
+
+  /* Brand copper — sampled from the logo artwork (#d36b34) */
+  --color-copper-50: #fdf5ef;
+  --color-copper-100: #f9e5d5;
+  --color-copper-200: #f2c8a9;
+  --color-copper-300: #e9a97f;
+  --color-copper-400: #de8a56;
+  --color-copper-500: #d36b34;
+  --color-copper-600: #bb5e28;
+  --color-copper-700: #9a4c20;
+
+  /* Neutrals */
+  --color-ink: #0b1a1c;
+  --color-muted: #5f7273;
+  --color-bone: #f7f5f1;
+  --color-line: #e4e6e2;
+
+  --animate-marquee: marquee 40s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Service stage: the whole 3D group swings gently so the layered panels
+   parallax against each other and read as real depth. Kept slow and shallow so
+   it reads as quiet presence rather than motion. */
+@keyframes scene-orbit {
+  0% {
+    transform: rotateX(3deg) rotateY(-7deg);
+  }
+  100% {
+    transform: rotateX(-2deg) rotateY(7deg);
+  }
+}
+
+@keyframes scene-float {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -7px, 0);
+  }
+}
+
+/* Self-drawing motif: each stroke is normalised to pathLength 1, so a dash of
+   length 1 with the offset animated from 1 to 0 draws the shape from nothing. */
+@keyframes motif-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes motif-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* offset anchor targets so the sticky header never covers a heading */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-copper-500);
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  /* Small tracked uppercase label used above section headings */
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Motif container fades in when its practice takes the stage. */
+  .motif-appear {
+    animation: motif-pop 0.5s ease-out both;
+  }
+
+  /* Each stroke draws itself. pathLength="1" on the element makes the dash unit
+     normalised, so this works for circles, rects, lines and paths alike. */
+  .motif-stroke {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: motif-draw 0.8s ease-out both;
+  }
+}
+
+/* Scroll reveal: content lifts and fades in as each section reaches the
+   viewport. The ScrollReveal client adds `.is-in` when an element enters view.
+   With JS off the <noscript> rule below reveals everything, and reduced motion
+   disables the effect — the animation is additive, never a gate on content. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Never hide content for readers who prefer reduced motion. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
