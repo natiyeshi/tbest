@@ -65,7 +65,9 @@ export function Sectors() {
     <section
       ref={ref}
       data-nav-tone="copper"
-      className="relative bg-copper-600"
+      className={`relative transition-colors duration-700 ease-out ${
+        active % 2 === 0 ? "bg-copper-600" : "bg-brand-900"
+      }`}
       style={{ height: `${sectors.length * STEP_VH}svh` }}
     >
       <div className="sticky top-0 flex h-svh items-center overflow-hidden">
@@ -75,7 +77,7 @@ export function Sectors() {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-copper-500/40 via-transparent to-copper-700/50"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-brand-950/30"
         />
 
         <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:px-10">

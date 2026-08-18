@@ -17,8 +17,6 @@ export function Hero() {
   // Bumped whenever the reader takes manual control, to restart the timer so a
   // practice they just chose isn't whisked away a moment later.
   const [nudge, setNudge] = useState(0);
-  // TEMP — lets the client compare a white vs dark hero background.
-  const [darkBg, setDarkBg] = useState(false);
 
   const select = (index: number) => {
     setActive(index);
@@ -48,28 +46,17 @@ export function Hero() {
     <>
       <section
         id="top"
-        data-nav-tone={darkBg ? "dark" : "light"}
-        className={`relative flex min-h-[640px] flex-col overflow-hidden lg:h-svh ${
-          darkBg ? "bg-brand-950" : "bg-white"
-        }`}
+        data-nav-tone="light"
+        className="relative flex min-h-[640px] flex-col overflow-hidden bg-white lg:h-svh"
       >
         {/* The firm's shared diamond field, used large in the bottom-left. */}
         <div className="pointer-events-none absolute -bottom-24 -left-24 h-[40rem] w-[40rem] overflow-hidden">
           <DiamondField
             id="hero-diamond"
             size={84}
-            className={darkBg ? "text-brand-200/[0.12]" : "text-brand-100/70"}
+            className="text-brand-100/70"
           />
         </div>
-
-        {/* TEMP — background colour toggle, so the client can compare. */}
-        <button
-          type="button"
-          onClick={() => setDarkBg((v) => !v)}
-          className="absolute right-4 top-24 z-30 rounded-full bg-copper-500 px-4 py-2 text-xs font-semibold text-white shadow-lg transition-colors hover:bg-copper-600"
-        >
-          Background: {darkBg ? "Dark" : "White"} (temp)
-        </button>
 
         <div className="relative h-full min-h-0 flex-1 px-4 pt-24 pb-4 sm:px-6 lg:px-6 lg:pt-24 lg:pb-4">
           <div className="relative h-full">
@@ -177,11 +164,7 @@ export function Hero() {
               type="button"
               onClick={scrollDown}
               aria-label="Scroll to content"
-              className={`absolute bottom-2 left-2 hidden h-11 w-11 items-center justify-center rounded-full border transition-colors hover:border-copper-500 hover:text-copper-500 lg:flex ${
-                darkBg
-                  ? "border-white/40 text-white"
-                  : "border-brand-200 text-brand-700"
-              }`}
+              className="absolute bottom-2 left-2 hidden h-11 w-11 items-center justify-center rounded-full border border-brand-200 text-brand-700 transition-colors hover:border-copper-500 hover:text-copper-500 lg:flex"
             >
               <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true">
                 <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
