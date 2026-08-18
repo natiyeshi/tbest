@@ -4,8 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { BrandArrow } from "@/components/brand";
-import { ServiceStage } from "@/components/service-stage";
+import { BrandArrow, DiamondField } from "@/components/brand";
 import { stats } from "@/lib/content";
 import { practices } from "@/lib/practices";
 import { getPracticeImage } from "@/lib/practice-images";
@@ -18,10 +17,20 @@ export function Hero() {
   // Bumped whenever the reader takes manual control, to restart the timer so a
   // practice they just chose isn't whisked away a moment later.
   const [nudge, setNudge] = useState(0);
+  // TEMP — lets the client compare a white vs dark hero background.
+  const [darkBg, setDarkBg] = useState(false);
 
   const select = (index: number) => {
     setActive(index);
     setNudge((n) => n + 1);
+  };
+
+  // Step past the landing section to the content below.
+  const scrollDown = () => {
+    const top = document.getElementById("top");
+    const next = top?.nextElementSibling as HTMLElement | null;
+    if (next) next.scrollIntoView({ behavior: "smooth" });
+    else window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -39,151 +48,152 @@ export function Hero() {
     <>
       <section
         id="top"
-        data-nav-tone="dark"
-        className="relative isolate flex min-h-svh items-center overflow-hidden bg-brand-950 pt-28 pb-16 lg:pt-32 lg:pb-20"
+        data-nav-tone={darkBg ? "dark" : "light"}
+        className={`relative flex min-h-[640px] flex-col overflow-hidden lg:h-svh ${
+          darkBg ? "bg-brand-950" : "bg-white"
+        }`}
       >
-        {/* One backdrop per practice, cross-faded in step with the copy so the
-            image and its practice change together. Only the first is priority. */}
-        {practices.map((practice, index) => (
-          <Image
-            key={practice.slug}
-            src={getPracticeImage(practice.slug)}
-            alt=""
-            fill
-            priority={index === 0}
-            sizes="100vw"
-            placeholder="blur"
-            className="object-cover transition-opacity duration-700 ease-out"
-            style={{ opacity: index === active ? 1 : 0 }}
+        {/* The firm's shared diamond field, used large in the bottom-left. */}
+        <div className="pointer-events-none absolute -bottom-24 -left-24 h-[40rem] w-[40rem] overflow-hidden">
+          <DiamondField
+            id="hero-diamond"
+            size={84}
+            className={darkBg ? "text-brand-200/[0.12]" : "text-brand-100/70"}
           />
-        ))}
+        </div>
 
-        {/* Scrim: brand tone over the photograph, weighted to the left so the
-            copy keeps its contrast while the skyline shows through at right. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-brand-950/25"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand-950 via-brand-950/60 to-transparent"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-950/90 via-transparent to-brand-950/30"
-        />
+        {/* TEMP — background colour toggle, so the client can compare. */}
+        <button
+          type="button"
+          onClick={() => setDarkBg((v) => !v)}
+          className="absolute right-4 top-24 z-30 rounded-full bg-copper-500 px-4 py-2 text-xs font-semibold text-white shadow-lg transition-colors hover:bg-copper-600"
+        >
+          Background: {darkBg ? "Dark" : "White"} (temp)
+        </button>
 
-        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-6 lg:grid-cols-[1.55fr_1fr] lg:gap-8 lg:px-10">
-          {/* Left — topic, description, call to action (on the dark side) */}
-          <div>
-            <p className="eyebrow flex items-center gap-3 text-copper-300">
-              <span className="h-px w-8 bg-copper-400" />
-              TBeST Law LLP — Addis Ababa
-            </p>
-
-            <h1 className="mt-5 max-w-lg font-display text-xl leading-snug text-brand-100/80 sm:text-2xl">
-              Corporate and commercial counsel for business in Ethiopia.
-            </h1>
-
-            {/* Rotating practice. Layers are absolutely positioned inside a
-                fixed-height box so the button below never shifts. */}
-            <div className="relative mt-8 h-[15rem] sm:h-[14rem]">
+        <div className="relative h-full min-h-0 flex-1 px-4 pt-24 pb-4 sm:px-6 lg:px-6 lg:pt-24 lg:pb-4">
+          <div className="relative h-full">
+            {/* Image panel — near full-width to the right with a little white
+                padding; sits below the nav and above the bottom of the screen. */}
+            <div className="relative h-[62vh] w-full overflow-hidden rounded-3xl bg-brand-900 lg:absolute lg:inset-y-0 lg:left-[30%] lg:right-0 lg:h-full lg:w-auto">
               {practices.map((practice, index) => (
-                <div
-                  key={practice.name}
-                  aria-hidden={index !== active}
-                  className={`absolute inset-x-0 top-0 transition-all duration-700 ease-out ${
-                    index === active
-                      ? "translate-y-0 opacity-100"
-                      : "pointer-events-none translate-y-3 opacity-0"
-                  }`}
-                >
-                  <p className="eyebrow text-copper-300">
-                    Practice {String(index + 1).padStart(2, "0")} / 09
-                  </p>
-                  <p className="mt-3 font-display text-[2rem] leading-[1.1] tracking-tight text-white sm:text-5xl">
-                    {practice.name}
-                  </p>
-                  <p className="mt-4 max-w-md text-sm leading-relaxed text-brand-100/70 sm:text-base">
-                    {practice.blurb}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <Link
-              href="/practices"
-              className="group inline-flex items-center gap-3 rounded-full bg-copper-500 px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-copper-600"
-            >
-              Explore our practices
-              <BrandArrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-
-            {/* Progress ticks — one per practice */}
-            <div className="mt-8 flex items-center gap-1.5">
-              {practices.map((practice, index) => (
-                <button
-                  key={practice.name}
-                  type="button"
-                  onClick={() => select(index)}
-                  aria-label={practice.name}
-                  aria-current={index === active}
-                  className={`h-1 rounded-full transition-all duration-500 ${
-                    index === active
-                      ? "w-8 bg-copper-400"
-                      : "w-3 bg-white/25 hover:bg-white/50"
-                  }`}
+                <Image
+                  key={practice.slug}
+                  src={getPracticeImage(practice.slug)}
+                  alt=""
+                  fill
+                  priority={index === 0}
+                  sizes="(min-width: 1024px) 90vw, 100vw"
+                  placeholder="blur"
+                  className="object-cover transition-opacity duration-700 ease-out"
+                  style={{ opacity: index === active ? 1 : 0 }}
                 />
               ))}
             </div>
-          </div>
 
-          {/* Right — the 3D scene, sitting on the white side. On mobile there is
-              no wedge, so it gets its own white panel. */}
-          <div className="lg:pl-4">
-            <div className="rounded-3xl bg-white p-6 shadow-2xl shadow-brand-950/40 lg:bg-transparent lg:p-0 lg:shadow-none">
-              <ServiceStage active={active} />
+            {/* Text card — overlaps the left edge of the image, on the white
+                background. Its own solid colour, so the copy never sits on the
+                photo and always reads clearly. */}
+            <div className="relative z-10 mx-auto -mt-16 w-[90%] rounded-3xl bg-brand-900 p-8 shadow-2xl shadow-brand-900/20 sm:-mt-24 sm:w-[80%] sm:p-10 lg:absolute lg:left-[5%] lg:top-1/2 lg:mx-0 lg:mt-0 lg:w-[38%] lg:-translate-y-1/2 lg:p-12">
+              {/* Rotating practice — the dynamic centrepiece. Layers are
+                  absolutely positioned in a fixed-height box so nothing shifts. */}
+              <div className="relative h-[13rem] sm:h-[12rem]">
+                {practices.map((practice, index) => (
+                  <div
+                    key={practice.name}
+                    aria-hidden={index !== active}
+                    className={`absolute inset-x-0 top-0 transition-all duration-700 ease-out ${
+                      index === active
+                        ? "translate-y-0 opacity-100"
+                        : "pointer-events-none translate-y-3 opacity-0"
+                    }`}
+                  >
+                    <p className="eyebrow text-copper-300">Practice area</p>
+                    <p className="mt-3 font-display text-3xl leading-[1.08] tracking-tight text-white sm:text-4xl">
+                      {practice.name}
+                    </p>
+                    <p className="mt-4 text-sm leading-relaxed text-brand-100/80 sm:text-base">
+                      {practice.blurb}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="/practices"
+                className="group inline-flex items-center gap-3 rounded-full bg-copper-500 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-copper-600"
+              >
+                Explore our practices
+                <BrandArrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+
+              {/* Controls — previous / dots / next */}
+              <div className="mt-8 flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => select((active - 1 + practices.length) % practices.length)}
+                    aria-label="Previous practice"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:border-white/70 hover:bg-white/10"
+                  >
+                    <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true">
+                      <path d="M10 3l-5 5 5 5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => select((active + 1) % practices.length)}
+                    aria-label="Next practice"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:border-white/70 hover:bg-white/10"
+                  >
+                    <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true">
+                      <path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  {practices.map((practice, index) => (
+                    <button
+                      key={practice.name}
+                      type="button"
+                      onClick={() => select(index)}
+                      aria-label={practice.name}
+                      aria-current={index === active}
+                      className={`h-1 rounded-full transition-all duration-500 ${
+                        index === active
+                          ? "w-8 bg-copper-400"
+                          : "w-3 bg-white/25 hover:bg-white/50"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Movement controls — bottom-left, aligned to the content column so
-            they share the CTA button's left edge. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-8 z-20">
-          <div className="mx-auto flex max-w-7xl items-center gap-3 px-6 lg:px-10">
-            <div className="pointer-events-auto flex items-center gap-2">
+            {/* Scroll cue — the circular chevron from the Sectors section, on
+                the white background, to step down to the content below. */}
             <button
               type="button"
-              onClick={() => select((active - 1 + practices.length) % practices.length)}
-              aria-label="Previous practice"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:border-white/70 hover:bg-white/10"
+              onClick={scrollDown}
+              aria-label="Scroll to content"
+              className={`absolute bottom-2 left-2 hidden h-11 w-11 items-center justify-center rounded-full border transition-colors hover:border-copper-500 hover:text-copper-500 lg:flex ${
+                darkBg
+                  ? "border-white/40 text-white"
+                  : "border-brand-200 text-brand-700"
+              }`}
             >
               <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true">
-                <path d="M10 3l-5 5 5 5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
-            <button
-              type="button"
-              onClick={() => select((active + 1) % practices.length)}
-              aria-label="Next practice"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:border-white/70 hover:bg-white/10"
-            >
-              <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true">
-                <path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
-            <span className="font-display text-sm text-white/70">
-              {String(active + 1).padStart(2, "0")}
-              <span className="text-white/40"> / {String(practices.length).padStart(2, "0")}</span>
-            </span>
           </div>
         </div>
       </section>
 
       <dl
         data-nav-tone="dark"
-        className="border-b border-white/10 bg-brand-950"
+        className="border-b border-white/10 bg-brand-900"
       >
         <div className="mx-auto grid max-w-7xl grid-cols-3 px-6 lg:px-10">
           {stats.map((stat) => (

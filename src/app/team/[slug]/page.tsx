@@ -5,11 +5,7 @@ import { notFound } from "next/navigation";
 
 import { ContactCTA } from "@/components/contact-cta";
 import { DiamondFieldReveal } from "@/components/diamond-field-reveal";
-import {
-  team,
-  teamMemberBySlug,
-  teamMemberExperience,
-} from "@/lib/content";
+import { team, teamMemberBySlug } from "@/lib/content";
 import { partnerRecognitionBySlug } from "@/lib/recognition";
 
 export function generateStaticParams() {
@@ -40,7 +36,6 @@ export default async function TeamMemberPage({
   const member = teamMemberBySlug(slug);
   if (!member) notFound();
 
-  const experience = teamMemberExperience(member.slug);
   const recognition = partnerRecognitionBySlug(member.slug);
   const others = team.filter((m) => m.slug !== member.slug);
 
@@ -124,28 +119,6 @@ export default async function TeamMemberPage({
               {member.bio ||
                 `${member.name} is part of the team at TBeST Law LLP, working alongside our partners across the firm's corporate and commercial practice.`}
             </p>
-
-            {experience.length > 0 && (
-              <div className="mt-12 border-t border-line pt-10">
-                <p className="eyebrow text-copper-500">Selected experience</p>
-                <ul className="mt-6 space-y-0">
-                  {experience.map((item) => (
-                    <li
-                      key={item}
-                      className="flex gap-3.5 border-b border-line py-4"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-copper-400"
-                      />
-                      <span className="text-[0.9375rem] leading-relaxed text-brand-800">
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
           {member.credentials.length > 0 && (
             <div className="lg:col-span-4 lg:col-start-9">
@@ -238,7 +211,7 @@ export default async function TeamMemberPage({
                   href={`/team/${other.slug}`}
                   className="group flex items-center gap-5 rounded-2xl border border-line bg-white p-5 transition-shadow duration-300 hover:shadow-xl hover:shadow-brand-900/[0.06]"
                 >
-                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-gradient-to-b from-brand-600 to-brand-900">
+                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-gradient-to-b from-neutral-100 to-neutral-200">
                     <Image
                       src={other.portrait}
                       alt=""

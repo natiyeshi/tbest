@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { BrandArrow, MarkPattern } from "@/components/brand";
+import { PortraitSwap } from "@/components/portrait-swap";
 import { TypeIn } from "@/components/type-in";
 import { partners } from "@/lib/content";
 
@@ -47,19 +47,18 @@ export function People() {
             <li key={member.slug}>
               <Link href={`/team/${member.slug}`} className="group block">
                 <div className="relative mx-auto aspect-4/5 w-full max-w-[280px] overflow-hidden rounded-2xl">
-                  <div className="absolute inset-x-0 bottom-0 top-14 bg-gradient-to-b from-brand-600 to-brand-900">
+                  <div className="absolute inset-x-0 bottom-0 top-14 bg-gradient-to-b from-neutral-100 to-neutral-200">
                     <MarkPattern
                       id={`people-pattern-${member.slug}`}
                       size={80}
-                      className="absolute inset-0 h-full w-full text-white/[0.12]"
+                      className="absolute inset-0 h-full w-full text-brand-900/[0.06]"
                     />
                   </div>
-                  <Image
-                    src={member.portrait}
+                  <PortraitSwap
+                    portrait={member.portrait}
+                    portraitAlt={member.portraitAlt}
                     alt={`${member.name}, ${member.role} at TBeST Law LLP`}
-                    placeholder="blur"
                     sizes="280px"
-                    className="absolute inset-0 h-full w-full object-contain object-bottom transition-transform duration-500 ease-out group-hover:-translate-y-1"
                   />
                 </div>
                 <div className="mt-6 text-center">

@@ -13,26 +13,26 @@ export function Practices() {
   const [active, setActive] = useState(0);
 
   return (
-    <section data-nav-tone="dark" className="relative bg-brand-900 py-24 lg:py-32">
+    <section data-nav-tone="light" className="relative bg-bone py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div
           className="flex flex-col gap-8 pb-12 lg:flex-row lg:items-end lg:justify-between"
           data-reveal
         >
           <div className="max-w-2xl">
-            <p className="eyebrow flex items-center gap-3 text-copper-300">
+            <p className="eyebrow flex items-center gap-3 text-copper-500">
               <span className="h-px w-8 bg-copper-400" />
               <TypeIn text="Practice areas" />
             </p>
             <TypeIn
               as="h2"
-              text="Nine practices, advised end to end."
-              className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-white sm:text-5xl"
+              text="Various practice areas, advised end to end."
+              className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl"
             />
           </div>
           <Link
             href="/practices"
-            className="group inline-flex shrink-0 items-center gap-2.5 self-start text-sm font-semibold text-copper-300 transition-colors hover:text-copper-200 lg:self-auto"
+            className="group inline-flex shrink-0 items-center gap-2.5 self-start text-sm font-semibold text-copper-500 transition-colors hover:text-copper-600 lg:self-auto"
           >
             View all practice areas
             <BrandArrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -48,18 +48,18 @@ export function Practices() {
                   href={`/practices/${practice.slug}`}
                   onMouseEnter={() => setActive(index)}
                   onFocus={() => setActive(index)}
-                  className="group flex items-center gap-5 border-b border-white/10 py-5"
+                  className="group flex items-center gap-5 border-b border-line py-5"
                 >
                   <span
                     className={`font-display text-sm transition-colors ${
-                      index === active ? "text-copper-300" : "text-white/40"
+                      index === active ? "text-copper-600" : "text-brand-900/40"
                     }`}
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span
                     className={`flex-1 font-display text-2xl leading-snug transition-colors ${
-                      index === active ? "text-white" : "text-white/55"
+                      index === active ? "text-brand-900" : "text-brand-900/50"
                     }`}
                   >
                     {practice.name}
@@ -129,7 +129,7 @@ export function Practices() {
             <li key={practice.slug}>
               <Link
                 href={`/practices/${practice.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white"
               >
                 <div className="relative h-40 overflow-hidden">
                   <Image
@@ -145,10 +145,10 @@ export function Practices() {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-6">
-                  <h3 className="font-display text-xl leading-snug text-white">
+                  <h3 className="font-display text-xl leading-snug text-brand-900">
                     {practice.name}
                   </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-brand-100/70">
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
                     {practice.blurb}
                   </p>
                 </div>

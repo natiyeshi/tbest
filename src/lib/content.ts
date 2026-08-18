@@ -16,6 +16,19 @@ import rekebkiPortrait from "../../public/team/rekebki-tsega-abebe/rekebki-1-nob
 import sisayPortrait from "../../public/team/sisay-habte/sisay-nobg.png";
 import tibebePortrait from "../../public/team/tibebe-zewdu/sam05619-nobg.png";
 
+// A second cut-out per member, revealed on hover over their photograph.
+import benyamPortraitAlt from "../../public/team/benyam-tafesse/sam05742-nobg.png";
+import beroketPortraitAlt from "../../public/team/bereket-teshome/bereket-1-nobg.png";
+import bezawitFekedePortraitAlt from "../../public/team/bezawit-fekede/beza-1-nobg.png";
+import bezawitYirgaPortraitAlt from "../../public/team/bezawit-yirga/snapedit-1755334518620-nobg.png";
+import etsehiwotPortraitAlt from "../../public/team/etsehiwot-samson/etsehiwot-2-nobg.png";
+import helinaPortraitAlt from "../../public/team/helina-bezabih/helina-side-nobg.png";
+import lindaPortraitAlt from "../../public/team/linda-tedla/snapedit-1755335677837-nobg.png";
+import michaelPortraitAlt from "../../public/team/michael-mengistu/5837172361756004265-nobg.png";
+import rekebkiPortraitAlt from "../../public/team/rekebki-tsega-abebe/rekebki-2-nobg.png";
+import sisayPortraitAlt from "../../public/team/sisay-habte/sis-final-nobg.png";
+import tibebePortraitAlt from "../../public/team/tibebe-zewdu/5837172361756004268-nobg.png";
+
 // The same portraits with their photographic background intact — used on the
 // detail pages, where the cut-outs give way to full photographs.
 import benyamPhoto from "../../public/team/benyam-tafesse/benyam-2.png";
@@ -39,19 +52,12 @@ export const firm = {
     office: "+251 115 52 52 53",
     mobile: ["+251 952 80 19 19", "+251 952 76 19 19", "+251 992 19 98 19"],
   },
-  /** The firm operates two offices in the same building. */
+  /** The firm operates a single office. */
   offices: [
     {
-      label: "Head Office",
+      label: "Office",
       line1: "Bitweded Bahru Building, 6th Floor, Office No. 602",
       landmark: "In front of the Oromia Regional State President's Office",
-      street: "Africa Avenue, Addis Ababa",
-      country: "Ethiopia",
-    },
-    {
-      label: "Second Office",
-      line1: "Bitweded Bahru Building, 4th Floor, Office No. 402",
-      landmark: "In front of the Ethiopian Investment Commission (EIC)",
       street: "Africa Avenue, Addis Ababa",
       country: "Ethiopia",
     },
@@ -91,6 +97,8 @@ export type TeamMember = {
   role: string;
   /** Background-removed cut-out, used in lineups and cards. */
   portrait: StaticImageData;
+  /** A second cut-out, cross-faded in on hover over the card. Optional. */
+  portraitAlt?: StaticImageData;
   /** Full photograph with its original background, used on the detail page. */
   photo: StaticImageData;
   /** Pipe-separated focus tags, as shown on the firm's team page. */
@@ -107,7 +115,8 @@ export const team: readonly TeamMember[] = [
     slug: "tibebe-zewdu",
     name: "Tibebe Zewdu",
     role: "Managing Partner",
-    portrait: tibebePortrait,
+    portrait: tibebePortraitAlt,
+    portraitAlt: tibebePortrait,
     photo: tibebePhoto,
     focus: [
       "Tax",
@@ -131,6 +140,7 @@ export const team: readonly TeamMember[] = [
     name: "Benyam Tafesse",
     role: "Partner",
     portrait: benyamPortrait,
+    portraitAlt: benyamPortraitAlt,
     photo: benyamPhoto,
     focus: [
       "Intellectual Property & Technology",
@@ -152,6 +162,7 @@ export const team: readonly TeamMember[] = [
     name: "Sisay Habte Gemeda",
     role: "Partner",
     portrait: sisayPortrait,
+    portraitAlt: sisayPortraitAlt,
     photo: sisayPhoto,
     focus: [
       "Corporate and Commercial",
@@ -188,6 +199,7 @@ export const team: readonly TeamMember[] = [
     name: "Michael Mengistu",
     role: "Senior Associate",
     portrait: michaelPortrait,
+    portraitAlt: michaelPortraitAlt,
     photo: michaelPhoto,
     focus: ["Corporate Governance", "Contracts", "M&A"],
     strapline:
@@ -202,7 +214,8 @@ export const team: readonly TeamMember[] = [
     slug: "helina-bezabih",
     name: "Helina Bezabih",
     role: "Associate",
-    portrait: helinaPortrait,
+    portrait: helinaPortraitAlt,
+    portraitAlt: helinaPortrait,
     photo: helinaPhoto,
     focus: ["Corporate", "Commercial", "Investment", "Competition"],
     strapline:
@@ -218,6 +231,7 @@ export const team: readonly TeamMember[] = [
     name: "Linda Tedla",
     role: "Associate",
     portrait: lindaPortrait,
+    portraitAlt: lindaPortraitAlt,
     photo: lindaPhoto,
     focus: ["Intellectual Property", "Corporate", "Commercial"],
     strapline: "Associate leading the firm's intellectual property practice.",
@@ -232,6 +246,7 @@ export const team: readonly TeamMember[] = [
     name: "Bereket Teshome",
     role: "Junior Associate",
     portrait: beroketPortrait,
+    portraitAlt: beroketPortraitAlt,
     photo: beroketPhoto,
     focus: ["Corporate", "Investment", "Capital Market", "Employment"],
     strapline:
@@ -245,7 +260,8 @@ export const team: readonly TeamMember[] = [
     slug: "etsehiwot-samson",
     name: "Etsehiwot Samson",
     role: "Junior Associate",
-    portrait: etsehiwotPortrait,
+    portrait: etsehiwotPortraitAlt,
+    portraitAlt: etsehiwotPortrait,
     photo: etsehiwotPhoto,
     focus: ["Corporate", "Investment"],
     strapline:
@@ -259,11 +275,12 @@ export const team: readonly TeamMember[] = [
   {
     slug: "bezawit-yirga",
     name: "Bezawit Yirga",
-    role: "Associate",
-    portrait: bezawitYirgaPortrait,
+    role: "Senior Associate",
+    portrait: bezawitYirgaPortraitAlt,
+    portraitAlt: bezawitYirgaPortrait,
     photo: bezawitYirgaPhoto,
     focus: [],
-    strapline: "Associate at TBeST Law.",
+    strapline: "Senior Associate at TBeST Law.",
     bio: "",
     credentials: [],
   },
@@ -271,7 +288,8 @@ export const team: readonly TeamMember[] = [
     slug: "rekebki-tsega-abebe",
     name: "Rekebki Tsega Abebe",
     role: "Associate",
-    portrait: rekebkiPortrait,
+    portrait: rekebkiPortraitAlt,
+    portraitAlt: rekebkiPortrait,
     photo: rekebkiPhoto,
     focus: [],
     strapline: "Associate at TBeST Law.",
@@ -283,6 +301,7 @@ export const team: readonly TeamMember[] = [
     name: "Bezawit Fekede",
     role: "Junior Accountant",
     portrait: bezawitFekedePortrait,
+    portraitAlt: bezawitFekedePortraitAlt,
     photo: bezawitFekedePhoto,
     focus: [],
     strapline: "Junior accountant supporting the firm's finance function.",

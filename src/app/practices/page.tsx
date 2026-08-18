@@ -16,7 +16,7 @@ const practiceCards = practices.map((practice) => ({
 export const metadata: Metadata = {
   title: "Practice Areas — TBeST Law LLP",
   description:
-    "Nine corporate and commercial practice areas, from investment and M&A to tax, competition and dispute resolution, advised end to end by TBeST Law LLP.",
+    "Corporate and commercial practice areas, from investment and M&A to tax, competition and dispute resolution, advised end to end by TBeST Law LLP.",
 };
 
 export default function PracticesPage() {
@@ -24,7 +24,7 @@ export default function PracticesPage() {
     <>
       <PageHero
         eyebrow="Practice Areas"
-        title="Nine practices, advised end to end."
+        title="Various practice areas, advised end to end."
         lead="Quality legal advice and transactional services, delivered by lawyers who work across these areas rather than in isolation from one another."
         crumbs={[{ label: "Home", href: "/" }, { label: "Practice Areas" }]}
       />

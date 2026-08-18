@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MarkPattern } from "@/components/brand";
 import { ContactCTA } from "@/components/contact-cta";
 import { DiamondFieldReveal } from "@/components/diamond-field-reveal";
+import { PortraitSwap } from "@/components/portrait-swap";
 import { TypeIn } from "@/components/type-in";
 import { partners, team } from "@/lib/content";
 
@@ -124,18 +125,18 @@ export default function TeamPage() {
               <li key={m.slug}>
                 <Link href={`/team/${m.slug}`} className="group block">
                   <div className="relative aspect-4/5 w-full overflow-hidden rounded-2xl">
-                    <div className="absolute inset-x-0 bottom-0 top-10 bg-gradient-to-b from-brand-600 to-brand-900">
+                    <div className="absolute inset-x-0 bottom-0 top-10 bg-gradient-to-b from-neutral-100 to-neutral-200">
                       <MarkPattern
                         id={`team-card-${m.slug}`}
                         size={70}
-                        className="absolute inset-0 h-full w-full text-white/[0.12]"
+                        className="absolute inset-0 h-full w-full text-brand-900/[0.06]"
                       />
                     </div>
-                    <Image
-                      src={m.portrait}
+                    <PortraitSwap
+                      portrait={m.portrait}
+                      portraitAlt={m.portraitAlt}
                       alt={`${m.name}, ${m.role} at TBeST Law LLP`}
                       sizes="(min-width: 1024px) 16rem, (min-width: 640px) 30vw, 45vw"
-                      className="absolute inset-0 h-full w-full object-contain object-bottom"
                     />
                   </div>
                   <p className="mt-4 eyebrow text-copper-500">{m.role}</p>

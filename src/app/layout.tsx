@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "TBeST Law LLP is a full service law firm in Addis Ababa, Ethiopia, providing corporate and commercial legal services across nine practice areas and nine industry sectors.",
+    "TBeST Law LLP is a full service law firm in Addis Ababa, Ethiopia, providing corporate and commercial legal services across various practice areas and industry sectors.",
   icons: { icon: "/icons/mark.svg" },
   openGraph: {
     title: "TBeST Law LLP",

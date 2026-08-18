@@ -36,6 +36,14 @@ export type FirmRanking = {
   knownFor?: string;
   quotes?: readonly string[];
   partners?: readonly { name: string; area: string; rating: string }[];
+  /**
+   * Link to the firm's page on the directory (Chambers, IFLR1000, etc.).
+   * Optional — when set, the card shows a "View the ranking" link. Paste the
+   * URLs the firm supplies here.
+   */
+  href?: string;
+  /** Label for the link, e.g. "View the Chambers ranking". */
+  hrefLabel?: string;
 };
 
 export const rankings: readonly FirmRanking[] = [
@@ -49,11 +57,17 @@ export const rankings: readonly FirmRanking[] = [
       "TBeST Law's ability to address highly complex and sophisticated matters is truly astonishing and we are very proud to retain its services.",
       "TBeST Law is able to gracefully navigate complicated negotiations.",
     ],
+    // Paste the firm's Chambers profile URL here to show a link on the card:
+    // href: "https://chambers.com/...",
+    // hrefLabel: "View the Chambers ranking",
   },
   {
     source: "IFLR1000",
     tier: "Tier 3",
     category: "Ethiopia",
+    // Paste the firm's IFLR1000 profile URL here to show a link on the card:
+    // href: "https://www.iflr1000.com/...",
+    // hrefLabel: "View the IFLR1000 ranking",
     partners: [
       {
         name: "Sisay Habte Gemeda",

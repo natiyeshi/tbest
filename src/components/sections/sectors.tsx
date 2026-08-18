@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { BrandArrow, LogoMark } from "@/components/brand";
+import { getSectorIcon } from "@/components/sector-icons";
 import { sectors } from "@/lib/sectors";
 
 // How much scroll (in vh) each sector holds the stage. The section is this tall
@@ -89,7 +90,7 @@ export function Sectors() {
               </span>
             </p>
 
-            <div className="relative mt-7 min-h-[16rem]">
+            <div className="relative mt-7 min-h-[21rem]">
               {sectors.map((sector, index) => (
                 <div
                   key={sector.slug}
@@ -100,6 +101,9 @@ export function Sectors() {
                       : "pointer-events-none translate-y-8 opacity-0"
                   }`}
                 >
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/25 bg-white/10 text-white [&_svg]:h-7 [&_svg]:w-7">
+                    {getSectorIcon(sector.slug)}
+                  </div>
                   <h2 className="font-display text-3xl leading-[1.06] tracking-tight text-white sm:text-5xl">
                     {sector.name}
                   </h2>

@@ -9,7 +9,7 @@ import { firm } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Contact — TBeST Law LLP",
   description:
-    "Contact TBeST Law LLP in Addis Ababa, Ethiopia. Two offices on Africa Avenue, by phone, email, or the enquiry form.",
+    "Contact TBeST Law LLP in Addis Ababa, Ethiopia. Our office on Africa Avenue, by phone, email, or the enquiry form.",
 };
 
 export default function ContactPage() {
@@ -85,8 +85,8 @@ export default function ContactPage() {
                 </dl>
               </div>
 
-              {/* Offices */}
-              <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {/* Office */}
+              <div className="mt-6 grid grid-cols-1 gap-4">
                 {firm.offices.map((office) => (
                   <div key={office.line1} className="rounded-2xl border border-line bg-bone p-6">
                     <p className="eyebrow text-copper-500">{office.label}</p>

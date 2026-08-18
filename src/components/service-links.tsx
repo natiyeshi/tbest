@@ -1,6 +1,7 @@
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 export type ServiceItem = {
   slug: string;
@@ -8,6 +9,8 @@ export type ServiceItem = {
   blurb: string;
   /** Optional card image. When absent, the card falls back to a text layout. */
   image?: StaticImageData;
+  /** Optional line icon, shown in a tinted header when there is no image. */
+  icon?: ReactNode;
 };
 
 /** A single practice/sector card, image-forward when an image is provided. */
@@ -25,7 +28,7 @@ export function ServiceCard({
       href={`${base}/${item.slug}`}
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition-shadow duration-300 hover:shadow-xl hover:shadow-brand-900/[0.06]"
     >
-      {item.image && (
+      {item.image ? (
         <div className="relative h-44 overflow-hidden">
           <Image
             src={item.image}
@@ -39,16 +42,25 @@ export function ServiceCard({
             {String(index + 1).padStart(2, "0")}
           </span>
         </div>
-      )}
+      ) : item.icon ? (
+        <div className="relative flex h-36 items-center justify-center overflow-hidden bg-gradient-to-br from-brand-50 to-brand-100">
+          <span className="absolute left-5 top-4 font-display text-sm text-copper-500">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <div className="h-12 w-12 text-copper-600 transition-transform duration-500 ease-out group-hover:scale-110 [&_svg]:h-full [&_svg]:w-full">
+            {item.icon}
+          </div>
+        </div>
+      ) : null}
       <div className="flex flex-1 flex-col p-7 lg:p-8">
-        {!item.image && (
+        {!item.image && !item.icon && (
           <span className="font-display text-sm text-copper-500">
             {String(index + 1).padStart(2, "0")}
           </span>
         )}
         <h3
           className={`font-display text-2xl leading-snug text-brand-900 transition-colors group-hover:text-copper-600 ${
-            item.image ? "" : "mt-5"
+            item.image || item.icon ? "" : "mt-5"
           }`}
         >
           {item.name}

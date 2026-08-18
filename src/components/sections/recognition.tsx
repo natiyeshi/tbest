@@ -86,6 +86,23 @@ export function Recognition({
                   ))}
                 </ul>
               )}
+
+              {ranking.href && (
+                <a
+                  href={ranking.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold text-copper-500 transition-colors hover:text-copper-600"
+                >
+                  {ranking.hrefLabel ?? `View the ${ranking.source} ranking`}
+                  <span
+                    aria-hidden="true"
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    &rarr;
+                  </span>
+                </a>
+              )}
             </article>
           ))}
         </div>
