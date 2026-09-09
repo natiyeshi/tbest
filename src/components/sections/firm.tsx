@@ -50,6 +50,7 @@ export function Firm() {
                 alt={firmPhotos.boardroomCandid.alt}
                 fill
                 placeholder="blur"
+                quality={90}
                 sizes="(min-width: 1024px) 36rem, 90vw"
                 className="object-cover"
               />
@@ -62,6 +63,7 @@ export function Firm() {
                   alt=""
                   fill
                   placeholder="blur"
+                  quality={90}
                   sizes="(min-width: 1024px) 16rem, 40vw"
                   className="object-cover object-top"
                 />

@@ -129,6 +129,7 @@ export default function AboutPage() {
                 alt={firmPhotos.teamFull.alt}
                 fill
                 placeholder="blur"
+                quality={90}
                 sizes="(min-width: 1280px) 76rem, 100vw"
                 className="object-cover object-[center_28%]"
               />

@@ -127,9 +127,27 @@ export function SiteFooter() {
           <p className="text-xs text-brand-100/50">
             &copy; {new Date().getFullYear()} {firm.name}. All rights reserved.
           </p>
-          <p className="text-xs text-brand-100/50">
-            {firm.offices[0].street}, {firm.offices[0].country}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <p className="text-xs text-brand-100/50">
+              {firm.offices[0].street}, {firm.offices[0].country}
+            </p>
+            <a
+              href="https://dama.et"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 text-xs text-brand-100/50 transition-colors hover:text-brand-100/80"
+            >
+              <span>Made by</span>
+              {/* Dama's own mark, in its own colour — plain <img> so the SVG is
+                  served as authored rather than run through the optimiser. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo/dama.svg"
+                alt="Dama"
+                className="h-3 w-auto opacity-70 transition-opacity group-hover:opacity-100"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

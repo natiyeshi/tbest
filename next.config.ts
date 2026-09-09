@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    // Next 16 only permits qualities named here, and defaults to [75] alone.
+    // The photography is re-encoded from the camera originals, so the large
+    // formats — page heroes, the full-width bands, the bento — are worth
+    // serving at 90 rather than losing a second generation to the optimiser.
+    qualities: [75, 90],
+  },
   async headers() {
     return [
       {

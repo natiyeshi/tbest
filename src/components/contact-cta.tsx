@@ -32,6 +32,7 @@ export function ContactCTA({
         aria-hidden="true"
         fill
         placeholder="blur"
+        quality={90}
         sizes="100vw"
         className="object-cover"
         // Held high in the frame: at 30% the band was clipping the tops of

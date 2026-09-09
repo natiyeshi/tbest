@@ -138,6 +138,7 @@ export default function TeamPage() {
                 className="h-full w-full object-cover"
                 sizes="(min-width: 1024px) 38rem, 90vw"
                 placeholder="blur"
+                quality={90}
                 style={{ objectPosition: "center 35%" }}
               />
             </figure>
@@ -149,6 +150,7 @@ export default function TeamPage() {
                 className="h-full w-full object-cover"
                 sizes="(min-width: 1024px) 18rem, 45vw"
                 placeholder="blur"
+                quality={90}
                 style={{ objectPosition: "center 30%" }}
               />
             </figure>
@@ -160,6 +162,7 @@ export default function TeamPage() {
                 className="h-full w-full object-cover"
                 sizes="(min-width: 1024px) 18rem, 45vw"
                 placeholder="blur"
+                quality={90}
                 style={{ objectPosition: "center 30%" }}
               />
             </figure>
@@ -171,6 +174,7 @@ export default function TeamPage() {
                 className="h-full w-full object-cover"
                 sizes="(min-width: 1024px) 38rem, 90vw"
                 placeholder="blur"
+                quality={90}
                 style={{ objectPosition: "center 45%" }}
               />
             </figure>
@@ -182,6 +186,7 @@ export default function TeamPage() {
                 className="h-full w-full object-cover"
                 sizes="(min-width: 1024px) 38rem, 90vw"
                 placeholder="blur"
+                quality={90}
                 style={{ objectPosition: "center 30%" }}
               />
             </figure>
@@ -193,6 +198,7 @@ export default function TeamPage() {
                 className="h-full w-full object-cover"
                 sizes="(min-width: 1024px) 38rem, 90vw"
                 placeholder="blur"
+                quality={90}
                 style={{ objectPosition: "center 30%" }}
               />
             </figure>

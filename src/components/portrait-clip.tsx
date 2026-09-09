@@ -98,6 +98,7 @@ export function PortraitClip({
         src={photo}
         alt={alt}
         placeholder="blur"
+        quality={90}
         sizes={sizes}
         priority={priority}
         className="absolute inset-0 h-full w-full object-cover"
