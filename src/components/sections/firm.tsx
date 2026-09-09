@@ -1,8 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { BrandArrow } from "@/components/brand";
-import { GavelStrike } from "@/components/gavel-strike";
 import { TypeIn } from "@/components/type-in";
+import { firmPhotos } from "@/lib/firm-images";
 
 export function Firm() {
   return (
@@ -35,13 +36,37 @@ export function Firm() {
             </Link>
           </div>
 
-          {/* Right — the gavel that strikes as the section scrolls into view */}
+          {/* Right — the firm itself: the boardroom mid-conversation, with the
+              partners tucked into the corner so the pair reads as one picture
+              of the practice rather than two stock shots. */}
           <div
-            className="lg:col-span-6"
+            className="relative lg:col-span-6"
             data-reveal
             style={{ "--reveal-delay": "120ms" } as React.CSSProperties}
           >
-            <GavelStrike />
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-brand-950">
+              <Image
+                src={firmPhotos.boardroomCandid.src}
+                alt={firmPhotos.boardroomCandid.alt}
+                fill
+                placeholder="blur"
+                sizes="(min-width: 1024px) 36rem, 90vw"
+                className="object-cover"
+              />
+            </div>
+
+            <div className="absolute -bottom-8 -left-5 hidden w-[44%] overflow-hidden rounded-2xl border-[6px] border-white bg-brand-950 shadow-2xl shadow-brand-900/20 sm:block">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src={firmPhotos.partnersSeated.src}
+                  alt=""
+                  fill
+                  placeholder="blur"
+                  sizes="(min-width: 1024px) 16rem, 40vw"
+                  className="object-cover object-top"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

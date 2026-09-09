@@ -1,40 +1,62 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+import hammer from "../../public/hammer.png";
+
 /**
- * A judge's gavel that swings down and strikes its sound block as the section
- * scrolls up through the viewport. The gavel angle is driven directly by scroll
- * position, so the hammer "lands" its hit as the section reaches mid-screen —
- * and lifts back up if the reader scrolls away. Falls still for reduced motion.
+ * The firm's gavel swings down and strikes as the section scrolls up through
+ * the viewport. The swing angle is driven directly by scroll position —
+ * pivoting on the handle knob — so the head arcs down and lands once the
+ * section is well into view, then lifts back up if the reader scrolls away.
+ *
+ * There is no drawn bench: a soft elliptical shadow on the surface below the
+ * head (CSS, globals.css) implies what is being struck, and it compresses on
+ * impact alongside a spark flash.
+ *
+ * The constants below are the tuning knobs for the swing.
  */
+const PIVOT = "86% 79%"; // transform-origin: the handle knob
+const RAISED = 20; // degrees — gavel lifted, before the strike
+const STRUCK = -22; // degrees — head landed
+/** Scroll window, as fractions of viewport height, over which the swing runs.
+ *  Lower `END` = the strike lands later in the scroll. */
+const START = 0.95;
+const END = 0.3;
+
 export function GavelStrike({ className }: { className?: string }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const gavelRef = useRef<SVGGElement>(null);
-  const impactRef = useRef<SVGGElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const gavelRef = useRef<HTMLDivElement>(null);
+  const struck = useRef(false);
 
   useEffect(() => {
     const wrap = wrapRef.current;
     const gavel = gavelRef.current;
-    if (!wrap || !gavel) return;
+    const scene = sceneRef.current;
+    if (!wrap || !gavel || !scene) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const RAISED = 48; // degrees the gavel is lifted before the strike
-    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+    // Ease *in*: the gavel hangs raised through most of the scroll, then whips
+    // down at the end — so the strike reads as a strike, and lands late enough
+    // that the reader is looking at it.
+    const easeIn = (t: number) => Math.pow(t, 3);
 
     let raf = 0;
     const update = () => {
       const rect = wrap.getBoundingClientRect();
       const vh = window.innerHeight;
-      // 0 while the panel sits low in the viewport, 1 once it reaches mid-screen.
-      const start = vh * 0.85;
-      const end = vh * 0.4;
-      let p = (start - rect.top) / (start - end);
+      let p = (vh * START - rect.top) / (vh * START - vh * END);
       p = Math.max(0, Math.min(1, p));
-      const angle = reduce ? 0 : RAISED * (1 - easeOut(p));
-      gavel.setAttribute("transform", `rotate(${angle} 300 78)`);
-      if (impactRef.current) {
-        impactRef.current.style.opacity = !reduce && p > 0.92 ? "1" : "0";
+      const e = easeIn(p);
+      const angle = reduce ? STRUCK : RAISED * (1 - e) + STRUCK * e;
+      gavel.style.transform = `rotate(${angle}deg)`;
+
+      const isStruck = !reduce && p > 0.95;
+      if (isStruck !== struck.current) {
+        struck.current = isStruck;
+        scene.classList.toggle("is-struck", isStruck);
       }
     };
     const onScroll = () => {
@@ -53,51 +75,46 @@ export function GavelStrike({ className }: { className?: string }) {
 
   return (
     <div ref={wrapRef} className={className}>
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-50 to-brand-100 p-8 sm:p-10">
-        <svg
-          viewBox="0 0 360 280"
-          className="w-full"
-          role="img"
-          aria-label="A judge's gavel striking its block"
-        >
-          {/* Ground shadow */}
-          <ellipse cx="160" cy="255" rx="120" ry="9" fill="#00262a" opacity="0.07" />
-          {/* Base plate */}
-          <rect x="56" y="230" width="208" height="18" rx="9" fill="var(--color-brand-300)" />
-          {/* Sound block the gavel strikes */}
-          <rect x="106" y="198" width="98" height="32" rx="7" fill="var(--color-brand-200)" />
-          <rect x="106" y="198" width="98" height="12" rx="6" fill="var(--color-brand-100)" />
+      <div
+        ref={sceneRef}
+        className="gavel-scene relative mx-auto aspect-square w-full max-w-[26rem]"
+      >
+        {/* Surface shadow — stands in for the bench the gavel strikes */}
+        <div className="gv-shadow pointer-events-none absolute bottom-[11%] left-[3%] h-[9%] w-[50%]" />
 
-          {/* Gavel — rotates around the pivot (300, 78) to strike */}
-          <g ref={gavelRef} transform="rotate(48 300 78)">
-            <line
-              x1="168"
-              y1="170"
-              x2="298"
-              y2="80"
-              stroke="var(--color-brand-800)"
-              strokeWidth="16"
+        {/* Impact sparks — flash on the strike */}
+        <div className="gv-fx pointer-events-none absolute left-[2%] top-[64%] h-[18%] w-[26%]">
+          <svg viewBox="0 0 100 100" className="h-full w-full" aria-hidden="true">
+            <g
+              stroke="var(--color-copper-500)"
+              strokeWidth="7"
               strokeLinecap="round"
-            />
-            <circle cx="300" cy="78" r="9" fill="var(--color-brand-800)" />
-            <rect x="104" y="158" width="112" height="40" rx="20" fill="var(--color-brand-900)" />
-            <rect x="110" y="158" width="12" height="40" rx="6" fill="var(--color-copper-500)" />
-            <rect x="198" y="158" width="12" height="40" rx="6" fill="var(--color-copper-500)" />
-          </g>
+            >
+              <line x1="52" y1="58" x2="34" y2="30" />
+              <line x1="55" y1="54" x2="55" y2="20" />
+              <line x1="60" y1="58" x2="80" y2="32" />
+            </g>
+          </svg>
+        </div>
 
-          {/* Impact marks — flash in as the gavel lands */}
-          <g
-            ref={impactRef}
-            style={{ opacity: 0, transition: "opacity 0.2s ease" }}
-            stroke="var(--color-copper-500)"
-            strokeWidth="4"
-            strokeLinecap="round"
-          >
-            <line x1="146" y1="192" x2="134" y2="178" />
-            <line x1="160" y1="190" x2="160" y2="172" />
-            <line x1="174" y1="192" x2="186" y2="178" />
-          </g>
-        </svg>
+        {/* The gavel — rotates around the handle knob */}
+        <div
+          ref={gavelRef}
+          className="absolute inset-0"
+          style={{
+            transformOrigin: PIVOT,
+            transform: `rotate(${RAISED}deg)`,
+            willChange: "transform",
+          }}
+        >
+          <Image
+            src={hammer}
+            alt="A judge's gavel"
+            fill
+            sizes="(min-width: 1024px) 26rem, 90vw"
+            className="object-contain drop-shadow-[0_14px_18px_rgba(0,38,42,0.22)]"
+          />
+        </div>
       </div>
     </div>
   );

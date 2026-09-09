@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { LogoMark } from "@/components/brand";
@@ -7,6 +8,7 @@ import { PageHero } from "@/components/page-hero";
 import { Recognition } from "@/components/sections/recognition";
 import { Testimonials } from "@/components/sections/testimonials";
 import { stats } from "@/lib/content";
+import { firmPhotos } from "@/lib/firm-images";
 
 export const metadata: Metadata = {
   title: "About — TBeST Law LLP",
@@ -37,6 +39,7 @@ export default function AboutPage() {
         title="A leading full service firm for corporate and commercial work."
         lead="TBeST Law is a leading full service law firm that provides corporate and commercial legal services across a wide range of sectors and practice areas, drawing on years of experience of its partners in the academic and legal services sectors."
         crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+        image={firmPhotos.boardroomFull.src}
       />
 
       {/* Positioning + the drafting credential */}
@@ -112,6 +115,28 @@ export default function AboutPage() {
               </div>
             ))}
           </dl>
+        </div>
+      </section>
+
+      {/* The firm, in one picture — between what we say about ourselves and how
+          we work with clients. */}
+      <section className="bg-white pb-20 lg:pb-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10" data-reveal>
+          <figure className="overflow-hidden rounded-3xl bg-brand-950">
+            <div className="relative aspect-[16/10] w-full sm:aspect-[16/8]">
+              <Image
+                src={firmPhotos.teamFull.src}
+                alt={firmPhotos.teamFull.alt}
+                fill
+                placeholder="blur"
+                sizes="(min-width: 1280px) 76rem, 100vw"
+                className="object-cover object-[center_28%]"
+              />
+            </div>
+            <figcaption className="px-7 py-5 text-sm text-brand-100/70 sm:px-9">
+              The lawyers of TBeST Law LLP, Addis Ababa.
+            </figcaption>
+          </figure>
         </div>
       </section>
 

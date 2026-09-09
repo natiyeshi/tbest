@@ -205,9 +205,92 @@
   }
 }
 
+/* Gavel strike flourish: sparks flash the moment the head lands. The
+   GavelStrike client toggles `.is-struck` on the scene as the scroll-driven
+   swing reaches the bench. */
+.gavel-scene .gv-fx {
+  opacity: 0;
+}
+
+.gavel-scene.is-struck .gv-fx {
+  animation: gv-spark 0.5s ease-out;
+}
+
+/* The surface the gavel strikes is implied by a soft elliptical shadow rather
+   than a drawn bench; it spreads and darkens briefly on impact. */
+.gavel-scene .gv-shadow {
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 38, 42, 0.34) 0%,
+    rgba(0, 38, 42, 0.16) 48%,
+    transparent 72%
+  );
+  opacity: 0.7;
+}
+
+.gavel-scene.is-struck .gv-shadow {
+  animation: gv-surface 0.5s ease-out;
+}
+
+@keyframes gv-surface {
+  0% {
+    opacity: 0.7;
+    transform: scale(1, 1);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.16, 0.82);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes gv-spark {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+}
+
+/* The hero's rotation timer, drawn: the marker for the practice on stage fills
+   from left to right over the length of its turn. */
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Ken Burns: a slow, gentle zoom on the hero photograph so it feels alive. */
+@keyframes ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.09);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .gavel-scene .gv-fx {
+    display: none;
   }
 
   /* Never hide content for readers who prefer reduced motion. */

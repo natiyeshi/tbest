@@ -3,7 +3,6 @@ import type { StaticImageData } from "next/image";
 import teamExperience from "./team-experience.json";
 
 import menenPortrait from "../../public/team/menen-mitiku/no-bg.png";
-import menenPhoto from "../../public/team/menen-mitiku/a.png";
 import benyamPortrait from "../../public/team/benyam-tafesse/benyam-2-nobg.png";
 import beroketPortrait from "../../public/team/bereket-teshome/bereket-2-nobg.png";
 import bezawitFekedePortrait from "../../public/team/bezawit-fekede/beza-2-final-nobg.png";
@@ -29,19 +28,38 @@ import rekebkiPortraitAlt from "../../public/team/rekebki-tsega-abebe/rekebki-2-
 import sisayPortraitAlt from "../../public/team/sisay-habte/sis-final-nobg.png";
 import tibebePortraitAlt from "../../public/team/tibebe-zewdu/5837172361756004268-nobg.png";
 
-// The same portraits with their photographic background intact — used on the
-// detail pages, where the cut-outs give way to full photographs.
-import benyamPhoto from "../../public/team/benyam-tafesse/benyam-2.png";
-import beroketPhoto from "../../public/team/bereket-teshome/bereket-2.jpg";
-import bezawitFekedePhoto from "../../public/team/bezawit-fekede/beza-2-final.jpg";
-import bezawitYirgaPhoto from "../../public/team/bezawit-yirga/5837172361756004259.jpg";
-import etsehiwotPhoto from "../../public/team/etsehiwot-samson/etsehiwot-1.jpg";
-import helinaPhoto from "../../public/team/helina-bezabih/helina-final.jpg";
-import lindaPhoto from "../../public/team/linda-tedla/5837172361756004260.jpg";
+// Michael Mengistu's photograph with its background intact — he is the one
+// member the newer shoot below does not cover, so this stands in for both his
+// card and his detail page.
 import michaelPhoto from "../../public/team/michael-mengistu/5870740576306055897.jpg";
-import rekebkiPhoto from "../../public/team/rekebki-tsega-abebe/rekebki-1.jpg";
-import sisayPhoto from "../../public/team/sisay-habte/sisay.jpg";
-import tibebePhoto from "../../public/team/tibebe-zewdu/sam05619.jpg";
+
+// The newer shoot: full photographs, background intact, one straight-on frame
+// and one three-quarter frame each. These carry the cards and the detail pages;
+// the cut-outs above are kept for the standing lineup on the team page, which
+// needs transparency. Michael Mengistu was not photographed in this round, so
+// his existing photograph stands in.
+import benyamNew from "../../public/new/benyam-tafesse/compressed/b6.webp";
+import benyamNewAlt from "../../public/new/benyam-tafesse/compressed/b8.webp";
+import beroketNew from "../../public/new/bereket-teshome/compressed/bb18.webp";
+import beroketNewAlt from "../../public/new/bereket-teshome/compressed/b19.webp";
+import bezawitFekedeNew from "../../public/new/bezawit-fekede/compressed/bb22.webp";
+import bezawitFekedeNewAlt from "../../public/new/bezawit-fekede/compressed/b23.webp";
+import bezawitYirgaNew from "../../public/new/bezawit-yirga/compressed/b12.webp";
+import bezawitYirgaNewAlt from "../../public/new/bezawit-yirga/compressed/b13.webp";
+import etsehiwotNew from "../../public/new/etsehiwot-samson/compressed/b52.webp";
+import etsehiwotNewAlt from "../../public/new/etsehiwot-samson/compressed/b53.webp";
+import helinaNew from "../../public/new/helina-bezabih/compressed/b14.webp";
+import helinaNewAlt from "../../public/new/helina-bezabih/compressed/b15.webp";
+import lindaNew from "../../public/new/linda-tedla/compressed/b16.webp";
+import lindaNewAlt from "../../public/new/linda-tedla/compressed/b17.webp";
+import menenNew from "../../public/new/menen-mitiku/compressed/b20.webp";
+import menenNewAlt from "../../public/new/menen-mitiku/compressed/b21.webp";
+import rekebkiNew from "../../public/new/rekebki-tsega-abebe/compressed/bb10.webp";
+import rekebkiNewAlt from "../../public/new/rekebki-tsega-abebe/compressed/b11.webp";
+import sisayNew from "../../public/new/sisay-habte/compressed/b1.webp";
+import sisayNewAlt from "../../public/new/sisay-habte/compressed/b5.webp";
+import tibebeNew from "../../public/new/tibebe-zewdu/compressed/bb2.webp";
+import tibebeNewAlt from "../../public/new/tibebe-zewdu/compressed/b3.webp";
 
 export const firm = {
   name: "TBeST Law LLP",
@@ -95,12 +113,22 @@ export type TeamMember = {
   slug: string;
   name: string;
   role: string;
-  /** Background-removed cut-out, used in lineups and cards. */
+  /** Background-removed cut-out, used in the standing lineup on the team page. */
   portrait: StaticImageData;
-  /** A second cut-out, cross-faded in on hover over the card. Optional. */
+  /** A second cut-out, for the lineup's hover swap. Optional. */
   portraitAlt?: StaticImageData;
+  /** Photograph used in cards, cropped to fill their frame. */
+  card: StaticImageData;
+  /** A second photograph, cross-faded in on hover over the card. Optional. */
+  cardAlt?: StaticImageData;
   /** Full photograph with its original background, used on the detail page. */
   photo: StaticImageData;
+  /**
+   * Public path to the member's short silent clip, played over `photo` on the
+   * detail page. A plain path rather than an import: only images get Next's
+   * static-import handling, and the clip needs no dimensions or blur data.
+   */
+  clip?: string;
   /** Pipe-separated focus tags, as shown on the firm's team page. */
   focus: readonly string[];
   /** One-line description used in compact contexts. */
@@ -117,7 +145,10 @@ export const team: readonly TeamMember[] = [
     role: "Managing Partner",
     portrait: tibebePortraitAlt,
     portraitAlt: tibebePortrait,
-    photo: tibebePhoto,
+    card: tibebeNew,
+    cardAlt: tibebeNewAlt,
+    photo: tibebeNew,
+    clip: "/new/tibebe-zewdu/compressed/p3_00539253.webm",
     focus: [
       "Tax",
       "Customs",
@@ -141,7 +172,10 @@ export const team: readonly TeamMember[] = [
     role: "Partner",
     portrait: benyamPortrait,
     portraitAlt: benyamPortraitAlt,
-    photo: benyamPhoto,
+    card: benyamNew,
+    cardAlt: benyamNewAlt,
+    photo: benyamNew,
+    clip: "/new/benyam-tafesse/compressed/p3_01348962.webm",
     focus: [
       "Intellectual Property & Technology",
       "Projects, Infrastructure and PPP",
@@ -163,7 +197,10 @@ export const team: readonly TeamMember[] = [
     role: "Partner",
     portrait: sisayPortrait,
     portraitAlt: sisayPortraitAlt,
-    photo: sisayPhoto,
+    card: sisayNew,
+    cardAlt: sisayNewAlt,
+    photo: sisayNew,
+    clip: "/new/sisay-habte/compressed/p3_01354717.webm",
     focus: [
       "Corporate and Commercial",
       "Investment",
@@ -188,7 +225,10 @@ export const team: readonly TeamMember[] = [
     name: "Menen Mitiku",
     role: "Office Manager",
     portrait: menenPortrait,
-    photo: menenPhoto,
+    card: menenNew,
+    cardAlt: menenNewAlt,
+    photo: menenNew,
+    clip: "/new/menen-mitiku/compressed/p3_01353747.webm",
     focus: [],
     strapline: "Office manager keeping the firm running day to day.",
     bio: "Menen Mitiku is an Office Manager at TBeST Law. She graduated from Ambo University in Health Science. Prior to joining TBeST Law, Menen worked as a call centre agent and in front-desk customer care at Ison Xperience, and as a Telesales Representative at Heineken Ethiopia.",
@@ -200,6 +240,7 @@ export const team: readonly TeamMember[] = [
     role: "Senior Associate",
     portrait: michaelPortrait,
     portraitAlt: michaelPortraitAlt,
+    card: michaelPhoto,
     photo: michaelPhoto,
     focus: ["Corporate Governance", "Contracts", "M&A"],
     strapline:
@@ -216,7 +257,10 @@ export const team: readonly TeamMember[] = [
     role: "Associate",
     portrait: helinaPortraitAlt,
     portraitAlt: helinaPortrait,
-    photo: helinaPhoto,
+    card: helinaNew,
+    cardAlt: helinaNewAlt,
+    photo: helinaNew,
+    clip: "/new/helina-bezabih/compressed/p3_01351167.webm",
     focus: ["Corporate", "Commercial", "Investment", "Competition"],
     strapline:
       "Associate across corporate, commercial and investment law and due diligence.",
@@ -232,7 +276,10 @@ export const team: readonly TeamMember[] = [
     role: "Associate",
     portrait: lindaPortrait,
     portraitAlt: lindaPortraitAlt,
-    photo: lindaPhoto,
+    card: lindaNew,
+    cardAlt: lindaNewAlt,
+    photo: lindaNew,
+    clip: "/new/linda-tedla/compressed/p3_01352242.webm",
     focus: ["Intellectual Property", "Corporate", "Commercial"],
     strapline: "Associate leading the firm's intellectual property practice.",
     bio: "Linda Tedla is an Associate at TBeST Law LLP and the lead associate in the firm's Intellectual Property practice. She earned her LL.B from Mekelle University and is currently pursuing her LL.M in Business and Property Law at Addis Ababa University. With two years of experience in the IP field, her work focuses on trademark and patent prosecution — including preparing and filing applications before the Ethiopian Intellectual Property Authority, managing opposition and renewal processes, and advising on enforcement strategies — alongside IP due diligence and broader corporate and commercial work. Before joining TBeST, Linda volunteered in the IDP department at the Ethiopian Human Rights Commission and worked as an Administrative and Event Intern at the GIZ Ethiopia & Djibouti Country Office, assisting with contracts, events, ticketing and services for national and international staff.",
@@ -247,7 +294,10 @@ export const team: readonly TeamMember[] = [
     role: "Junior Associate",
     portrait: beroketPortrait,
     portraitAlt: beroketPortraitAlt,
-    photo: beroketPhoto,
+    card: beroketNew,
+    cardAlt: beroketNewAlt,
+    photo: beroketNew,
+    clip: "/new/bereket-teshome/compressed/p3_01353487.webm",
     focus: ["Corporate", "Investment", "Capital Market", "Employment"],
     strapline:
       "Junior associate across corporate, investment, capital markets and employment.",
@@ -262,7 +312,10 @@ export const team: readonly TeamMember[] = [
     role: "Junior Associate",
     portrait: etsehiwotPortraitAlt,
     portraitAlt: etsehiwotPortrait,
-    photo: etsehiwotPhoto,
+    card: etsehiwotNew,
+    cardAlt: etsehiwotNewAlt,
+    photo: etsehiwotNew,
+    clip: "/new/etsehiwot-samson/compressed/p3_01349257.webm",
     focus: ["Corporate", "Investment"],
     strapline:
       "Junior associate supporting corporate and investment matters.",
@@ -278,7 +331,10 @@ export const team: readonly TeamMember[] = [
     role: "Senior Associate",
     portrait: bezawitYirgaPortraitAlt,
     portraitAlt: bezawitYirgaPortrait,
-    photo: bezawitYirgaPhoto,
+    card: bezawitYirgaNew,
+    cardAlt: bezawitYirgaNewAlt,
+    photo: bezawitYirgaNew,
+    clip: "/new/bezawit-yirga/compressed/p3_01349762.webm",
     focus: [],
     strapline: "Senior Associate at TBeST Law.",
     bio: "",
@@ -290,7 +346,10 @@ export const team: readonly TeamMember[] = [
     role: "Associate",
     portrait: rekebkiPortraitAlt,
     portraitAlt: rekebkiPortrait,
-    photo: rekebkiPhoto,
+    card: rekebkiNew,
+    cardAlt: rekebkiNewAlt,
+    photo: rekebkiNew,
+    clip: "/new/rekebki-tsega-abebe/compressed/p3_01349517.webm",
     focus: [],
     strapline: "Associate at TBeST Law.",
     bio: "",
@@ -302,7 +361,10 @@ export const team: readonly TeamMember[] = [
     role: "Junior Accountant",
     portrait: bezawitFekedePortrait,
     portraitAlt: bezawitFekedePortraitAlt,
-    photo: bezawitFekedePhoto,
+    card: bezawitFekedeNew,
+    cardAlt: bezawitFekedeNewAlt,
+    photo: bezawitFekedeNew,
+    clip: "/new/bezawit-fekede/compressed/p3_01354197.webm",
     focus: [],
     strapline: "Junior accountant supporting the firm's finance function.",
     bio: "Bezawit Fekede is a Junior Accountant at TBeST Law. She graduated from Unity University in Accounting and Finance. Before joining TBeST Law she worked at Elias Damtew Certified Accountant, where she maintained accounting records and financial documentation, processed invoices, payment vouchers and expense claims, handled accounts payable and receivable, and supported payroll preparation and compliance.",
@@ -313,6 +375,25 @@ export const team: readonly TeamMember[] = [
 /** The three partners, in seniority order — used where only they are shown. */
 export const partners = team.filter((member) =>
   member.role.includes("Partner"),
+);
+
+/**
+ * Roles that run the business rather than practise law. Listed rather than
+ * inferred, so a new title never lands in the wrong group by accident.
+ */
+const businessServicesRoles: readonly string[] = [
+  "Office Manager",
+  "Junior Accountant",
+];
+
+/** Everyone who practises: partners, of counsel and associates. */
+export const lawyers = team.filter(
+  (member) => !businessServicesRoles.includes(member.role),
+);
+
+/** Everyone in business services. */
+export const businessServices = team.filter((member) =>
+  businessServicesRoles.includes(member.role),
 );
 
 /**

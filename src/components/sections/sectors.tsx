@@ -65,9 +65,7 @@ export function Sectors() {
     <section
       ref={ref}
       data-nav-tone="copper"
-      className={`relative transition-colors duration-700 ease-out ${
-        active % 2 === 0 ? "bg-copper-600" : "bg-brand-900"
-      }`}
+      className="relative bg-copper-600"
       style={{ height: `${sectors.length * STEP_VH}svh` }}
     >
       <div className="sticky top-0 flex h-svh items-center overflow-hidden">

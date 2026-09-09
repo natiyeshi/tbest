@@ -5,6 +5,7 @@ import { ContactForm } from "@/components/contact-form";
 import { PageHero } from "@/components/page-hero";
 import { SocialIcon } from "@/components/social-icon";
 import { firm } from "@/lib/content";
+import { firmPhotos } from "@/lib/firm-images";
 
 export const metadata: Metadata = {
   title: "Contact — TBeST Law LLP",
@@ -22,6 +23,9 @@ export default function ContactPage() {
         title="Tell us what you are working on."
         lead="Send a short note describing the matter and we will come back to you with the right partner for it."
         crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
+        image={firmPhotos.boardroomPartners.src}
+        // The partners sit low in this frame, so hold the bottom of it.
+        imagePosition="center 62%"
       />
 
       <section className="bg-white py-20 lg:py-28">

@@ -22,12 +22,19 @@ export function PageHero({
   lead,
   crumbs,
   image,
+  imagePosition = "center 42%",
 }: {
   eyebrow: string;
   title: string;
   lead?: string;
   crumbs?: Crumb[];
   image?: StaticImageData;
+  /**
+   * Where the band sits over the photograph. The default suits a group standing
+   * mid-frame; pass a lower value to keep more of the top of the picture, a
+   * higher one to keep more of the bottom.
+   */
+  imagePosition?: string;
 }) {
   return (
     <section
@@ -42,18 +49,19 @@ export function PageHero({
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-90"
-            style={{ objectPosition: "center 42%" }}
+            className="object-cover"
+            style={{ objectPosition: imagePosition }}
           />
-          {/* Left-weighted scrim: keeps the heading legible, lets the photo
-              read clearly across the rest of the band. */}
+          {/* Left-weighted scrim, kept light: enough behind the heading to hold
+              it, fading to almost nothing across the rest of the band so the
+              photograph reads. */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-r from-brand-950 via-brand-950/70 to-brand-950/25"
+            className="absolute inset-0 bg-gradient-to-r from-brand-950/85 via-brand-950/45 to-brand-950/10"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-brand-950/70 via-transparent to-brand-950/30"
+            className="absolute inset-0 bg-gradient-to-t from-brand-950/50 via-transparent to-brand-950/15"
           />
         </>
       )}
