@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BrandArrow, MarkPattern } from "@/components/brand";
 import { PortraitSwap } from "@/components/portrait-swap";
 import { TypeIn } from "@/components/type-in";
-import { partners, team } from "@/lib/content";
+import { lawyers, partners } from "@/lib/content";
 import { firmPhotos } from "@/lib/firm-images";
 
 export function People() {
@@ -104,7 +104,7 @@ export function People() {
             <div>
               <p className="eyebrow text-copper-300">The whole team</p>
               <p className="mt-2 font-display text-2xl leading-tight text-white sm:text-3xl">
-                {team.length} lawyers, one practice.
+                {lawyers.length} lawyers, one practice.
               </p>
             </div>
             <span className="inline-flex items-center gap-3 rounded-full border border-white/40 px-6 py-2.5 text-sm font-semibold text-white transition-colors group-hover:border-white group-hover:bg-white/10">

@@ -149,7 +149,10 @@ export function Hero() {
                 />
 
                 <div className="p-5 sm:p-6">
-                  <div className="relative h-[8rem] sm:h-[6.75rem]">
+                  {/* Taller on a narrow screen: at 320px the longest practice
+                      name wraps to two lines and its blurb to three, which
+                      overran the old height and was clipped by the panel. */}
+                  <div className="relative h-[9.25rem] sm:h-[6.75rem]">
                     {practices.map((practice, index) => (
                       <div
                         key={practice.slug}
@@ -200,7 +203,10 @@ export function Hero() {
                       </button>
                     </div>
 
-                    <div className="flex flex-1 items-center gap-1.5">
+                    {/* Nine markers have to share what is left of a narrow
+                        panel, so they shrink rather than hold a floor — a
+                        minimum width overflowed the rail below ~360px. */}
+                    <div className="flex flex-1 items-center gap-1 sm:gap-1.5">
                       {practices.map((practice, index) => (
                         <button
                           key={practice.slug}
@@ -208,7 +214,7 @@ export function Hero() {
                           onClick={() => select(index)}
                           aria-label={practice.name}
                           aria-current={index === active}
-                          className="group h-4 min-w-3 flex-1"
+                          className="group h-4 min-w-0 flex-1"
                         >
                           <span
                             className={`block h-1 w-full overflow-hidden rounded-full bg-white/25 transition-colors ${
