@@ -33,7 +33,10 @@ function MemberCard({ member }: { member: TeamMember }) {
             portrait={member.card}
             portraitAlt={member.cardAlt}
             alt={`${member.name}, ${member.role} at TBeST Law LLP`}
-            sizes="(min-width: 1024px) 16rem, (min-width: 640px) 30vw, 45vw"
+            // A card is 282px in the four-column grid (1200px of container,
+            // less three 24px gaps). 16rem understated that, so a 1x screen
+            // was handed a 256px file and stretched it.
+            sizes="(min-width: 1024px) 18rem, (min-width: 640px) 30vw, 45vw"
             fit="cover"
           />
         </div>
