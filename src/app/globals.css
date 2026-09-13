@@ -295,6 +295,30 @@
   animation: photo-viewer-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Portrait swap: on a member's card the second photograph unfolds across the
+   first from left to right, and folds back the same way when the pointer
+   leaves. One transition, played forwards and then in reverse — there is no
+   second animation to keep in step with the first, and a pointer that leaves
+   mid-unfold turns around from wherever the fold had got to rather than
+   jumping. The photograph underneath holds still rather than fading, so what
+   travels is a seam between two frames of the same person.
+
+   `inset()` interpolates only against another `inset()` with the same number
+   of values, hence the four zeroes on the open state. Reduced motion collapses
+   the duration globally below, which leaves a plain swap. */
+.portrait-unfold {
+  clip-path: inset(0 100% 0 0);
+  /* Eased in and out rather than on the house reveal curve: that one is
+     front-loaded enough that the fold jumps most of the way and then creeps,
+     which is the one thing a travelling seam must not do. */
+  transition: clip-path 480ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.group:hover .portrait-unfold,
+.group:focus-visible .portrait-unfold {
+  clip-path: inset(0 0 0 0);
+}
+
 /* Ken Burns: a slow, gentle zoom on the hero photograph so it feels alive. */
 @keyframes ken-burns {
   from {

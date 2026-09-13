@@ -2,10 +2,12 @@ import type { StaticImageData } from "next/image";
 import Image from "next/image";
 
 /**
- * A member's photograph that cross-fades to a second cut-out on hover. Purely
- * CSS-driven: the parent must carry the `group` class (and position the box),
- * and this renders the two stacked images filling it. When no alternate is
- * supplied it renders the single portrait unchanged.
+ * A member's photograph, with a second cut-out that unfolds across it from left
+ * to right on hover and folds back the same way on leave. Purely CSS-driven —
+ * the parent must carry the `group` class (and position the box), and this
+ * renders the two stacked images filling it; the fold itself is `.portrait-unfold`
+ * in globals.css. When no alternate is supplied it renders the single portrait
+ * unchanged, with no hover behaviour at all.
  */
 export function PortraitSwap({
   portrait,
@@ -32,14 +34,14 @@ export function PortraitSwap({
 
   return (
     <>
+      {/* The frame underneath holds still: the one above is what travels, so
+          there is no cross-fade through a muddy middle. */}
       <Image
         src={portrait}
         alt={alt}
         placeholder="blur"
         sizes={sizes}
-        className={`absolute inset-0 h-full w-full ${frame} transition-opacity duration-500 ease-out ${
-          portraitAlt ? "group-hover:opacity-0" : ""
-        }`}
+        className={`absolute inset-0 h-full w-full ${frame}`}
       />
       {portraitAlt && (
         <Image
@@ -48,7 +50,7 @@ export function PortraitSwap({
           aria-hidden="true"
           placeholder="blur"
           sizes={sizes}
-          className={`absolute inset-0 h-full w-full ${frame} opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100`}
+          className={`portrait-unfold absolute inset-0 h-full w-full ${frame}`}
         />
       )}
     </>
