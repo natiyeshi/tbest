@@ -10,7 +10,6 @@ import bezawitYirgaPortrait from "../../public/team/bezawit-yirga/58371723617560
 import etsehiwotPortrait from "../../public/team/etsehiwot-samson/etsehiwot-1-nobg.png";
 import helinaPortrait from "../../public/team/helina-bezabih/helina-final-nobg.png";
 import lindaPortrait from "../../public/team/linda-tedla/5837172361756004260-nobg.png";
-import michaelPortrait from "../../public/team/michael-mengistu/5870740576306055897-nobg.png";
 import rekebkiPortrait from "../../public/team/rekebki-tsega-abebe/rekebki-1-nobg.png";
 import sisayPortrait from "../../public/team/sisay-habte/sisay-nobg.png";
 import tibebePortrait from "../../public/team/tibebe-zewdu/sam05619-nobg.png";
@@ -23,21 +22,14 @@ import bezawitYirgaPortraitAlt from "../../public/team/bezawit-yirga/snapedit-17
 import etsehiwotPortraitAlt from "../../public/team/etsehiwot-samson/etsehiwot-2-nobg.png";
 import helinaPortraitAlt from "../../public/team/helina-bezabih/helina-side-nobg.png";
 import lindaPortraitAlt from "../../public/team/linda-tedla/snapedit-1755335677837-nobg.png";
-import michaelPortraitAlt from "../../public/team/michael-mengistu/5837172361756004265-nobg.png";
 import rekebkiPortraitAlt from "../../public/team/rekebki-tsega-abebe/rekebki-2-nobg.png";
 import sisayPortraitAlt from "../../public/team/sisay-habte/sis-final-nobg.png";
 import tibebePortraitAlt from "../../public/team/tibebe-zewdu/5837172361756004268-nobg.png";
 
-// Michael Mengistu's photograph with its background intact — he is the one
-// member the newer shoot below does not cover, so this stands in for both his
-// card and his detail page.
-import michaelPhoto from "../../public/team/michael-mengistu/5870740576306055897.jpg";
-
 // The newer shoot: full photographs, background intact, one straight-on frame
 // and one three-quarter frame each. These carry the cards and the detail pages;
 // the cut-outs above are kept for the standing lineup on the team page, which
-// needs transparency. Michael Mengistu was not photographed in this round, so
-// his existing photograph stands in.
+// needs transparency. Everyone on the roster was photographed in this round.
 import benyamNew from "../../public/new/benyam-tafesse/compressed/b6.webp";
 import benyamNewAlt from "../../public/new/benyam-tafesse/compressed/b8.webp";
 import beroketNew from "../../public/new/bereket-teshome/compressed/bb18.webp";
@@ -235,23 +227,6 @@ export const team: readonly TeamMember[] = [
     credentials: ["BSc, Ambo University (2011)"],
   },
   {
-    slug: "michael-mengistu",
-    name: "Michael Mengistu",
-    role: "Senior Associate",
-    portrait: michaelPortrait,
-    portraitAlt: michaelPortraitAlt,
-    card: michaelPhoto,
-    photo: michaelPhoto,
-    focus: ["Corporate Governance", "Contracts", "M&A"],
-    strapline:
-      "Senior associate advising on corporate governance, contracts and cross-border transactions.",
-    bio: "Michael Mengistu is a Senior Associate at TBeST Law. He earned his LL.B with great distinction from Addis Ababa University School of Law and holds an LL.M from the University of Groningen. Before joining TBeST Law, Michael worked at the Ethiopian Investment Commission, within the Policy Research Directorate and the Industrial Parks Facilitation Directorate, and practised as an Associate at Mesfin Tafesse & Associates Law Office. He advises domestic and international companies on corporate governance, including company restructuring, mergers and acquisitions, and drafts a wide range of contracts for corporations and non-governmental organizations.",
-    credentials: [
-      "LL.B, Addis Ababa University, with Great Distinction (2018)",
-      "LL.M, University of Groningen, the Netherlands (2021)",
-    ],
-  },
-  {
     slug: "helina-bezabih",
     name: "Helina Bezabih",
     role: "Associate",
@@ -372,11 +347,6 @@ export const team: readonly TeamMember[] = [
   },
 ];
 
-/** The three partners, in seniority order — used where only they are shown. */
-export const partners = team.filter((member) =>
-  member.role.includes("Partner"),
-);
-
 /**
  * Roles that run the business rather than practise law. Listed rather than
  * inferred, so a new title never lands in the wrong group by accident.
@@ -386,10 +356,77 @@ const businessServicesRoles: readonly string[] = [
   "Junior Accountant",
 ];
 
-/** Everyone who practises: partners, of counsel and associates. */
-export const lawyers = team.filter(
-  (member) => !businessServicesRoles.includes(member.role),
+/**
+ * The bands the roster is shown in, most senior first, each listing the titles
+ * that fall into it. This single list does two jobs: it orders the roster, and
+ * it groups it — so a new joiner lands in the right band on the strength of
+ * their title alone. Listed rather than inferred for the same reason as the
+ * business-services roles above; a title missing from here sorts to the end of
+ * the roster rather than to the front of it, and shows in no band.
+ *
+ * Managing Partner and Partner share a band: that distinction belongs on the
+ * card, not on a heading of its own. The headings are spelt out both ways
+ * rather than pluralised with an "s", because "of counsel" does not take one.
+ */
+const lawyerBands: readonly {
+  /** Heading when the band holds one person, and when it holds several. */
+  one: string;
+  many: string;
+  ranks: readonly string[];
+}[] = [
+  { one: "Partner", many: "Partners", ranks: ["Managing Partner", "Partner"] },
+  { one: "Of counsel", many: "Of counsel", ranks: ["Of Counsel"] },
+  {
+    one: "Senior associate",
+    many: "Senior associates",
+    ranks: ["Senior Associate"],
+  },
+  { one: "Associate", many: "Associates", ranks: ["Associate"] },
+  {
+    one: "Junior associate",
+    many: "Junior associates",
+    ranks: ["Junior Associate"],
+  },
+];
+
+const lawyerRanks = lawyerBands.flatMap((band) => band.ranks);
+
+function rankOf(member: TeamMember): number {
+  const rank = lawyerRanks.indexOf(member.role);
+  return rank === -1 ? lawyerRanks.length : rank;
+}
+
+/**
+ * Everyone who practises: partners, of counsel and associates, most senior
+ * first. `sort` is stable, so people sharing a rank keep the order they are
+ * written in above — and `filter` has already copied the array, so `team`
+ * itself is left in its original order.
+ */
+export const lawyers = team
+  .filter((member) => !businessServicesRoles.includes(member.role))
+  .sort((a, b) => rankOf(a) - rankOf(b));
+
+/** The partners, most senior first — used where only they are shown. */
+export const partners = lawyers.filter((member) =>
+  member.role.includes("Partner"),
 );
+
+export type LawyerTier = {
+  label: string;
+  members: readonly TeamMember[];
+};
+
+/**
+ * The roster as the team page shows it: one labelled band per rank, most senior
+ * first. Bands nobody currently holds drop out, so an empty rank never leaves a
+ * heading with nothing under it.
+ */
+export const lawyerTiers: readonly LawyerTier[] = lawyerBands
+  .map((band) => {
+    const members = lawyers.filter((member) => band.ranks.includes(member.role));
+    return { label: members.length === 1 ? band.one : band.many, members };
+  })
+  .filter((tier) => tier.members.length > 0);
 
 /** Everyone in business services. */
 export const businessServices = team.filter((member) =>

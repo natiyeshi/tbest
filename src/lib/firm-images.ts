@@ -5,13 +5,16 @@ import partnersStanding from "../../public/new/team/b26.webp";
 import partnersSeated from "../../public/new/team/b28.webp";
 import teamWomen from "../../public/new/team/b30.webp";
 import teamFull from "../../public/new/team/b32.webp";
+import teamStanding from "../../public/new/team/b33.webp";
 import teamMen from "../../public/new/team/b34.webp";
 import pairSeniorPortrait from "../../public/new/team/b35.webp";
 import pairPortrait from "../../public/new/team/b36.webp";
 import pairSmilingPortrait from "../../public/new/team/b37.webp";
+import teamFour from "../../public/new/team/b39.webp";
 import boardroomFull from "../../public/new/team/b41.webp";
 import boardroomCandid from "../../public/new/team/b45.webp";
 import boardroomPartners from "../../public/new/team/b49.webp";
+import boardroomThree from "../../public/new/team/b50.webp";
 
 /**
  * The firm's own photography, from the 2026 shoot in `public/new/team`. Two
@@ -31,8 +34,15 @@ export const firmPhotos = {
     src: teamFull,
     alt: "The lawyers of TBeST Law LLP",
   },
+  /** The whole firm again, this time standing in one line. */
+  teamStanding: {
+    src: teamStanding,
+    alt: "The lawyers and staff of TBeST Law LLP",
+  },
   /** Six of the firm's lawyers, standing. */
   teamSix: { src: teamSix, alt: "Lawyers of TBeST Law LLP" },
+  /** Four of the firm's lawyers, standing. */
+  teamFour: { src: teamFour, alt: "Lawyers of TBeST Law LLP" },
   /** The women of the firm. */
   teamWomen: { src: teamWomen, alt: "The women of TBeST Law LLP" },
   /** The men of the firm. */
@@ -71,5 +81,10 @@ export const firmPhotos = {
   boardroomPartners: {
     src: boardroomPartners,
     alt: "The partners of TBeST Law LLP in the firm's boardroom",
+  },
+  /** Three of the firm's lawyers along one side of the table. */
+  boardroomThree: {
+    src: boardroomThree,
+    alt: "Lawyers of TBeST Law LLP at the boardroom table",
   },
 } satisfies Record<string, FirmPhoto>;

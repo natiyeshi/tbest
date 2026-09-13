@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import { MarkPattern } from "@/components/brand";
 import { ContactCTA } from "@/components/contact-cta";
 import { PageHero } from "@/components/page-hero";
+import { PhotoWall } from "@/components/photo-wall";
 import { PortraitSwap } from "@/components/portrait-swap";
 import type { TeamMember } from "@/lib/content";
-import { businessServices, lawyers } from "@/lib/content";
+import { businessServices, lawyers, lawyerTiers } from "@/lib/content";
 import { firmPhotos } from "@/lib/firm-images";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 /** One person's card: photograph, role, name. */
-function MemberCard({ member }: { member: TeamMember }) {
+function MemberCard({ member, sizes }: { member: TeamMember; sizes: string }) {
   return (
     <li>
       <Link href={`/team/${member.slug}`} className="group block">
@@ -33,10 +33,7 @@ function MemberCard({ member }: { member: TeamMember }) {
             portrait={member.card}
             portraitAlt={member.cardAlt}
             alt={`${member.name}, ${member.role} at TBeST Law LLP`}
-            // A card is 282px in the four-column grid (1200px of container,
-            // less three 24px gaps). 16rem understated that, so a 1x screen
-            // was handed a 256px file and stretched it.
-            sizes="(min-width: 1024px) 18rem, (min-width: 640px) 30vw, 45vw"
+            sizes={sizes}
             fit="cover"
           />
         </div>
@@ -49,15 +46,67 @@ function MemberCard({ member }: { member: TeamMember }) {
   );
 }
 
+/**
+ * A row of cards. The container is 1200px wide at `lg` (a max-w-7xl of 1280px
+ * less two 40px gutters), so three to a row makes each card 384px and four
+ * makes it 282px — hence the two `sizes`, which were understated at 16rem and
+ * left a 1x screen stretching a 256px file. Both class strings are written out
+ * rather than interpolated so Tailwind can see them.
+ */
+function MemberGrid({
+  members,
+  columns,
+}: {
+  members: readonly TeamMember[];
+  columns: 3 | 4;
+}) {
+  return (
+    <ul
+      className={`grid grid-cols-2 gap-6 sm:grid-cols-3 ${
+        columns === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"
+      }`}
+    >
+      {members.map((member) => (
+        <MemberCard
+          key={member.slug}
+          member={member}
+          sizes={
+            columns === 3
+              ? "(min-width: 1024px) 24rem, (min-width: 640px) 30vw, 45vw"
+              : "(min-width: 1024px) 18rem, (min-width: 640px) 30vw, 45vw"
+          }
+        />
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * The heading over one band of the roster. Deliberately quieter than the copper
+ * role on the cards themselves — it is a divider, not a second label competing
+ * with the one on every card below it — and the rule carries it to the edge so
+ * the band reads as a band even where it holds a single person.
+ */
+function TierHeading({ label }: { label: string }) {
+  return (
+    <div className="mb-5 flex items-center gap-4">
+      <h3 className="eyebrow text-brand-900/45">{label}</h3>
+      <span aria-hidden="true" className="h-px flex-1 bg-line" />
+    </div>
+  );
+}
+
 /** A named group of people, with a count beside the heading. */
 function Roster({
   title,
   blurb,
-  members,
+  count,
+  children,
 }: {
   title: string;
   blurb: string;
-  members: readonly TeamMember[];
+  count: number;
+  children: React.ReactNode;
 }) {
   return (
     <div>
@@ -66,18 +115,14 @@ function Roster({
           {title}
         </h2>
         <span className="font-display text-sm text-copper-500">
-          {String(members.length).padStart(2, "0")}
+          {String(count).padStart(2, "0")}
         </span>
       </div>
       <p className="mt-3 max-w-2xl text-[0.9375rem] leading-relaxed text-muted">
         {blurb}
       </p>
 
-      <ul className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
-        {members.map((member) => (
-          <MemberCard key={member.slug} member={member} />
-        ))}
-      </ul>
+      <div className="mt-10 space-y-12">{children}</div>
     </div>
   );
 }
@@ -102,8 +147,25 @@ export default function TeamPage() {
             <Roster
               title="Lawyers"
               blurb="Partners and associates advising on corporate, commercial, investment and tax matters."
-              members={lawyers}
-            />
+              count={lawyers.length}
+            >
+              {/* One band per rank, most senior first, each starting its own
+                  row — so a rank holding a single person still gets a row of
+                  their own rather than being tucked onto the end of the one
+                  above. The top band runs three across when it holds exactly
+                  three, which fills its row flush and leaves the partners'
+                  cards reading a size larger than the bands below; everything
+                  else runs at the standard four. */}
+              {lawyerTiers.map((tier, index) => (
+                <div key={tier.label}>
+                  <TierHeading label={tier.label} />
+                  <MemberGrid
+                    members={tier.members}
+                    columns={index === 0 && tier.members.length === 3 ? 3 : 4}
+                  />
+                </div>
+              ))}
+            </Roster>
           </div>
 
           {businessServices.length > 0 && (
@@ -111,17 +173,23 @@ export default function TeamPage() {
               <Roster
                 title="Business services"
                 blurb="The team that keeps the practice running, from the office itself to its accounts."
-                members={businessServices}
-              />
+                count={businessServices.length}
+              >
+                <MemberGrid members={businessServices} columns={4} />
+              </Roster>
             </div>
           )}
         </div>
       </section>
 
-      {/* The firm's own photography, as a bento: one anchor frame and a set of
-          smaller ones around it, so the wall has a shape rather than a rhythm.
-          Written out cell by cell rather than mapped — the layout is the point,
-          and every span class stays visible to Tailwind. */}
+      {/* The firm's own photography, as a bento: two anchor frames, two tall
+          ones and a set of wider and smaller ones between them, so the wall has
+          a shape rather than a rhythm. The spans tile four columns exactly —
+          4+1+1+2, 4+2+2, 2+2, 2+1+1, 2+2 — so there are no holes; move a cell
+          and that arithmetic has to come out again. Written out cell by cell
+          rather than mapped, because the layout is the point and every span
+          class stays visible to Tailwind. Each frame is a crop; PhotoWall opens
+          the picture whole on click and lets the reader walk the set. */}
       <section className="border-t border-line bg-bone py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10" data-reveal>
           <p className="eyebrow flex items-center gap-3 text-copper-500">
@@ -131,81 +199,107 @@ export default function TeamPage() {
           <h2 className="mt-6 max-w-2xl font-display text-3xl leading-tight tracking-tight text-brand-900 sm:text-4xl">
             {lawyers.length} lawyers, one practice.
           </h2>
+          <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted">
+            Select a photograph to see it full size.
+          </p>
 
-          <div className="mt-12 grid auto-rows-[8rem] grid-cols-2 gap-4 sm:auto-rows-[10rem] sm:gap-5 lg:auto-rows-[12rem] lg:grid-cols-4">
-            {/* Anchor: the whole team around the table, two by two. */}
-            <figure className="col-span-2 row-span-2 overflow-hidden rounded-2xl bg-brand-950">
-              <Image
-                src={firmPhotos.boardroomFull.src}
-                alt={firmPhotos.boardroomFull.alt}
-                className="h-full w-full object-cover"
-                sizes="(min-width: 1024px) 38rem, 90vw"
-                placeholder="blur"
-                quality={90}
-                style={{ objectPosition: "center 35%" }}
-              />
-            </figure>
-
-            <figure className="col-span-1 row-span-1 overflow-hidden rounded-2xl bg-brand-950">
-              <Image
-                src={firmPhotos.teamWomen.src}
-                alt={firmPhotos.teamWomen.alt}
-                className="h-full w-full object-cover"
-                sizes="(min-width: 1024px) 18rem, 45vw"
-                placeholder="blur"
-                quality={90}
-                style={{ objectPosition: "center 30%" }}
-              />
-            </figure>
-
-            <figure className="col-span-1 row-span-1 overflow-hidden rounded-2xl bg-brand-950">
-              <Image
-                src={firmPhotos.teamMen.src}
-                alt={firmPhotos.teamMen.alt}
-                className="h-full w-full object-cover"
-                sizes="(min-width: 1024px) 18rem, 45vw"
-                placeholder="blur"
-                quality={90}
-                style={{ objectPosition: "center 30%" }}
-              />
-            </figure>
-
-            <figure className="col-span-2 row-span-1 overflow-hidden rounded-2xl bg-brand-950">
-              <Image
-                src={firmPhotos.boardroomCandid.src}
-                alt={firmPhotos.boardroomCandid.alt}
-                className="h-full w-full object-cover"
-                sizes="(min-width: 1024px) 38rem, 90vw"
-                placeholder="blur"
-                quality={90}
-                style={{ objectPosition: "center 45%" }}
-              />
-            </figure>
-
-            <figure className="col-span-2 row-span-1 overflow-hidden rounded-2xl bg-brand-950">
-              <Image
-                src={firmPhotos.teamSix.src}
-                alt={firmPhotos.teamSix.alt}
-                className="h-full w-full object-cover"
-                sizes="(min-width: 1024px) 38rem, 90vw"
-                placeholder="blur"
-                quality={90}
-                style={{ objectPosition: "center 30%" }}
-              />
-            </figure>
-
-            <figure className="col-span-2 row-span-1 overflow-hidden rounded-2xl bg-brand-950">
-              <Image
-                src={firmPhotos.partnersSeated.src}
-                alt={firmPhotos.partnersSeated.alt}
-                className="h-full w-full object-cover"
-                sizes="(min-width: 1024px) 38rem, 90vw"
-                placeholder="blur"
-                quality={90}
-                style={{ objectPosition: "center 30%" }}
-              />
-            </figure>
-          </div>
+          <PhotoWall
+            className="mt-12 grid auto-rows-[8rem] grid-cols-2 gap-4 sm:auto-rows-[10rem] sm:gap-5 lg:auto-rows-[12rem] lg:grid-cols-4"
+            cells={[
+              {
+                // Anchor: the whole team around the table, two by two.
+                photo: firmPhotos.boardroomFull,
+                className: "col-span-2 row-span-2",
+                sizes: "(min-width: 1024px) 38rem, 90vw",
+                objectPosition: "center 35%",
+              },
+              {
+                photo: firmPhotos.teamWomen,
+                className: "col-span-1 row-span-1",
+                sizes: "(min-width: 1024px) 18rem, 45vw",
+                objectPosition: "center 30%",
+              },
+              {
+                photo: firmPhotos.teamMen,
+                className: "col-span-1 row-span-1",
+                sizes: "(min-width: 1024px) 18rem, 45vw",
+                objectPosition: "center 30%",
+              },
+              {
+                photo: firmPhotos.boardroomCandid,
+                className: "col-span-2 row-span-1",
+                sizes: "(min-width: 1024px) 38rem, 90vw",
+                objectPosition: "center 45%",
+              },
+              {
+                // Second anchor, and the only frame with everyone in it.
+                photo: firmPhotos.teamFull,
+                className: "col-span-2 row-span-2",
+                sizes: "(min-width: 1024px) 38rem, 90vw",
+                objectPosition: "center 30%",
+              },
+              {
+                // The two tall frames: the shoot's portrait-orientation
+                // pairings, which is what they were taken for.
+                photo: firmPhotos.pairPortrait,
+                className: "col-span-1 row-span-2",
+                sizes: "(min-width: 1024px) 18rem, 45vw",
+                objectPosition: "center 30%",
+              },
+              {
+                photo: firmPhotos.pairSmilingPortrait,
+                className: "col-span-1 row-span-2",
+                sizes: "(min-width: 1024px) 18rem, 45vw",
+                objectPosition: "center 30%",
+              },
+               {
+                photo: firmPhotos.partnersStanding,
+                className: "col-span-2 row-span-2",
+                sizes: "(min-width: 1024px) 55rem, 70vw",
+                objectPosition: "center 30%",
+              },
+              {
+                photo: firmPhotos.boardroomPartners,
+                className: "col-span-2 row-span-2",
+                sizes: "(min-width: 1024px) 55rem, 70vh",
+                objectPosition: "center 45%",
+              },
+              
+              // {
+              //   photo: firmPhotos.teamFour,
+              //   className: "col-span-2 row-span-1",
+              //   sizes: "(min-width: 1024px) 38rem, 90vw",
+              //   objectPosition: "center 30%",
+              // },
+             
+              // {
+              //   // A wide frame of a tall composition: the crop has to sit high
+              //   // or it takes the tops off the two standing partners.
+              //   photo: firmPhotos.partnersSeated,
+              //   className: "col-span-2 row-span-1",
+              //   sizes: "(min-width: 1024px) 38rem, 90vw",
+              //   objectPosition: "center 12%",
+              // },
+              {
+                photo: firmPhotos.boardroomThree,
+               className: "col-span-2 row-span-2",
+                sizes: "(min-width: 1024px) 38rem, 90vw",
+                objectPosition: "center 30%",
+              },
+              {
+                photo: firmPhotos.teamStanding,
+                className: "col-span-2 row-span-1",
+                sizes: "(min-width: 1024px) 38rem, 90vw",
+                objectPosition: "center 30%",
+              },
+              {
+                photo: firmPhotos.teamSix,
+                className: "col-span-2 row-span-1",
+                sizes: "(min-width: 1024px) 38rem, 90vw",
+                objectPosition: "center 30%",
+              },
+            ]}
+          />
         </div>
       </section>
 

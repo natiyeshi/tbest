@@ -19,7 +19,7 @@ const ROTATE_MS = 4000;
  * video arrives; the mp4 is there for browsers that will not take the webm.
  */
 const HERO_POSTER = "/new/team/hero-poster.webp";
-const HERO_WEBM = "/new/team/hero-web.webm";
+const HERO_WEBM = "/new/team/hero2.webm";
 const HERO_MP4 = "/new/team/hero-web.mp4";
 
 export function Hero() {
