@@ -6,10 +6,10 @@ import { useState } from "react";
 
 import { BrandArrow } from "@/components/brand";
 import { TypeIn } from "@/components/type-in";
-import { practices } from "@/lib/practices";
-import { getPracticeImage } from "@/lib/practice-images";
+import type { PracticeLink } from "@/lib/practices";
+import { practiceArt } from "@/lib/practice-images";
 
-export function Practices() {
+export function Practices({ practices }: { practices: PracticeLink[] }) {
   const [active, setActive] = useState(0);
 
   return (
@@ -85,7 +85,7 @@ export function Practices() {
                 {practices.map((practice, index) => (
                   <Image
                     key={practice.slug}
-                    src={getPracticeImage(practice.slug)}
+                    src={practiceArt(practice)}
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 40rem, 0px"
@@ -133,7 +133,7 @@ export function Practices() {
               >
                 <div className="relative h-40 overflow-hidden">
                   <Image
-                    src={getPracticeImage(practice.slug)}
+                    src={practiceArt(practice)}
                     alt=""
                     fill
                     sizes="(min-width: 640px) 45vw, 90vw"

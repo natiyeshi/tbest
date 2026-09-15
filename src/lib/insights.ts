@@ -266,14 +266,17 @@ export function insightsByCategory(category: InsightCategory): Insight[] {
 }
 
 /**
- * The migrated article body for a slug, as renderable blocks. Consecutive
- * list items are grouped into a single list block.
+ * An article body, as renderable blocks. One line per block: "## " opens a
+ * heading, "- " a list item, "> " a pull quote, anything else a paragraph.
+ * Consecutive list items are grouped into a single list.
+ *
+ * This is the dialect the migrated bodies were written in, and it is what the
+ * admin's body field stores — so an article typed into the dashboard and one
+ * carried over from the old site render through exactly the same path.
  */
-export function getInsightBody(slug: string): InsightBlock[] {
-  const entry = (bodies as Record<string, { body: string[] }>)[slug];
-  if (!entry) return [];
+export function parseInsightBody(lines: readonly string[]): InsightBlock[] {
   const blocks: InsightBlock[] = [];
-  for (const line of entry.body) {
+  for (const line of lines) {
     if (line.startsWith("## ")) {
       blocks.push({ kind: "heading", text: line.slice(3) });
     } else if (line.startsWith("- ")) {
@@ -288,6 +291,18 @@ export function getInsightBody(slug: string): InsightBlock[] {
     }
   }
   return blocks;
+}
+
+/** The bundled article body for a slug, as renderable blocks. */
+export function getInsightBody(slug: string): InsightBlock[] {
+  const entry = (bodies as Record<string, { body: string[] }>)[slug];
+  return entry ? parseInsightBody(entry.body) : [];
+}
+
+/** The same body as the single string the admin edits and the database holds. */
+export function getInsightBodyText(slug: string): string {
+  const entry = (bodies as Record<string, { body: string[] }>)[slug];
+  return entry ? entry.body.join("\n") : "";
 }
 
 export const insightTopics = [

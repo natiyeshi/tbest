@@ -8,7 +8,7 @@ import { BrandArrow } from "@/components/brand";
 import { CountUp } from "@/components/count-up";
 import { TypeIn } from "@/components/type-in";
 import { stats } from "@/lib/content";
-import { practices } from "@/lib/practices";
+import type { PracticeLink } from "@/lib/practices";
 
 /** How long each practice area holds the stage. */
 const ROTATE_MS = 4000;
@@ -22,7 +22,7 @@ const HERO_POSTER = "/new/team/hero-poster.webp";
 const HERO_WEBM = "/new/team/hero2.webm";
 const HERO_MP4 = "/new/team/hero-web.mp4";
 
-export function Hero() {
+export function Hero({ practices }: { practices: PracticeLink[] }) {
   const [active, setActive] = useState(0);
   // Bumped whenever the reader takes manual control, to restart the timer so a
   // practice they just chose isn't whisked away a moment later. It also re-keys
@@ -55,16 +55,20 @@ export function Hero() {
     else video.pause();
   };
 
+  // The rotation wraps on the number of practices, which now comes from the
+  // database and can change between renders.
+  const count = practices.length;
+
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (reduced.matches) return;
 
     const timer = window.setInterval(
-      () => setActive((current) => (current + 1) % practices.length),
+      () => setActive((current) => (current + 1) % count),
       ROTATE_MS,
     );
     return () => window.clearInterval(timer);
-  }, [nudge]);
+  }, [nudge, count]);
 
   // Readers who prefer reduced motion get a still frame rather than a looping
   // background; the control at the foot of the section lets them start it.

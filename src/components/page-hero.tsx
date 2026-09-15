@@ -28,7 +28,8 @@ export function PageHero({
   title: string;
   lead?: string;
   crumbs?: Crumb[];
-  image?: StaticImageData;
+  /** A bundled import, or a URL for artwork uploaded through the admin. */
+  image?: string | StaticImageData;
   /**
    * Where the band sits over the photograph. The default suits a group standing
    * mid-frame; pass a lower value to keep more of the top of the picture, a

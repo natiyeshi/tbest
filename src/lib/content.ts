@@ -30,28 +30,34 @@ import tibebePortraitAlt from "../../public/team/tibebe-zewdu/583717236175600426
 // and one three-quarter frame each. These carry the cards and the detail pages;
 // the cut-outs above are kept for the standing lineup on the team page, which
 // needs transparency. Everyone on the roster was photographed in this round.
-import benyamNew from "../../public/new/benyam-tafesse/compressed/b6.webp";
-import benyamNewAlt from "../../public/new/benyam-tafesse/compressed/b8.webp";
-import beroketNew from "../../public/new/bereket-teshome/compressed/bb18.webp";
-import beroketNewAlt from "../../public/new/bereket-teshome/compressed/b19.webp";
-import bezawitFekedeNew from "../../public/new/bezawit-fekede/compressed/bb22.webp";
-import bezawitFekedeNewAlt from "../../public/new/bezawit-fekede/compressed/b23.webp";
-import bezawitYirgaNew from "../../public/new/bezawit-yirga/compressed/b12.webp";
-import bezawitYirgaNewAlt from "../../public/new/bezawit-yirga/compressed/b13.webp";
-import etsehiwotNew from "../../public/new/etsehiwot-samson/compressed/b52.webp";
-import etsehiwotNewAlt from "../../public/new/etsehiwot-samson/compressed/b53.webp";
-import helinaNew from "../../public/new/helina-bezabih/compressed/b14.webp";
-import helinaNewAlt from "../../public/new/helina-bezabih/compressed/b15.webp";
-import lindaNew from "../../public/new/linda-tedla/compressed/b16.webp";
-import lindaNewAlt from "../../public/new/linda-tedla/compressed/b17.webp";
-import menenNew from "../../public/new/menen-mitiku/compressed/b20.webp";
-import menenNewAlt from "../../public/new/menen-mitiku/compressed/b21.webp";
-import rekebkiNew from "../../public/new/rekebki-tsega-abebe/compressed/bb10.webp";
-import rekebkiNewAlt from "../../public/new/rekebki-tsega-abebe/compressed/b11.webp";
-import sisayNew from "../../public/new/sisay-habte/compressed/b1.webp";
-import sisayNewAlt from "../../public/new/sisay-habte/compressed/b5.webp";
-import tibebeNew from "../../public/new/tibebe-zewdu/compressed/bb2.webp";
-import tibebeNewAlt from "../../public/new/tibebe-zewdu/compressed/b3.webp";
+//
+// These are the untouched camera files, and the image optimiser is switched
+// off site-wide (next.config.ts), so the browser receives them byte for byte.
+// They were previously served from a `compressed/` folder at 1200x1800 and
+// about 0.15 bits per pixel — a fortieth of the data — which is what made
+// every portrait look soft.
+import benyamNew from "../../public/new/benyam-tafesse/original/b6.jpg";
+import benyamNewAlt from "../../public/new/benyam-tafesse/original/b8.jpg";
+import beroketNew from "../../public/new/bereket-teshome/original/bb18.jpg";
+import beroketNewAlt from "../../public/new/bereket-teshome/original/b19.jpg";
+import bezawitFekedeNew from "../../public/new/bezawit-fekede/original/bb22.jpg";
+import bezawitFekedeNewAlt from "../../public/new/bezawit-fekede/original/b23.jpg";
+import bezawitYirgaNew from "../../public/new/bezawit-yirga/original/b12.jpg";
+import bezawitYirgaNewAlt from "../../public/new/bezawit-yirga/original/b13.jpg";
+import etsehiwotNew from "../../public/new/etsehiwot-samson/original/b52.jpg";
+import etsehiwotNewAlt from "../../public/new/etsehiwot-samson/original/b53.jpg";
+import helinaNew from "../../public/new/helina-bezabih/original/b14.jpg";
+import helinaNewAlt from "../../public/new/helina-bezabih/original/b15.jpg";
+import lindaNew from "../../public/new/linda-tedla/original/b16.jpg";
+import lindaNewAlt from "../../public/new/linda-tedla/original/b17.jpg";
+import menenNew from "../../public/new/menen-mitiku/original/b20.jpg";
+import menenNewAlt from "../../public/new/menen-mitiku/original/b21.jpg";
+import rekebkiNew from "../../public/new/rekebki-tsega-abebe/original/bb10.jpg";
+import rekebkiNewAlt from "../../public/new/rekebki-tsega-abebe/original/b11.jpg";
+import sisayNew from "../../public/new/sisay-habte/original/b1.jpg";
+import sisayNewAlt from "../../public/new/sisay-habte/original/b5.jpg";
+import tibebeNew from "../../public/new/tibebe-zewdu/original/bb2.jpg";
+import tibebeNewAlt from "../../public/new/tibebe-zewdu/original/b3.jpg";
 
 export const firm = {
   name: "TBeST Law LLP",
@@ -128,6 +134,14 @@ export type TeamMember = {
   /** Full biography, mirroring the firm's team page. */
   bio: string;
   credentials: readonly string[];
+  /** Languages the member practises in. Optional; omitted where not supplied. */
+  languages?: readonly string[];
+  /**
+   * Selected matters, grouped by the practice they belong to. Optional: only
+   * the members whose full CV the firm has supplied carry one, and the detail
+   * page renders nothing at all when it is absent.
+   */
+  experience?: readonly { area: string; items: readonly string[] }[];
 };
 
 export const team: readonly TeamMember[] = [
@@ -310,10 +324,73 @@ export const team: readonly TeamMember[] = [
     cardAlt: bezawitYirgaNewAlt,
     photo: bezawitYirgaNew,
     clip: "/new/bezawit-yirga/compressed/p3_01349762.webm",
-    focus: [],
-    strapline: "Senior Associate at TBeST Law.",
-    bio: "",
-    credentials: [],
+    focus: [
+      "Non-Profit Organizations",
+      "Employment and Corporate Immigration",
+      "Data Protection and Privacy",
+      "Corporate",
+    ],
+    strapline:
+      "Counsel to non-profits, embassies and international organizations on employment, corporate immigration, data protection and corporate matters.",
+    bio: "Bezawit is a Senior Associate at TBeST Law, practicing across civil society and non-profit law, employment and corporate immigration, data protection and privacy, and general corporate matters. She graduated with great distinction from Jimma University School of Law. Before joining TBeST Law she spent two and a half years at Mehrteab & Getu Advocates, working in the firm's NGO, employment and corporate immigration practices.",
+    credentials: [
+      "LL.B, Jimma University School of Law, with Great Distinction (2019)",
+    ],
+    languages: ["English", "Amharic"],
+    experience: [
+      {
+        area: "Non-profit organizations",
+        items: [
+          "Advised foreign-based NGOs and religious associations on various matters related to Ethiopia's civil societies law.",
+          "Assisted non-profits, including Resolve to Save Lives and Last Mile Health, with registration.",
+          "Advised a Canadian non-profit on the dissolution and winding-up of its Ethiopian country office.",
+          "Advised an Israeli non-profit on compliance with Ethiopian NGO laws.",
+          "Assisted a UK-based non-profit in drafting a framework agreement.",
+          "Prepared compliance legal memoranda for international non-profits.",
+          "Prepared legal health check calendars for non-profit clients, to ensure ongoing regulatory compliance.",
+        ],
+      },
+      {
+        area: "Employment and corporate immigration",
+        items: [
+          "Drafted and reviewed employment contracts, staff handbooks and HR policies for embassies, diplomatic missions and international non-profits.",
+          "Advised a U.S. government agency on workforce reduction under Ethiopian labor laws.",
+          "Delivered training sessions on Ethiopian employment law, covering its key features and workplace sexual harassment.",
+          "Provided employment law assistance to a beverage company and various non-profits, including drafting HR manuals, contracts, consulting agreements, and warning and termination letters.",
+          "Conducted due diligence for companies in the poultry, horticulture and beverage sectors on employment, health, safety and environmental law.",
+          "Advised international organizations on employment matters including employee benefits, insurance, remote work, COVID-19 vaccination requirements and confidentiality agreements.",
+          "Provided immigration law advice to international and multinational organizations operating in Ethiopia.",
+          "Delivered training to a leading accounting firm on immigration matters, including visa and permit applications, trends and challenges.",
+          "Assisted clients with new, renewed and cancelled work and residence permits, visa applications, and registration on the immigration portal.",
+          "Represented a client before Immigration and Citizenship Services to resolve complex matters, including lifting an entry ban.",
+          "Provided legal guidance on hiring expatriates in Ethiopia, including on quota limitations and compliance.",
+        ],
+      },
+      {
+        area: "Corporate",
+        items: [
+          "Assisted companies from Mauritius, Côte d'Ivoire, Morocco, China and the Netherlands with registering project offices, subsidiaries and commercial representative offices in Ethiopia.",
+          "Processed one of the first business conversions from a sole proprietorship to a private limited company.",
+          "Advised a Chinese telecom company on Ethiopia's electronic signature laws as they apply to commercial contracts.",
+          "Drafted a software transfer agreement and a loan agreement for a tech startup studio.",
+          "Reviewed corporate contracts and service agreements for compliance with Ethiopian law.",
+          "Investigated an insurance claim for a major Ethiopian company, including site visits and reporting.",
+        ],
+      },
+      {
+        area: "Data protection and privacy",
+        items: [
+          "Advised international and multinational companies on data protection and privacy laws, including reviewing agreements, internal policies and risk assessments.",
+          "Conducted legal research and prepared a report on Ethiopia's cybersecurity and data protection laws.",
+          "Drafted data protection agreements and executive summaries for companies on Ethiopia's data privacy regulations.",
+          "Advised a leading biotech and pharmaceutical company on its employee share purchase plan under Ethiopian data protection and employment law.",
+          "Prepared legal updates on the recently issued Personal Data Protection Law.",
+          "Provided market entry due diligence on data protection and privacy matters.",
+          "Conducted privacy risk assessments for new segments of a technology company.",
+          "Reviewed parental consent notices and data handling policies of a religious institution.",
+        ],
+      },
+    ],
   },
   {
     slug: "rekebki-tsega-abebe",

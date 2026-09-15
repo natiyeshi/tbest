@@ -4,7 +4,7 @@ import Link from "next/link";
 import { DiamondFieldReveal } from "@/components/diamond-field-reveal";
 import { SocialIcon } from "@/components/social-icon";
 import { firm } from "@/lib/content";
-import { practices } from "@/lib/practices";
+import type { PracticeLink } from "@/lib/practices";
 import { sectors } from "@/lib/sectors";
 
 const explore = [
@@ -14,7 +14,8 @@ const explore = [
   { label: "Contact", href: "/contact-us" },
 ];
 
-export function SiteFooter() {
+/** `practices` comes from the (site) layout, which reads them live. */
+export function SiteFooter({ practices }: { practices: PracticeLink[] }) {
   return (
     <footer
       data-nav-tone="dark"

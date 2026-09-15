@@ -49,3 +49,23 @@ const insightTopicImages: Record<string, StaticImageData> = {
 export function getInsightImage(topic: string): StaticImageData {
   return insightTopicImages[topic] ?? fallbackImage;
 }
+
+/**
+ * What to actually hand `next/image` for a record that may carry an uploaded
+ * override. A blank `image` — every bundled record, and any row the admin left
+ * empty — falls back to the bundled art, which keeps the static import (and so
+ * the blur placeholder and the build-time sizing) wherever nothing was chosen.
+ */
+export function insightArt(insight: {
+  topic: string;
+  image?: string;
+}): string | StaticImageData {
+  return insight.image ? insight.image : getInsightImage(insight.topic);
+}
+
+export function practiceArt(practice: {
+  slug: string;
+  image?: string;
+}): string | StaticImageData {
+  return practice.image ? practice.image : getPracticeImage(practice.slug);
+}

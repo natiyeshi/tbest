@@ -1,26 +1,30 @@
 import type { StaticImageData } from "next/image";
 
-import teamSix from "../../public/new/team/b24.webp";
-import partnersStanding from "../../public/new/team/b26.webp";
-import partnersSeated from "../../public/new/team/b28.webp";
-import teamWomen from "../../public/new/team/b30.webp";
-import teamFull from "../../public/new/team/b32.webp";
-import teamStanding from "../../public/new/team/b33.webp";
-import teamMen from "../../public/new/team/b34.webp";
-import pairSeniorPortrait from "../../public/new/team/b35.webp";
-import pairPortrait from "../../public/new/team/b36.webp";
-import pairSmilingPortrait from "../../public/new/team/b37.webp";
-import teamFour from "../../public/new/team/b39.webp";
-import boardroomFull from "../../public/new/team/b41.webp";
-import boardroomCandid from "../../public/new/team/b45.webp";
-import boardroomPartners from "../../public/new/team/b49.webp";
-import boardroomThree from "../../public/new/team/b50.webp";
+import teamSix from "../../public/new/team/original/b24.jpg";
+import partnersStanding from "../../public/new/team/original/b26.jpg";
+import partnersSeated from "../../public/new/team/original/b28.jpg";
+import teamWomen from "../../public/new/team/original/b30.jpg";
+import teamFull from "../../public/new/team/original/b32.jpg";
+import teamStanding from "../../public/new/team/original/b33.jpg";
+import teamMen from "../../public/new/team/original/b34.jpg";
+import pairSeniorPortrait from "../../public/new/team/original/b35.jpg";
+import pairPortrait from "../../public/new/team/original/b36.jpg";
+import pairSmilingPortrait from "../../public/new/team/original/b37.jpg";
+import teamFour from "../../public/new/team/original/b39.jpg";
+import boardroomFull from "../../public/new/team/original/b41.jpg";
+import boardroomCandid from "../../public/new/team/original/b45.jpg";
+import boardroomPartners from "../../public/new/team/original/b49.jpg";
+import boardroomThree from "../../public/new/team/original/b50.jpg";
 
 /**
- * The firm's own photography, from the 2026 shoot in `public/new/team`. Two
- * families: studio group portraits against the light wall, and the boardroom at
- * Africa Avenue. Named here rather than imported by filename across the site,
- * so the alt text travels with the picture and a swap is one edit.
+ * The firm's own photography, from the 2026 shoot. Two families: studio group
+ * portraits against the light wall, and the boardroom at Africa Avenue. Named
+ * here rather than imported by filename across the site, so the alt text
+ * travels with the picture and a swap is one edit.
+ *
+ * These point at the untouched camera files in `public/new/team/original`, and
+ * the image optimiser is off site-wide (next.config.ts), so the browser gets
+ * each photograph byte for byte.
  */
 export type FirmPhoto = {
   src: StaticImageData;

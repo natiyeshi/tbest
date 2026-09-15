@@ -11,26 +11,18 @@ import {
   getInsightImage,
   getPracticeImage,
 } from "@/lib/practice-images";
-import { practices } from "@/lib/practices";
+import type { PracticeLink } from "@/lib/practices";
 import { sectors } from "@/lib/sectors";
 
 type MegaItem = {
   label: string;
   href: string;
   blurb: string;
-  image: StaticImageData;
+  /** A bundled import, or a URL for artwork uploaded through the admin. */
+  image: string | StaticImageData;
 };
 
-const menus = {
-  practices: {
-    href: "/practices",
-    items: practices.map((p) => ({
-      label: p.name,
-      href: `/practices/${p.slug}`,
-      blurb: p.blurb,
-      image: getPracticeImage(p.slug),
-    })),
-  },
+const staticMenus = {
   sectors: {
     href: "/sectors",
     // Sectors have no dedicated images yet, so they share the Addis skyline.
@@ -72,7 +64,22 @@ type Tone = "dark" | "light" | "copper";
 /** Where the header samples the section tone — just below its own bar. */
 const SAMPLE_LINE = 72;
 
-export function SiteHeader() {
+export function SiteHeader({ practices }: { practices: PracticeLink[] }) {
+  // The practice menu is the only one that changes without a deploy, so it is
+  // built from the list the layout read rather than from a bundled constant.
+  const menus = {
+    practices: {
+      href: "/practices",
+      items: practices.map((p) => ({
+        label: p.name,
+        href: `/practices/${p.slug}`,
+        blurb: p.blurb,
+        image: p.image || getPracticeImage(p.slug),
+      })),
+    },
+    ...staticMenus,
+  };
+
   // The bar recolours to match the section beneath it: sections mark themselves
   // with data-nav-tone, and the header samples whichever one crosses its base.
   const [tone, setTone] = useState<Tone>("dark");

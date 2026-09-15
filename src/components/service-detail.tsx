@@ -27,7 +27,8 @@ export function ServiceDetail({
   servicesLead: string;
   services: readonly string[];
   statute?: string;
-  image?: StaticImageData;
+  /** A bundled import, or a URL for artwork uploaded through the admin. */
+  image?: string | StaticImageData;
   crumbLabel: string;
   crumbHref: string;
   related: {

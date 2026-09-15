@@ -8,7 +8,8 @@ export type ServiceItem = {
   name: string;
   blurb: string;
   /** Optional card image. When absent, the card falls back to a text layout. */
-  image?: StaticImageData;
+  /** A bundled import, or a URL for artwork uploaded through the admin. */
+  image?: string | StaticImageData;
   /** Optional line icon, shown in a tinted header when there is no image. */
   icon?: ReactNode;
 };

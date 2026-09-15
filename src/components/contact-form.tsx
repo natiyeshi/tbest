@@ -4,43 +4,61 @@ import { useState } from "react";
 
 import { firm } from "@/lib/content";
 
+type Status =
+  | { kind: "idle" }
+  | { kind: "sending" }
+  | { kind: "sent" }
+  | { kind: "error"; message: string };
+
 /**
- * A message form with no backend: on submit it composes a mailto: link and
- * hands it to the visitor's own mail client. Nothing is sent automatically —
- * the visitor reviews and sends the email themselves. If the firm later adds a
- * mail API, swap the handler for a fetch to that endpoint.
+ * The firm's enquiry form. A message is posted to /api/contact and lands in the
+ * dashboard's inbox; nothing is emailed, so the address below stays on show as
+ * the way through if the request fails.
  */
 export function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>({ kind: "idle" });
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") || "");
-    const email = String(data.get("email") || "");
-    const subject = String(data.get("subject") || "Website enquiry");
-    const message = String(data.get("message") || "");
+    const formEl = event.currentTarget;
+    const data = new FormData(formEl);
 
-    const body = [
-      message,
-      "",
-      "—",
-      name && `From: ${name}`,
-      email && `Email: ${email}`,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    const href = `mailto:${firm.email}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = href;
-    setSent(true);
+    setStatus({ kind: "sending" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: String(data.get("name") || ""),
+          email: String(data.get("email") || ""),
+          phone: String(data.get("phone") || ""),
+          subject: String(data.get("subject") || ""),
+          message: String(data.get("message") || ""),
+          _contactWebsite: String(data.get("_contactWebsite") || ""),
+        }),
+      });
+      const body = (await res.json().catch(() => ({}))) as { error?: string };
+      if (!res.ok) {
+        setStatus({
+          kind: "error",
+          message: body.error || "We could not send that. Please try again.",
+        });
+        return;
+      }
+      formEl.reset();
+      setStatus({ kind: "sent" });
+    } catch {
+      setStatus({
+        kind: "error",
+        message: "We could not reach the server. Please try again.",
+      });
+    }
   }
 
   const field =
     "mt-2 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-brand-900 outline-none transition-colors placeholder:text-muted/60 focus:border-copper-400 focus:ring-2 focus:ring-copper-400/20";
+
+  const sending = status.kind === "sending";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -55,28 +73,52 @@ export function ContactForm() {
         </label>
       </div>
 
-      <label className="block">
-        <span className="text-sm font-medium text-brand-800">Subject</span>
-        <input name="subject" type="text" className={field} />
-      </label>
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <label className="block">
+          <span className="text-sm font-medium text-brand-800">
+            Phone <span className="font-normal text-muted">(optional)</span>
+          </span>
+          <input name="phone" type="tel" autoComplete="tel" className={field} />
+        </label>
+        <label className="block">
+          <span className="text-sm font-medium text-brand-800">Subject</span>
+          <input name="subject" type="text" className={field} />
+        </label>
+      </div>
 
       <label className="block">
         <span className="text-sm font-medium text-brand-800">Message</span>
         <textarea name="message" required rows={5} className={`${field} resize-y`} />
       </label>
 
+      {/* Honeypot: off-screen and out of the tab order, so only a bot fills it.
+          A submission that does is accepted and discarded server-side. */}
+      <div aria-hidden="true" className="absolute left-[-9999px] h-px w-px overflow-hidden">
+        <label>
+          Website
+          <input name="_contactWebsite" type="text" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
       <button
         type="submit"
-        className="inline-flex items-center gap-3 rounded-full bg-copper-500 px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-copper-600"
+        disabled={sending}
+        className="inline-flex items-center gap-3 rounded-full bg-copper-500 px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-copper-600 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Send us a message
-        <span aria-hidden="true">&rarr;</span>
+        {sending ? "Sending…" : "Send us a message"}
+        {!sending && <span aria-hidden="true">&rarr;</span>}
       </button>
 
-      {sent && (
+      {status.kind === "sent" && (
         <p role="status" className="text-sm text-muted">
-          Your email client should have opened with the message ready to send.
-          If it did not, write to us directly at{" "}
+          Thank you — your message has reached us and one of our lawyers will be
+          in touch.
+        </p>
+      )}
+
+      {status.kind === "error" && (
+        <p role="alert" className="text-sm text-red-700">
+          {status.message} You can also write to us directly at{" "}
           <a href={`mailto:${firm.email}`} className="font-semibold text-copper-600">
             {firm.email}
           </a>

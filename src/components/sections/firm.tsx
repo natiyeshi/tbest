@@ -51,7 +51,17 @@ export function Firm() {
                 fill
                 placeholder="blur"
                 quality={90}
-                sizes="(min-width: 1024px) 36rem, 90vw"
+                // Deliberately over-declared: the frame is 36rem, but asking
+                // for 60 lands on the 1080px rung of the candidate ladder
+                // instead of the 640px one. This is a wide scene — ten faces
+                // and the logo on the screen behind them — and at 640px each
+                // face is only a few dozen pixels, so quality 90 mushes them.
+                // Sending more pixels is the only fix that works: at the same
+                // 64 KB, 640px at quality 100 scores SSIM 0.961 against the
+                // source, while 1080px at 90 scores 0.995. The browser
+                // downscales the extra pixels away and the averaging takes
+                // the compression noise with it.
+                sizes="(min-width: 1024px) 60rem, 120vw"
                 className="object-cover"
               />
             </div>
@@ -64,7 +74,12 @@ export function Firm() {
                   fill
                   placeholder="blur"
                   quality={90}
-                  sizes="(min-width: 1024px) 16rem, 40vw"
+                  // Over-declared for the same reason as the photograph
+                  // behind it. The inset frame is 16rem, and the candidate
+                  // ladder has a rung at 256px — an honest 16rem lands exactly
+                  // there and ships a 7 KB file for a 234px frame. Asking for
+                  // 24 lands on 384 instead.
+                  sizes="(min-width: 1024px) 24rem, 60vw"
                   className="object-cover object-top"
                 />
               </div>

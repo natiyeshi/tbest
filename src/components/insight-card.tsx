@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { formatInsightDate, type Insight } from "@/lib/insights";
-import { getInsightImage } from "@/lib/practice-images";
+import { formatInsightDate } from "@/lib/insights";
+import { insightArt } from "@/lib/practice-images";
+import type { PublicInsight } from "@/lib/public-content";
 
 /** Card used across the Updates index and the per-stream listing pages. */
-export function InsightCard({ insight }: { insight: Insight }) {
+export function InsightCard({ insight }: { insight: PublicInsight }) {
   return (
     <Link
       href={`/updates/${insight.slug}`}
@@ -13,7 +14,7 @@ export function InsightCard({ insight }: { insight: Insight }) {
     >
       <div className="relative h-40 overflow-hidden">
         <Image
-          src={getInsightImage(insight.topic)}
+          src={insightArt(insight)}
           alt=""
           fill
           sizes="(min-width: 640px) 24rem, 90vw"

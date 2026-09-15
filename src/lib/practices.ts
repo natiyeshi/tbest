@@ -15,6 +15,19 @@ export type Practice = {
   services: readonly string[];
 };
 
+/**
+ * What the navigation, the footer and the home page need from a practice:
+ * enough to draw a link or a card, and nothing else. It lives here rather than
+ * in the server-only data layer because client components import the type.
+ */
+export type PracticeLink = {
+  slug: string;
+  name: string;
+  blurb: string;
+  /** A Cloudinary URL when one was uploaded; otherwise blank. */
+  image: string;
+};
+
 export const practices: readonly Practice[] = [
   {
     slug: "investment",

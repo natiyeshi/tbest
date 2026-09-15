@@ -1,10 +1,8 @@
 import { ContactCTA } from "@/components/contact-cta";
 import { InsightCard } from "@/components/insight-card";
 import { PageHero } from "@/components/page-hero";
-import {
-  insightsByCategory,
-  type InsightCategory,
-} from "@/lib/insights";
+import type { InsightCategory } from "@/lib/insights";
+import { getPublicInsightsByCategory } from "@/lib/public-content";
 
 const COPY: Record<InsightCategory, { title: string; lead: string }> = {
   "Legal Updates": {
@@ -21,10 +19,16 @@ const COPY: Record<InsightCategory, { title: string; lead: string }> = {
   },
 };
 
-/** Shared listing for each Updates stream: hero, then a grid of every article
- *  in the category, most recent first. */
-export function UpdatesListing({ category }: { category: InsightCategory }) {
-  const items = insightsByCategory(category);
+/**
+ * Shared listing for each Updates stream: hero, then a grid of every article in
+ * the category, most recent first.
+ */
+export async function UpdatesListing({
+  category,
+}: {
+  category: InsightCategory;
+}) {
+  const items = await getPublicInsightsByCategory(category);
   const copy = COPY[category];
 
   return (
