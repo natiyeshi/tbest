@@ -11,13 +11,12 @@ import {
   Modal,
   PageHeader,
   dangerBtn,
-  formatDate,
   inputCls,
   primaryBtn,
   quietBtn,
   secondaryBtn,
-  slugify,
 } from "@/components/admin/ui";
+import { formatDate, slugify } from "@/lib/format";
 import {
   createInsight,
   deleteInsight,

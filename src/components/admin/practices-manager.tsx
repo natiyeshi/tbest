@@ -16,8 +16,8 @@ import {
   primaryBtn,
   quietBtn,
   secondaryBtn,
-  slugify,
 } from "@/components/admin/ui";
+import { slugify } from "@/lib/format";
 import {
   createPractice,
   deletePractice,

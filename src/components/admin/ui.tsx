@@ -167,27 +167,6 @@ export function ErrorBanner({ message }: { message: string | null }) {
   );
 }
 
-export function formatDate(iso: string) {
-  const d = new Date(iso.length === 10 ? `${iso}T00:00:00Z` : iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-}
-
-/** "A Long Title Here" -> "a-long-title-here". */
-export function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/[\s-]+/g, "-")
-    .slice(0, 120);
-}
-
 function CloseIcon() {
   return (
     <svg

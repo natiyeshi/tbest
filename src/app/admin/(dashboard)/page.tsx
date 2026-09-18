@@ -1,7 +1,8 @@
 import Link from "next/link";
 
-import { PageHeader, formatDate } from "@/components/admin/ui";
+import { PageHeader } from "@/components/admin/ui";
 import { getDashboardStats, type DashboardStats } from "@/lib/admin/data";
+import { formatDate } from "@/lib/format";
 import { requireAdmin } from "@/lib/admin/session";
 
 function Stat({
