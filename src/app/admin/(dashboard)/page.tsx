@@ -22,7 +22,7 @@ function Stat({
       className="group rounded-2xl border border-line bg-white p-6 transition-colors hover:border-copper-300"
     >
       <p className="eyebrow text-copper-500">{label}</p>
-      <p className="mt-3 font-display text-3xl text-brand-900">{value}</p>
+      <p className="mt-3 font-display text-3xl text-navy-800">{value}</p>
       {note && <p className="mt-1 text-xs text-muted">{note}</p>}
     </Link>
   );
@@ -88,7 +88,7 @@ export default async function AdminOverviewPage() {
           </div>
 
           <section className="mt-10">
-            <h2 className="font-display text-xl tracking-tight text-brand-900">
+            <h2 className="font-display text-xl tracking-tight text-navy-800">
               Latest enquiries
             </h2>
             {stats.recent.length === 0 ? (
@@ -110,7 +110,7 @@ export default async function AdminOverviewPage() {
                         }`}
                       />
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-brand-900">
+                        <p className="truncate text-sm font-medium text-navy-800">
                           {c.name}
                           <span className="font-normal text-muted">
                             {" "}

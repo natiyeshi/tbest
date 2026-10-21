@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { ContactCTA } from "@/components/contact-cta";
+import { ClosingCTA } from "@/components/contact-cta";
 import { InsightCard } from "@/components/insight-card";
+import { InsightThumb } from "@/components/insight-thumb";
 import { PageHero } from "@/components/page-hero";
 import { formatInsightDate, insightCategories } from "@/lib/insights";
-import { insightArt } from "@/lib/practice-images";
 import { getPublicInsights } from "@/lib/public-content";
 import { pageMetadata } from "@/lib/seo";
+
+import addisSkyline from "../../../../public/hero/addis-skyline.jpg";
 
 // Served from the cache and refreshed on a schedule; an admin edit also
 // revalidates this path straight away.
@@ -17,7 +19,7 @@ export const revalidate = 300;
 export const metadata: Metadata = pageMetadata({
   title: "Updates — TBeST Law LLP",
   description:
-    "Legal updates, blog commentary and firm news from TBeST Law LLP on the regulatory developments affecting business in Ethiopia.",
+    "Legal updates and blogs from TBeST Law LLP on the regulatory developments affecting business in Ethiopia.",
   path: "/updates",
   image: "/og/updates.jpg",
 });
@@ -43,9 +45,10 @@ export default async function UpdatesPage() {
     <>
       <PageHero
         eyebrow="Updates"
-        title="Legal updates, commentary and news."
-        lead="We publish regular legal updates, longer-form commentary and firm news so clients stay ahead of Ethiopia's fast-moving regulatory landscape."
+        title="Legal updates and blogs."
+        lead="We publish regular legal updates and blogs so clients stay ahead of Ethiopia's fast-moving regulatory landscape."
         crumbs={[{ label: "Home", href: "/" }, { label: "Updates" }]}
+        image={addisSkyline}
       />
 
       {/* Featured — most recent across every stream. Guarded, because the
@@ -57,16 +60,23 @@ export default async function UpdatesPage() {
               href={`/updates/${lead.slug}`}
               className="group grid overflow-hidden rounded-2xl border border-line bg-bone lg:grid-cols-2"
             >
-              <div className="relative min-h-64 overflow-hidden">
-                <Image
-                  src={insightArt(lead)}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 40rem, 100vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              {lead.image ? (
+                <div className="relative min-h-64 overflow-hidden">
+                  <Image
+                    src={lead.image}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 40rem, 100vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+              ) : (
+                <InsightThumb
+                  topic={lead.topic}
+                  category={lead.category}
+                  className="min-h-64"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-950/40 to-transparent" />
-              </div>
+              )}
               <div className="p-8 lg:p-12">
                 <div className="flex flex-wrap items-center gap-3 text-xs">
                   <span className="rounded-full bg-copper-500/10 px-3 py-1 font-semibold text-copper-600">
@@ -79,14 +89,14 @@ export default async function UpdatesPage() {
                     Latest &middot; {lead.category}
                   </span>
                 </div>
-                <h2 className="mt-5 font-display text-2xl leading-tight tracking-tight text-brand-900 transition-colors group-hover:text-copper-600 sm:text-3xl">
+                <h2 className="mt-5 font-display text-2xl leading-tight tracking-tight text-navy-800 transition-colors group-hover:text-copper-600 sm:text-3xl">
                   {lead.title}
                 </h2>
                 <p className="mt-5 text-base leading-relaxed text-muted">
                   {lead.summary}
                 </p>
                 {lead.authors.length > 0 && (
-                  <p className="mt-6 text-sm text-brand-800">
+                  <p className="mt-6 text-sm text-navy-700">
                     By {lead.authors.join(" and ")}
                   </p>
                 )}
@@ -110,7 +120,7 @@ export default async function UpdatesPage() {
                 data-reveal
               >
                 <div>
-                  <h2 className="font-display text-2xl tracking-tight text-brand-900 sm:text-3xl">
+                  <h2 className="font-display text-2xl tracking-tight text-navy-800 sm:text-3xl">
                     {category}
                   </h2>
                   <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
@@ -141,10 +151,7 @@ export default async function UpdatesPage() {
 
       <div className="pb-16 lg:pb-20" />
 
-      <ContactCTA
-        heading="Have a question about a recent change?"
-        body="If a regulatory development affects your business, tell us about it and we will help you navigate what it means in practice."
-      />
+      <ClosingCTA text="If a regulatory development affects your business, tell us about it and we will help you navigate what it means in practice." />
     </>
   );
 }

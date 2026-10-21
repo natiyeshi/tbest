@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 
 import { LogoMark } from "@/components/brand";
+import { ContactCTA } from "@/components/contact-cta";
 import { ContactForm } from "@/components/contact-form";
 import { PageHero } from "@/components/page-hero";
 import { SocialIcon } from "@/components/social-icon";
 import { firm } from "@/lib/content";
-import { firmPhotos } from "@/lib/firm-images";
 import { pageMetadata } from "@/lib/seo";
+
+import addisSkyline from "../../../../public/hero/addis-skyline.jpg";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact — TBeST Law LLP",
@@ -26,9 +28,7 @@ export default function ContactPage() {
         title="Tell us what you are working on."
         lead="Send a short note describing the matter and we will come back to you with the right partner for it."
         crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
-        image={firmPhotos.boardroomPartners.src}
-        // The partners sit low in this frame, so hold the bottom of it.
-        imagePosition="center 62%"
+        image={addisSkyline}
       />
 
       <section className="bg-white py-20 lg:py-28">
@@ -36,7 +36,7 @@ export default function ContactPage() {
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
             {/* Details */}
             <div className="lg:col-span-5" data-reveal>
-              <div className="relative overflow-hidden rounded-2xl bg-brand-900 p-8 lg:p-10">
+              <div className="relative overflow-hidden rounded-2xl bg-navy-800 p-8 lg:p-10">
                 <LogoMark
                   ringWidth={4}
                   className="pointer-events-none absolute -right-16 -top-12 h-56 w-56 text-copper-500/[0.10]"
@@ -61,11 +61,11 @@ export default function ContactPage() {
                         <a
                           key={phone}
                           href={`tel:${phone.replace(/\s/g, "")}`}
-                          className="block text-sm text-brand-100/80 transition-colors hover:text-white"
+                          className="block text-sm text-navy-100/80 transition-colors hover:text-white"
                         >
                           {phone}
                           {index === 0 && (
-                            <span className="ml-2 text-xs text-brand-100/50">Office</span>
+                            <span className="ml-2 text-xs text-navy-100/50">Office</span>
                           )}
                         </a>
                       ))}
@@ -82,7 +82,7 @@ export default function ContactPage() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={item.label}
-                          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-brand-100/80 transition-colors hover:border-copper-300/60 hover:bg-white/5 hover:text-white"
+                          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-navy-100/80 transition-colors hover:border-copper-300/60 hover:bg-white/5 hover:text-white"
                         >
                           <SocialIcon label={item.label} className="h-4 w-4" />
                         </a>
@@ -98,7 +98,7 @@ export default function ContactPage() {
                   <div key={office.line1} className="rounded-2xl border border-line bg-bone p-6">
                     <p className="eyebrow text-copper-500">{office.label}</p>
                     <address className="mt-3 space-y-1 text-sm not-italic leading-relaxed text-muted">
-                      <p className="text-brand-900">{office.line1}</p>
+                      <p className="text-navy-800">{office.line1}</p>
                       <p>{office.landmark}</p>
                       <p>{office.street}</p>
                       <p>{office.country}</p>
@@ -115,7 +115,7 @@ export default function ContactPage() {
               style={{ "--reveal-delay": "120ms" } as React.CSSProperties}
             >
               <div className="rounded-2xl border border-line p-8 lg:p-10">
-                <h2 className="font-display text-2xl tracking-tight text-brand-900 sm:text-3xl">
+                <h2 className="font-display text-2xl tracking-tight text-navy-800 sm:text-3xl">
                   Send us a message
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted">
@@ -150,6 +150,9 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* The one place the partner band now appears, at the firm's request. */}
+      <ContactCTA />
     </>
   );
 }

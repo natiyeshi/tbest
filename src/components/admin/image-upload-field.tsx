@@ -62,7 +62,7 @@ export function ImageUploadField({
               type="button"
               onClick={() => inputRef.current?.click()}
               disabled={uploading}
-              className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-brand-800 transition-colors hover:bg-bone disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-navy-700 transition-colors hover:bg-bone disabled:opacity-60"
             >
               {uploading
                 ? "Uploading…"
@@ -91,7 +91,7 @@ export function ImageUploadField({
             value={value}
             onChange={(e) => onChange(e.target.value.trim())}
             placeholder="…or paste an image URL"
-            className="w-full rounded-lg border border-line bg-white px-3 py-2 text-xs text-brand-900 outline-none transition-colors placeholder:text-muted/60 focus:border-copper-400"
+            className="w-full rounded-lg border border-line bg-white px-3 py-2 text-xs text-navy-800 outline-none transition-colors placeholder:text-muted/60 focus:border-copper-400"
           />
           {err && <p className="text-xs text-red-600">{err}</p>}
         </div>

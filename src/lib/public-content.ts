@@ -152,7 +152,6 @@ function toPublicPractice(doc: WithId<Document>): PublicPractice | null {
     slug: str(d.slug),
     name: str(d.name),
     blurb: str(d.blurb),
-    statute: str(d.statute),
     intro: strList(d.intro),
     servicesLead: str(d.servicesLead),
     services: strList(d.services),

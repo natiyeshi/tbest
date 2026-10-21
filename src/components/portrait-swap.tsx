@@ -2,7 +2,7 @@ import type { StaticImageData } from "next/image";
 import Image from "next/image";
 
 /**
- * A member's photograph that cross-fades to a second cut-out on hover. Purely
+ * A member's photograph that cross-fades to a second frame on hover. Purely
  * CSS-driven: the parent must carry the `group` class (and position the box),
  * and this renders the two stacked images filling it. When no alternate is
  * supplied it renders the single portrait unchanged.
@@ -30,6 +30,15 @@ export function PortraitSwap({
       ? "object-cover object-top"
       : "object-contain object-bottom";
 
+  // A cut-out has transparent edges, so the frame underneath has to fade out or
+  // the two silhouettes overlap through each other mid-swap. A photograph that
+  // fills the box does not: the incoming frame hides it completely, so holding
+  // it at full opacity is both simpler and correct. Fading both at once left a
+  // window in the middle of the hover where neither was solid and whatever the
+  // card had behind it showed through.
+  const swaps = Boolean(portraitAlt);
+  const base = swaps && fit === "contain" ? "group-hover:opacity-0" : "";
+
   return (
     <>
       <Image
@@ -37,9 +46,7 @@ export function PortraitSwap({
         alt={alt}
         placeholder="blur"
         sizes={sizes}
-        className={`absolute inset-0 h-full w-full ${frame} transition-opacity duration-500 ease-out ${
-          portraitAlt ? "group-hover:opacity-0" : ""
-        }`}
+        className={`absolute inset-0 h-full w-full ${frame} transition-opacity duration-500 ease-out ${base}`}
       />
       {portraitAlt && (
         <Image

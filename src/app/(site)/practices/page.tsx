@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 
-import { ContactCTA } from "@/components/contact-cta";
+import { ClosingCTA } from "@/components/contact-cta";
 import { PageHero } from "@/components/page-hero";
 import { ServiceGrid } from "@/components/service-links";
 import { practiceArt } from "@/lib/practice-images";
 import { getPublicPractices } from "@/lib/public-content";
 import { pageMetadata } from "@/lib/seo";
+
+import addisSkyline from "../../../../public/hero/addis-skyline.jpg";
 
 // Served from the cache and refreshed on a schedule; an admin edit also
 // revalidates this path straight away.
@@ -35,6 +37,7 @@ export default async function PracticesPage() {
         title="Various practice areas, advised end to end."
         lead="Quality legal advice and transactional services, delivered by lawyers who work across these areas rather than in isolation from one another."
         crumbs={[{ label: "Home", href: "/" }, { label: "Practice Areas" }]}
+        image={addisSkyline}
       />
 
       <section className="bg-white py-16 lg:py-20">
@@ -43,7 +46,7 @@ export default async function PracticesPage() {
         </div>
       </section>
 
-      <ContactCTA />
+      <ClosingCTA />
     </>
   );
 }

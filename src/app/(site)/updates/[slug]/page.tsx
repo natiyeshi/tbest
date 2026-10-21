@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { ContactCTA } from "@/components/contact-cta";
+import { ClosingCTA } from "@/components/contact-cta";
+import { InsightThumb } from "@/components/insight-thumb";
 import { JsonLd, articleJsonLd, breadcrumbJsonLd } from "@/components/json-ld";
 import { formatInsightDate, type InsightCategory } from "@/lib/insights";
-import { insightArt } from "@/lib/practice-images";
 import { pageMetadata } from "@/lib/seo";
 import { ogImage } from "@/lib/og-image";
 import {
@@ -73,30 +72,23 @@ export default async function UpdatePage({
           { name: insight.title, path: `/updates/${insight.slug}` },
         ])}
       />
-      {/* Article header, over the topic image */}
+      {/* Article header. Flat brand colour rather than a photograph under a
+          scrim: the firm asked for photographs to come off the updates, and
+          the listing card this page opens from is a colour panel too. */}
       <header
         data-nav-tone="dark"
-        className="relative isolate overflow-hidden bg-brand-900 pt-32 pb-16 lg:pt-40 lg:pb-20"
+        className="relative isolate overflow-hidden bg-navy-800 pt-32 pb-16 lg:pt-40 lg:pb-20"
       >
-        <Image
-          src={insightArt(insight)}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-25"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-950/80 to-brand-950/60" />
 
         <div className="relative mx-auto max-w-3xl px-6 lg:px-10" data-reveal>
           <nav aria-label="Breadcrumb" className="mb-7">
-            <ol className="flex flex-wrap items-center gap-2 text-xs text-brand-100/55">
+            <ol className="flex flex-wrap items-center gap-2 text-xs text-navy-100/55">
               <li>
                 <Link href="/" className="transition-colors hover:text-copper-300">
                   Home
                 </Link>
               </li>
-              <li aria-hidden="true" className="text-brand-100/30">
+              <li aria-hidden="true" className="text-navy-100/30">
                 /
               </li>
               <li>
@@ -107,13 +99,13 @@ export default async function UpdatePage({
                   Updates
                 </Link>
               </li>
-              <li aria-hidden="true" className="text-brand-100/30">
+              <li aria-hidden="true" className="text-navy-100/30">
                 /
               </li>
               <li>
                 <Link
                   href={CATEGORY_HREF[insight.category]}
-                  className="text-brand-100/80 transition-colors hover:text-copper-300"
+                  className="text-navy-100/80 transition-colors hover:text-copper-300"
                 >
                   {insight.category}
                 </Link>
@@ -125,7 +117,7 @@ export default async function UpdatePage({
             <span className="rounded-full bg-copper-500/20 px-3 py-1 font-semibold text-copper-200">
               {insight.topic}
             </span>
-            <time dateTime={insight.date} className="text-brand-100/70">
+            <time dateTime={insight.date} className="text-navy-100/70">
               {formatInsightDate(insight.date)}
             </time>
           </div>
@@ -135,7 +127,7 @@ export default async function UpdatePage({
           </h1>
 
           {insight.authors.length > 0 && (
-            <p className="mt-6 text-sm text-brand-100/75">
+            <p className="mt-6 text-sm text-navy-100/75">
               By {insight.authors.join(" and ")}
             </p>
           )}
@@ -146,7 +138,7 @@ export default async function UpdatePage({
       <article className="bg-white py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-6 lg:px-10">
           <p
-            className="font-display text-xl leading-relaxed text-brand-900 sm:text-2xl"
+            className="font-display text-xl leading-relaxed text-navy-800 sm:text-2xl"
             data-reveal
           >
             {insight.summary}
@@ -162,7 +154,7 @@ export default async function UpdatePage({
                   return (
                     <h2
                       key={i}
-                      className="pt-2 font-display text-xl tracking-tight text-brand-900 sm:text-2xl"
+                      className="pt-2 font-display text-xl tracking-tight text-navy-800 sm:text-2xl"
                     >
                       {block.text}
                     </h2>
@@ -172,7 +164,7 @@ export default async function UpdatePage({
                   return (
                     <ul
                       key={i}
-                      className="ml-1 list-disc space-y-2 pl-5 text-[1.0625rem] leading-relaxed text-brand-800 marker:text-copper-500"
+                      className="ml-1 list-disc space-y-2 pl-5 text-[1.0625rem] leading-relaxed text-navy-700 marker:text-copper-500"
                     >
                       {block.items.map((item, j) => (
                         <li key={j}>{item}</li>
@@ -184,7 +176,7 @@ export default async function UpdatePage({
                   return (
                     <blockquote
                       key={i}
-                      className="border-l-2 border-copper-400 pl-5 font-display text-lg italic leading-relaxed text-brand-900"
+                      className="border-l-2 border-copper-400 pl-5 font-display text-lg italic leading-relaxed text-navy-800"
                     >
                       {block.text}
                     </blockquote>
@@ -193,7 +185,7 @@ export default async function UpdatePage({
                 return (
                   <p
                     key={i}
-                    className="text-[1.0625rem] leading-relaxed text-brand-800"
+                    className="text-[1.0625rem] leading-relaxed text-navy-700"
                   >
                     {block.text}
                   </p>
@@ -219,7 +211,7 @@ export default async function UpdatePage({
         <section className="border-t border-line bg-bone py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
             <h2
-              className="font-display text-2xl tracking-tight text-brand-900 sm:text-3xl"
+              className="font-display text-2xl tracking-tight text-navy-800 sm:text-3xl"
               data-reveal
             >
               More updates
@@ -232,23 +224,18 @@ export default async function UpdatePage({
                 <li key={item.slug} className="h-full">
                   <Link
                     href={`/updates/${item.slug}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition-shadow duration-300 hover:shadow-xl hover:shadow-brand-900/[0.06]"
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition-shadow duration-300 hover:shadow-xl hover:shadow-navy-800/[0.06]"
                   >
-                    <div className="relative h-36 overflow-hidden">
-                      <Image
-                        src={insightArt(item)}
-                        alt=""
-                        fill
-                        sizes="(min-width: 640px) 22rem, 90vw"
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-950/45 to-transparent" />
-                    </div>
+                    <InsightThumb
+                      topic={item.topic}
+                      category={item.category}
+                      className="h-36 shrink-0"
+                    />
                     <div className="flex flex-1 flex-col p-6">
                       <time dateTime={item.date} className="text-xs text-muted">
                         {formatInsightDate(item.date)}
                       </time>
-                      <h3 className="mt-2 font-display text-base leading-snug text-brand-900 transition-colors group-hover:text-copper-600">
+                      <h3 className="mt-2 font-display text-base leading-snug text-navy-800 transition-colors group-hover:text-copper-600">
                         {item.title}
                       </h3>
                     </div>
@@ -260,10 +247,7 @@ export default async function UpdatePage({
         </section>
       )}
 
-      <ContactCTA
-        heading="Have a question about a recent change?"
-        body="If a regulatory development affects your business, tell us about it and we will help you navigate what it means in practice."
-      />
+      <ClosingCTA text="If a regulatory development affects your business, tell us about it and we will help you navigate what it means in practice." />
     </>
   );
 }

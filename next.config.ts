@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // The content database is a single remote server, not a pooled regional
+  // service, and the build generates dozens of pages against it on 7 parallel
+  // workers. Next's default 60s-per-page budget is tuned for a local or
+  // pooled DB; against this one, build concurrency alone is enough to push an
+  // individual page's round trip past it, failing the build on pages that
+  // have nothing wrong with them. 180s gives a slow page room to finish
+  // rather than being retried (and occasionally still failing after 3 tries).
+  staticPageGenerationTimeout: 180,
   images: {
     // Two dials decide how a photograph looks, and conflating them is what
     // wrecked the portraits before: how many pixels it is served at, and how

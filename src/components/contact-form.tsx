@@ -56,7 +56,7 @@ export function ContactForm() {
   }
 
   const field =
-    "mt-2 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-brand-900 outline-none transition-colors placeholder:text-muted/60 focus:border-copper-400 focus:ring-2 focus:ring-copper-400/20";
+    "mt-2 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-navy-800 outline-none transition-colors placeholder:text-muted/60 focus:border-copper-400 focus:ring-2 focus:ring-copper-400/20";
 
   const sending = status.kind === "sending";
 
@@ -64,30 +64,30 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <label className="block">
-          <span className="text-sm font-medium text-brand-800">Your name</span>
+          <span className="text-sm font-medium text-navy-700">Your name</span>
           <input name="name" type="text" required autoComplete="name" className={field} />
         </label>
         <label className="block">
-          <span className="text-sm font-medium text-brand-800">Email</span>
+          <span className="text-sm font-medium text-navy-700">Email</span>
           <input name="email" type="email" required autoComplete="email" className={field} />
         </label>
       </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <label className="block">
-          <span className="text-sm font-medium text-brand-800">
+          <span className="text-sm font-medium text-navy-700">
             Phone <span className="font-normal text-muted">(optional)</span>
           </span>
           <input name="phone" type="tel" autoComplete="tel" className={field} />
         </label>
         <label className="block">
-          <span className="text-sm font-medium text-brand-800">Subject</span>
+          <span className="text-sm font-medium text-navy-700">Subject</span>
           <input name="subject" type="text" className={field} />
         </label>
       </div>
 
       <label className="block">
-        <span className="text-sm font-medium text-brand-800">Message</span>
+        <span className="text-sm font-medium text-navy-700">Message</span>
         <textarea name="message" required rows={5} className={`${field} resize-y`} />
       </label>
 

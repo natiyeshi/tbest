@@ -1,31 +1,31 @@
 import type { StaticImageData } from "next/image";
 
 import addisSkyline from "../../public/hero/addis-skyline.jpg";
-import competition from "../../public/hero/competition.jpg";
-import corporate from "../../public/hero/corporate-new.jpg";
-import dispute from "../../public/hero/resolutions.jpg";
-import employment from "../../public/hero/empoyment.jpg";
-import insolvency from "../../public/hero/Insolvency.jpg";
-import ip from "../../public/hero/intellectual-Property.jpg";
-import investment from "../../public/hero/investment.jpg";
-import tax from "../../public/hero/tax.jpg";
+import addisTowerStreet from "../../public/hero/addis-tower-street.jpg";
 
 /**
- * One photograph per practice area, keyed by slug. Used by the hero backdrop
- * and the practice cards so a practice always shows the same image.
+ * One photograph per practice area, keyed by slug. Used by the practice cards,
+ * the nav mega-menu preview and the home page carousel, so a practice always
+ * shows the same image.
  *
- * Mergers and Acquisitions has no dedicated image yet, so it falls back to the
- * Addis skyline via `getPracticeImage`.
+ * This used to carry a different stock photo per practice — coins in a glass
+ * for Investment, a falling chess king for Competition, a calculator for Tax,
+ * an empty cubicle farm for Employment, a glowing brain on a circuit board for
+ * Intellectual Property, a handwritten note reading "Resolutions" nailed to a
+ * tree for Dispute Resolution. Bought for small card thumbnails, they read as
+ * generic — even a little odd — at any size, and badly so once a practice's
+ * backdrop was asked to carry a full-bleed hero. They are gone rather than
+ * patched: every practice without its own photography now falls through to
+ * one real photograph of Addis Ababa, which is the honest option when the
+ * alternative is stock art that has nothing to do with the firm.
+ *
+ * Only Corporate carries its own image — the Commercial Bank tower from
+ * street level, swapped in at the firm's request (it used to be the
+ * ethio-telecom headquarters seen from above). Mergers and Acquisitions and
+ * Capital Markets have no dedicated image either and share the same fallback.
  */
 const practiceImages: Record<string, StaticImageData> = {
-  investment,
-  corporate,
-  "employment-and-corporate-immigration": employment,
-  "intellectual-property-and-technology": ip,
-  competition,
-  tax,
-  "insolvency-and-corporate-restructuring": insolvency,
-  "dispute-resolution": dispute,
+  corporate: addisTowerStreet,
 };
 
 export const fallbackImage = addisSkyline;
@@ -34,33 +34,16 @@ export function getPracticeImage(slug: string): StaticImageData {
   return practiceImages[slug] ?? fallbackImage;
 }
 
-/** Maps an insight topic to the closest practice image, for card/detail art. */
-const insightTopicImages: Record<string, StaticImageData> = {
-  Investment: investment,
-  Tax: tax,
-  Immigration: employment,
-  "Data Protection": ip,
-  Corporate: corporate,
-  Insolvency: insolvency,
-  Competition: competition,
-  Firm: addisSkyline,
-};
-
-export function getInsightImage(topic: string): StaticImageData {
-  return insightTopicImages[topic] ?? fallbackImage;
-}
-
 /**
- * What to actually hand `next/image` for a record that may carry an uploaded
- * override. A blank `image` — every bundled record, and any row the admin left
- * empty — falls back to the bundled art, which keeps the static import (and so
- * the blur placeholder and the build-time sizing) wherever nothing was chosen.
+ * Art for an insight's share card (scripts/og-manifest.mts — these are raster
+ * JPGs for link previews, so they need a real photograph, unlike the on-site
+ * cards which draw a flat colour panel via InsightThumb). This used to map
+ * each topic to the same per-practice stock photos removed above, including
+ * the Commercial Bank/ethio-telecom photo the firm asked off the Corporate
+ * page entirely — so every topic now gets the same honest fallback instead.
  */
-export function insightArt(insight: {
-  topic: string;
-  image?: string;
-}): string | StaticImageData {
-  return insight.image ? insight.image : getInsightImage(insight.topic);
+export function getInsightImage(): StaticImageData {
+  return fallbackImage;
 }
 
 export function practiceArt(practice: {

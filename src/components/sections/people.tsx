@@ -1,11 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 
-import { BrandArrow, MarkPattern } from "@/components/brand";
+import { BrandArrow } from "@/components/brand";
 import { PortraitSwap } from "@/components/portrait-swap";
 import { TypeIn } from "@/components/type-in";
-import { lawyers, partners } from "@/lib/content";
-import { firmPhotos } from "@/lib/firm-images";
+import { partners } from "@/lib/content";
 
 export function People() {
   return (
@@ -23,7 +21,7 @@ export function People() {
             <TypeIn
               as="h2"
               text="The people who helped write the rules."
-              className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl"
+              className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-navy-800 sm:text-5xl"
             />
             <p className="mt-7 text-base leading-relaxed text-muted">
               Our partners have practised in academia, in government and in the
@@ -48,14 +46,7 @@ export function People() {
           {partners.map((member) => (
             <li key={member.slug}>
               <Link href={`/team/${member.slug}`} className="group block">
-                <div className="relative mx-auto aspect-4/5 w-full max-w-[280px] overflow-hidden rounded-2xl">
-                  <div className="absolute inset-x-0 bottom-0 top-14 bg-gradient-to-b from-neutral-100 to-neutral-200">
-                    <MarkPattern
-                      id={`people-pattern-${member.slug}`}
-                      size={80}
-                      className="absolute inset-0 h-full w-full text-brand-900/[0.06]"
-                    />
-                  </div>
+                <div className="relative mx-auto aspect-4/5 w-full max-w-[280px] overflow-hidden rounded-2xl bg-neutral-100">
                   <PortraitSwap
                     portrait={member.card}
                     portraitAlt={member.cardAlt}
@@ -66,7 +57,7 @@ export function People() {
                 </div>
                 <div className="mt-6 text-center">
                   <p className="eyebrow text-copper-500">{member.role}</p>
-                  <p className="mt-2 font-display text-2xl text-brand-900 transition-colors group-hover:text-copper-600">
+                  <p className="mt-2 font-display text-2xl text-navy-800 transition-colors group-hover:text-copper-600">
                     {member.name}
                   </p>
                   <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-muted">
@@ -78,42 +69,6 @@ export function People() {
           ))}
         </ul>
 
-        {/* The partners lead, but the practice is the whole room — so the
-            section closes on everyone, and doubles as the way through to the
-            full team. */}
-        <Link
-          href="/team"
-          className="group relative mt-16 block overflow-hidden rounded-3xl bg-brand-950"
-          data-reveal
-        >
-          <div className="relative aspect-[16/10] w-full sm:aspect-[16/7]">
-            <Image
-              src={firmPhotos.teamFull.src}
-              alt={firmPhotos.teamFull.alt}
-              fill
-              placeholder="blur"
-              quality={90}
-              sizes="(min-width: 1280px) 76rem, 100vw"
-              className="object-cover object-[center_28%] transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-            />
-          </div>
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-brand-950/25 to-transparent"
-          />
-          <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-5 p-7 sm:p-9 lg:p-10">
-            <div>
-              <p className="eyebrow text-copper-300">The whole team</p>
-              <p className="mt-2 font-display text-2xl leading-tight text-white sm:text-3xl">
-                {lawyers.length} lawyers, one practice.
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-3 rounded-full border border-white/40 px-6 py-2.5 text-sm font-semibold text-white transition-colors group-hover:border-white group-hover:bg-white/10">
-              Meet the team
-              <BrandArrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </span>
-          </div>
-        </Link>
       </div>
     </section>
   );

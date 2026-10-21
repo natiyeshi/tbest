@@ -3,9 +3,13 @@ import { notFound } from "next/navigation";
 
 import { ServiceDetail } from "@/components/service-detail";
 import { practiceArt } from "@/lib/practice-images";
+import { contactsForPractice } from "@/lib/practice-team";
 import { getPublicPractices } from "@/lib/public-content";
 import { pageMetadata } from "@/lib/seo";
 import { ogImage } from "@/lib/og-image";
+
+import addisSkyline from "../../../../../public/hero/addis-skyline.jpg";
+import addisTowerStreet from "../../../../../public/hero/addis-tower-street.jpg";
 
 // Built ahead of time for every practice that exists at deploy; one added
 // afterwards renders on its first request and is then cached.
@@ -51,6 +55,20 @@ export default async function PracticePage({
     image: practiceArt(item),
   }));
 
+  // Corporate keeps its own photograph (the Commercial Bank tower, swapped in
+  // at the firm's request). Every other practice has no dedicated photography
+  // of its own, so the masthead alternates between the two real Addis photos
+  // the firm does have, rather than repeating one of them across all nine —
+  // the ghost numeral alongside still tells each page apart from its
+  // neighbours even where the backdrop is shared.
+  const practiceIndex = practices.findIndex((item) => item.slug === practice.slug);
+  const heroImage =
+    practice.slug === "corporate"
+      ? addisTowerStreet
+      : practiceIndex % 2 === 0
+        ? addisSkyline
+        : addisTowerStreet;
+
   return (
     <ServiceDetail
       kind="Practice Area"
@@ -58,8 +76,10 @@ export default async function PracticePage({
       intro={practice.intro}
       servicesLead={practice.servicesLead}
       services={practice.services}
-      statute={practice.statute}
-      image={practiceArt(practice)}
+      contacts={contactsForPractice(practice.slug)}
+      image={heroImage}
+      index={practiceIndex + 1}
+      count={practices.length}
       crumbLabel="Practice Areas"
       crumbHref="/practices"
       related={{

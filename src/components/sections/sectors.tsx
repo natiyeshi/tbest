@@ -75,7 +75,7 @@ export function Sectors() {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-brand-950/30"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-navy-900/30"
         />
 
         <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:px-10">

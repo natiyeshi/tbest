@@ -183,8 +183,8 @@ export function InsightsManager({ insights }: { insights: InsightDoc[] }) {
             onClick={() => setFilter(c)}
             className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
               filter === c
-                ? "bg-brand-900 text-white"
-                : "border border-line text-brand-800 hover:bg-bone"
+                ? "bg-navy-800 text-white"
+                : "border border-line text-navy-700 hover:bg-bone"
             }`}
           >
             {c}
@@ -232,12 +232,12 @@ export function InsightsManager({ insights }: { insights: InsightDoc[] }) {
                     {formatDate(item.date)}
                   </span>
                   {item.published === false && (
-                    <span className="rounded-full bg-brand-900 px-2 py-0.5 text-[0.625rem] text-white">
+                    <span className="rounded-full bg-navy-800 px-2 py-0.5 text-[0.625rem] text-white">
                       Draft
                     </span>
                   )}
                 </p>
-                <p className="mt-1 truncate font-display text-base text-brand-900">
+                <p className="mt-1 truncate font-display text-base text-navy-800">
                   {item.title}
                 </p>
                 <p className="mt-0.5 truncate text-sm text-muted">
@@ -382,7 +382,7 @@ export function InsightsManager({ insights }: { insights: InsightDoc[] }) {
               />
             </Field>
 
-            <label className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-brand-800">
+            <label className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-navy-700">
               <input
                 type="checkbox"
                 checked={form.published}

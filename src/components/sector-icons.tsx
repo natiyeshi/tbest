@@ -33,11 +33,16 @@ const icons: Record<string, ReactNode> = {
       <path d="M30 11h4v4" />
     </svg>
   ),
-  // Mining and Energy — a mountain range and a spark
+  // Mining and Energy — a pickaxe over the seam, and the spark it is dug for.
+  // Redrawn at the firm's request to read closer to the mark on their previous
+  // site; see the note at the foot of this file.
   "mining-and-energy": (
     <svg {...iconProps}>
-      <path d="M4 30l9-14 6 8 4-5 8 11" />
-      <path d="M23 4l-3 6h4l-3 6" />
+      <path d="M4 34l10-16 5 7 4-5 6 8" />
+      <path d="M35 34H4" />
+      <path d="M14 16 26 4" />
+      <path d="M20 4c3.5 0 6.5 1.4 8.5 3.5M20 10.5c2 0 3.7.8 5 2" />
+      <path d="M30.5 14.5 27 21h4l-3.5 6" />
     </svg>
   ),
   // NGOs — a heart cradled in a hand
@@ -56,11 +61,11 @@ const icons: Record<string, ReactNode> = {
       <path d="M20 24h4v3" />
     </svg>
   ),
-  // Aviation — an aircraft in flight
+  // Aviation — an aircraft seen from above, wings swept, with its vapour
+  // trail. Redrawn at the firm's request; see the note at the foot of the file.
   aviation: (
     <svg {...iconProps}>
-      <path d="M6 22l28-9-8 22-6-8-8 6v-8Z" />
-      <path d="M20 19l6 8" />
+      <path d="M20 4c1.8 0 3 2.2 3 5v6l11 7v3.5l-11-3.5v6l3.5 3V34L20 31.5 13.5 34v-3l3.5-3v-6L6 25.5V22l11-7V9c0-2.8 1.2-5 3-5Z" />
     </svg>
   ),
   // Hospitality and Leisure — a concierge bell
@@ -72,12 +77,16 @@ const icons: Record<string, ReactNode> = {
     </svg>
   ),
   // Telecom and Information Technology — a broadcast antenna
+  // Telecom and Information Technology — a transmission mast, broadcasting.
+  // Redrawn at the firm's request; see the note at the foot of the file.
   "telecom-and-information-technology": (
     <svg {...iconProps}>
-      <circle cx="20" cy="17" r="3" />
-      <path d="M20 20v14" />
-      <path d="M13 24l7-4 7 4" />
-      <path d="M11 12a12 12 0 0 0 0 10M29 12a12 12 0 0 1 0 10" />
+      <circle cx="20" cy="12" r="2.5" />
+      <path d="M16.5 34 20 15l3.5 19" />
+      <path d="M17.6 27.5h4.8" />
+      <path d="M13.5 34h13" />
+      <path d="M13.6 5.6a9 9 0 0 0 0 12.8M26.4 5.6a9 9 0 0 1 0 12.8" />
+      <path d="M8.6 2.2a16 16 0 0 0 0 19.6M31.4 2.2a16 16 0 0 1 0 19.6" />
     </svg>
   ),
   // Media, Sports and Entertainment — a play button
@@ -92,3 +101,19 @@ const icons: Record<string, ReactNode> = {
 export function getSectorIcon(slug: string): ReactNode {
   return icons[slug] ?? null;
 }
+
+/*
+ * A note on the three redrawn marks above.
+ *
+ * The firm asked whether the vectors for telecom, mining and aviation could
+ * come across from tbestlaw.com. They cannot be lifted: the old site draws
+ * those marks from Divi's icon font — they are glyphs in a licensed typeface
+ * (U+F5B0, U+F4C0 and U+F4BE), not SVG files sitting in the media library, so
+ * there is nothing to copy over and no licence to copy it under.
+ *
+ * These three are therefore redrawn here in the site's own line style, on the
+ * same 40x40 artboard at the same 1.6 stroke as the other six, to read as
+ * closely as possible to what the old marks showed. If the firm's designer has
+ * the original artwork as .svg or .ai, dropping the paths into these three
+ * entries is the only change needed.
+ */

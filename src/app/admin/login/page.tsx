@@ -23,11 +23,11 @@ export default async function AdminLoginPage() {
   }
 
   return (
-    <div className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-brand-950 px-4 py-16">
+    <div className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-navy-900 px-4 py-16">
       <DiamondFieldReveal
         id="admin-login-diamond"
         size={78}
-        className="text-brand-200/[0.05]"
+        className="text-navy-200/[0.05]"
       />
       <div
         aria-hidden="true"
@@ -46,10 +46,10 @@ export default async function AdminLoginPage() {
           />
           <p className="eyebrow mt-5 text-copper-300">Admin</p>
         </div>
-        <div className="rounded-2xl bg-white p-8 shadow-2xl shadow-brand-950/40 sm:p-10">
+        <div className="rounded-2xl bg-white p-8 shadow-2xl shadow-navy-900/40 sm:p-10">
           <LoginForm />
         </div>
-        <p className="mt-6 text-center text-xs text-brand-100/40">
+        <p className="mt-6 text-center text-xs text-navy-100/40">
           Restricted area.
         </p>
       </div>

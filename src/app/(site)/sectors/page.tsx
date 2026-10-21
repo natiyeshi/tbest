@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 
-import { ContactCTA } from "@/components/contact-cta";
+import { ClosingCTA } from "@/components/contact-cta";
 import { PageHero } from "@/components/page-hero";
 import { getSectorIcon } from "@/components/sector-icons";
 import { ServiceGrid } from "@/components/service-links";
 import { sectors } from "@/lib/sectors";
 import { pageMetadata } from "@/lib/seo";
+
+import addisTowerStreet from "../../../../public/hero/addis-tower-street.jpg";
 
 export const metadata: Metadata = pageMetadata({
   title: "Sectors — TBeST Law LLP",
@@ -27,9 +29,10 @@ export default function SectorsPage() {
     <>
       <PageHero
         eyebrow="Sectors"
-        title="Where we work."
+        title="Sectors We Work In"
         lead="Sector knowledge shapes the advice. These are the industries our partners return to most often."
         crumbs={[{ label: "Home", href: "/" }, { label: "Sectors" }]}
+        image={addisTowerStreet}
       />
 
       <section className="bg-white py-16 lg:py-20">
@@ -38,7 +41,7 @@ export default function SectorsPage() {
         </div>
       </section>
 
-      <ContactCTA />
+      <ClosingCTA />
     </>
   );
 }

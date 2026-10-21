@@ -130,13 +130,13 @@ function SceneBackdrop() {
     <>
       {/* Deepest panel — a soft slab well behind everything */}
       <div
-        className="absolute inset-[4%] rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-brand-600/25 to-brand-900/10 backdrop-blur-sm"
+        className="absolute inset-[4%] rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-brand-600/25 to-navy-800/10 backdrop-blur-sm"
         style={layer(-110)}
       />
 
       {/* Mid panel — the lit face the motif sits on */}
       <div
-        className="absolute inset-[15%] rounded-[2rem] border border-copper-300/30 bg-gradient-to-br from-brand-500/40 via-brand-700/30 to-brand-900/20 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.65)] backdrop-blur-md"
+        className="absolute inset-[15%] rounded-[2rem] border border-copper-300/30 bg-gradient-to-br from-brand-500/40 via-brand-700/30 to-navy-800/20 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.65)] backdrop-blur-md"
         style={layer(-30)}
       />
 

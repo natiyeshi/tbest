@@ -1,8 +1,10 @@
 import type { StaticImageData } from "next/image";
 
 import { PageHero } from "@/components/page-hero";
-import { ContactCTA } from "@/components/contact-cta";
+import { ClosingCTA } from "@/components/contact-cta";
+import { ServiceContacts } from "@/components/service-contacts";
 import { RelatedRail, type ServiceItem } from "@/components/service-links";
+import type { TeamMember } from "@/lib/content";
 
 /**
  * Shared detail layout for a practice area or an industry sector. Both content
@@ -15,8 +17,10 @@ export function ServiceDetail({
   intro,
   servicesLead,
   services,
-  statute,
+  contacts,
   image,
+  index,
+  count,
   crumbLabel,
   crumbHref,
   related,
@@ -26,9 +30,13 @@ export function ServiceDetail({
   intro: readonly string[];
   servicesLead: string;
   services: readonly string[];
-  statute?: string;
+  /** The lawyers to contact about this practice area or sector. */
+  contacts: readonly TeamMember[];
   /** A bundled import, or a URL for artwork uploaded through the admin. */
   image?: string | StaticImageData;
+  /** This item's position in its set, e.g. the 3rd of 10 practice areas. */
+  index?: number;
+  count?: number;
   crumbLabel: string;
   crumbHref: string;
   related: {
@@ -47,6 +55,8 @@ export function ServiceDetail({
         title={name}
         lead={intro[0]}
         image={image}
+        index={index}
+        count={count}
         crumbs={[
           { label: "Home", href: "/" },
           { label: crumbLabel, href: crumbHref },
@@ -56,26 +66,21 @@ export function ServiceDetail({
 
       <section className="bg-white py-20 lg:py-28">
         <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-12 lg:gap-16 lg:px-10">
-          {/* Left rail */}
-          <aside className="lg:col-span-4">
+          {/* Contact rail — on the right from lg, as the firm asked, and under
+              the content on a narrow screen. */}
+          <aside className="lg:col-span-4 lg:order-2">
             <div className="lg:sticky lg:top-28">
               <p className="eyebrow text-copper-500">{kind}</p>
-              <p className="mt-4 font-display text-2xl leading-snug text-brand-900">
+              <p className="mt-4 font-display text-2xl leading-snug text-navy-800">
                 {name}
               </p>
-              {statute && (
-                <div className="mt-6 border-l-2 border-copper-400/70 pl-4">
-                  <p className="eyebrow text-brand-500">Worked under</p>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {statute}
-                  </p>
-                </div>
-              )}
+
+              <ServiceContacts kind={kind} name={name} members={contacts} />
             </div>
           </aside>
 
           {/* Body */}
-          <div className="lg:col-span-8" data-reveal>
+          <div className="lg:col-span-8 lg:order-1" data-reveal>
             <div className="space-y-6">
               {intro.map((paragraph) => (
                 <p
@@ -88,7 +93,7 @@ export function ServiceDetail({
             </div>
 
             <div className="mt-12 border-t border-line pt-10">
-              <h2 className="font-display text-2xl tracking-tight text-brand-900">
+              <h2 className="font-display text-2xl tracking-tight text-navy-800">
                 {servicesLead}
               </h2>
               <ul className="mt-7 grid grid-cols-1 gap-x-10 gap-y-1 sm:grid-cols-2">
@@ -101,7 +106,7 @@ export function ServiceDetail({
                       aria-hidden="true"
                       className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-copper-400"
                     />
-                    <span className="text-[0.9375rem] leading-relaxed text-brand-800">
+                    <span className="text-[0.9375rem] leading-relaxed text-navy-700">
                       {service}
                     </span>
                   </li>
@@ -120,7 +125,7 @@ export function ServiceDetail({
         seeAllHref={related.seeAllHref}
       />
 
-      <ContactCTA />
+      <ClosingCTA />
     </>
   );
 }

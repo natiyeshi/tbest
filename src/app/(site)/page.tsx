@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 
-import { ContactCTA } from "@/components/contact-cta";
+import { ClosingCTA } from "@/components/contact-cta";
 import { Firm } from "@/components/sections/firm";
 import { Hero } from "@/components/sections/hero";
 import { People } from "@/components/sections/people";
 import { Practices } from "@/components/sections/practices";
 import { Recognition } from "@/components/sections/recognition";
+import { RecognitionStrip } from "@/components/recognition-strip";
 import { Sectors } from "@/components/sections/sectors";
 import { Testimonials } from "@/components/sections/testimonials";
 import { JsonLd, organizationJsonLd } from "@/components/json-ld";
@@ -31,13 +32,14 @@ export default async function Home() {
     <>
       <JsonLd data={organizationJsonLd()} />
       <Hero practices={practices} />
+      <RecognitionStrip />
       <Firm />
       <Practices practices={practices} />
       <Sectors />
       <People />
       <Recognition />
       <Testimonials />
-      <ContactCTA />
+      <ClosingCTA />
     </>
   );
 }

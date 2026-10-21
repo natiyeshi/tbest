@@ -26,17 +26,25 @@ import rekebkiPortraitAlt from "../../public/team/rekebki-tsega-abebe/rekebki-2-
 import sisayPortraitAlt from "../../public/team/sisay-habte/sis-final-nobg.png";
 import tibebePortraitAlt from "../../public/team/tibebe-zewdu/5837172361756004268-nobg.png";
 
-// The newer shoot: full photographs, background intact, one straight-on frame
-// and one three-quarter frame each. These carry the cards and the detail pages;
-// the cut-outs above are kept for the standing lineup on the team page, which
-// needs transparency. Everyone on the roster was photographed in this round.
+// The newer shoot: full photographs, one straight-on frame and one
+// three-quarter frame each. These carry the cards and the detail pages; the
+// cut-outs above are kept for the standing lineup on the team page, which needs
+// transparency. Everyone on the roster was photographed in this round.
 //
-// These are the untouched camera files, and the image optimiser is switched
-// off site-wide (next.config.ts), so the browser receives them byte for byte.
-// They were previously served from a `compressed/` folder at 1200x1800 and
-// about 0.15 bits per pixel — a fortieth of the data — which is what made
-// every portrait look soft.
-import benyamNew from "../../public/new/benyam-tafesse/original/b6.jpg";
+// These are the untouched camera files. The firm asked for darker backgrounds
+// behind the team profile pictures, and recolouring the studio wall in these
+// frames was tried and rejected: it left a pale fringe in some people's hair,
+// and it put lawyers who are wearing black against a dark ground, which lost
+// the silhouette. A darker background here needs a re-shoot, or a backdrop
+// choice made with the photographer — not a repaint of these files.
+//
+// The optimiser resizes each of these per device from the file behind it and
+// compresses at quality 90 (next.config.ts). What matters for how sharp a
+// portrait looks is that the file behind it is full-size: these were once
+// served from a `compressed/` folder at 1200x1800 and about 0.15 bits per
+// pixel — a fortieth of the data — which is what made every portrait soft.
+// TEST: background-cleaned frame under trial; the original is original/b6.jpg.
+import benyamNew from "../../public/new/benyam-tafesse/compressed/test-gray.jpg";
 import benyamNewAlt from "../../public/new/benyam-tafesse/original/b8.jpg";
 import beroketNew from "../../public/new/bereket-teshome/original/bb18.jpg";
 import beroketNewAlt from "../../public/new/bereket-teshome/original/b19.jpg";
@@ -46,16 +54,19 @@ import bezawitYirgaNew from "../../public/new/bezawit-yirga/original/b12.jpg";
 import bezawitYirgaNewAlt from "../../public/new/bezawit-yirga/original/b13.jpg";
 import etsehiwotNew from "../../public/new/etsehiwot-samson/original/b52.jpg";
 import etsehiwotNewAlt from "../../public/new/etsehiwot-samson/original/b53.jpg";
-import helinaNew from "../../public/new/helina-bezabih/original/b14.jpg";
-import helinaNewAlt from "../../public/new/helina-bezabih/original/b15.jpg";
+// Helina and Sisay: the firm picked which frame leads. b15 and b5 are the ones
+// they chose to show before the cursor reaches the card, so they are the
+// primary here and the other frame is the hover.
+import helinaNew from "../../public/new/helina-bezabih/original/b15.jpg";
+import helinaNewAlt from "../../public/new/helina-bezabih/original/b14.jpg";
 import lindaNew from "../../public/new/linda-tedla/original/b16.jpg";
 import lindaNewAlt from "../../public/new/linda-tedla/original/b17.jpg";
 import menenNew from "../../public/new/menen-mitiku/original/b20.jpg";
 import menenNewAlt from "../../public/new/menen-mitiku/original/b21.jpg";
 import rekebkiNew from "../../public/new/rekebki-tsega-abebe/original/bb10.jpg";
 import rekebkiNewAlt from "../../public/new/rekebki-tsega-abebe/original/b11.jpg";
-import sisayNew from "../../public/new/sisay-habte/original/b1.jpg";
-import sisayNewAlt from "../../public/new/sisay-habte/original/b5.jpg";
+import sisayNew from "../../public/new/sisay-habte/original/b5.jpg";
+import sisayNewAlt from "../../public/new/sisay-habte/original/b1.jpg";
 import tibebeNew from "../../public/new/tibebe-zewdu/original/bb2.jpg";
 import tibebeNewAlt from "../../public/new/tibebe-zewdu/original/b3.jpg";
 
@@ -101,12 +112,6 @@ export const navigation = [
   { label: "Contact", href: "/contact-us" },
 ] as const;
 
-export const stats = [
-  { value: "50+", label: "Years of collective partner experience" },
-  { value: "09", label: "Corporate and commercial practice areas" },
-  { value: "09", label: "Industry sectors served" },
-] as const;
-
 export type TeamMember = {
   slug: string;
   name: string;
@@ -129,6 +134,14 @@ export type TeamMember = {
   clip?: string;
   /** Pipe-separated focus tags, as shown on the firm's team page. */
   focus: readonly string[];
+  /**
+   * Direct contact details, shown beside the practice areas this person covers
+   * and on their own profile. Both optional: until the firm supplies a direct
+   * line or address for someone, their card falls back to the firm's own
+   * switchboard and inbox rather than inventing one.
+   */
+  email?: string;
+  phone?: string;
   /** One-line description used in compact contexts. */
   strapline: string;
   /** Full biography, mirroring the firm's team page. */

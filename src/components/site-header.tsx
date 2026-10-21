@@ -6,11 +6,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { navigation } from "@/lib/content";
-import {
-  fallbackImage,
-  getInsightImage,
-  getPracticeImage,
-} from "@/lib/practice-images";
+import { InsightThumb } from "@/components/insight-thumb";
+import { fallbackImage, getPracticeImage } from "@/lib/practice-images";
 import type { PracticeLink } from "@/lib/practices";
 import { sectors } from "@/lib/sectors";
 
@@ -19,7 +16,9 @@ type MegaItem = {
   href: string;
   blurb: string;
   /** A bundled import, or a URL for artwork uploaded through the admin. */
-  image: string | StaticImageData;
+  image?: string | StaticImageData;
+  /** An insight topic, when the preview is a drawn colour panel instead. */
+  topic?: string;
 };
 
 const staticMenus = {
@@ -33,6 +32,8 @@ const staticMenus = {
       image: fallbackImage,
     })),
   },
+  // The Updates menu shows the same flat colour panels the listings do, rather
+  // than photographs — the firm asked for pictures to come off the updates.
   updates: {
     href: "/updates",
     items: [
@@ -41,19 +42,19 @@ const staticMenus = {
         href: "/updates/legal-updates",
         blurb:
           "Concise notes on the regulatory changes shaping business in Ethiopia.",
-        image: getInsightImage("Tax"),
+        topic: "Tax",
       },
       {
         label: "Blog",
         href: "/updates/blog",
         blurb: "Longer-form commentary and reflections from the firm's lawyers.",
-        image: getInsightImage("Corporate"),
+        topic: "Corporate",
       },
       {
         label: "News",
         href: "/updates/news",
         blurb: "Announcements and milestones from the firm.",
-        image: getInsightImage("Firm"),
+        topic: "Firm",
       },
     ],
   },
@@ -137,18 +138,18 @@ export function SiteHeader({ practices }: { practices: PracticeLink[] }) {
   const barBg = !solid
     ? "border-transparent bg-transparent"
     : effectiveTone === "dark"
-      ? "border-white/10 bg-brand-950/80 backdrop-blur-md"
+      ? "border-white/10 bg-navy-900/80 backdrop-blur-md"
       : effectiveTone === "copper"
         ? "border-copper-400/40 bg-copper-600/90 backdrop-blur-md"
         : "border-line bg-white/90 backdrop-blur-md";
 
   const linkColor = onDark
     ? "text-white/85 hover:text-white"
-    : "text-brand-800 hover:text-copper-600";
+    : "text-navy-700 hover:text-copper-600";
   const activeColor = onDark ? "text-white" : "text-copper-600";
 
   const ctaClass = onDark
-    ? "bg-white text-brand-900 hover:bg-brand-50"
+    ? "bg-white text-navy-800 hover:bg-brand-50"
     : "bg-copper-500 text-white hover:bg-copper-600";
 
   const isActive = (href: string) =>
@@ -251,7 +252,7 @@ export function SiteHeader({ practices }: { practices: PracticeLink[] }) {
           aria-expanded={menuOpen}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           className={`flex h-10 w-10 flex-col items-center justify-center gap-[5px] lg:hidden ${
-            onDark ? "text-white" : "text-brand-800"
+            onDark ? "text-white" : "text-navy-700"
           }`}
         >
           <span className={`block h-px w-6 bg-current transition-transform duration-300 ${menuOpen ? "translate-y-[6px] rotate-45" : ""}`} />
@@ -278,7 +279,7 @@ export function SiteHeader({ practices }: { practices: PracticeLink[] }) {
                   key={item.href}
                   href={item.href}
                   onClick={close}
-                  className="border-b border-line py-4 font-display text-2xl text-brand-800"
+                  className="border-b border-line py-4 font-display text-2xl text-navy-700"
                 >
                   {item.label}
                 </Link>
@@ -312,7 +313,7 @@ function MegaMenu({
 
   return (
     <div className="absolute left-1/2 top-full w-[42rem] max-w-[calc(100vw-2rem)] -translate-x-1/2 pt-3">
-      <div className="grid grid-cols-[1.1fr_1fr] gap-2 overflow-hidden rounded-2xl border border-line bg-white p-2 shadow-2xl shadow-brand-950/15">
+      <div className="grid grid-cols-[1.1fr_1fr] gap-2 overflow-hidden rounded-2xl border border-line bg-white p-2 shadow-2xl shadow-navy-900/15">
         <ul className="flex flex-col">
           {items.map((item, index) => (
             <li key={item.href}>
@@ -324,7 +325,7 @@ function MegaMenu({
                 className={`block rounded-xl px-4 py-2.5 text-sm transition-colors ${
                   index === active
                     ? "bg-bone text-copper-600"
-                    : "text-brand-800 hover:bg-bone"
+                    : "text-navy-700 hover:bg-bone"
                 }`}
               >
                 {item.label}
@@ -336,23 +337,27 @@ function MegaMenu({
         <Link
           href={preview.href}
           onClick={onNavigate}
-          className="group relative flex flex-col overflow-hidden rounded-xl bg-brand-900"
+          className="group relative flex flex-col overflow-hidden rounded-xl bg-navy-800"
         >
-          <div className="relative h-40 overflow-hidden">
-            <Image
-              src={preview.image}
-              alt=""
-              fill
-              sizes="22rem"
-              className="object-cover opacity-70 transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-950/40 to-transparent" />
-          </div>
+          {preview.image ? (
+            <div className="relative h-40 overflow-hidden">
+              <Image
+                src={preview.image}
+                alt=""
+                fill
+                sizes="22rem"
+                className="object-cover opacity-70 transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/40 to-transparent" />
+            </div>
+          ) : (
+            <InsightThumb topic={preview.topic ?? ""} className="h-40" />
+          )}
           <div className="relative -mt-9 flex flex-1 flex-col p-5">
             <p className="font-display text-lg leading-snug text-white">
               {preview.label}
             </p>
-            <p className="mt-2 text-xs leading-relaxed text-brand-100/75">
+            <p className="mt-2 text-xs leading-relaxed text-navy-100/75">
               {preview.blurb}
             </p>
             <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-copper-300">
@@ -381,7 +386,7 @@ function MobileGroup({
   return (
     <div className="border-b border-line">
       <div className="flex items-center justify-between">
-        <Link href={href} onClick={onNavigate} className="py-4 font-display text-2xl text-brand-800">
+        <Link href={href} onClick={onNavigate} className="py-4 font-display text-2xl text-navy-700">
           {label}
         </Link>
         <button

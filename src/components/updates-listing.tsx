@@ -1,8 +1,20 @@
-import { ContactCTA } from "@/components/contact-cta";
+import { ClosingCTA } from "@/components/contact-cta";
 import { InsightCard } from "@/components/insight-card";
 import { PageHero } from "@/components/page-hero";
 import type { InsightCategory } from "@/lib/insights";
 import { getPublicInsightsByCategory } from "@/lib/public-content";
+
+import addisSkyline from "../../public/hero/addis-skyline.jpg";
+import addisTowerStreet from "../../public/hero/addis-tower-street.jpg";
+
+// Alternates between the firm's two real photographs rather than repeating
+// one across all three streams, the same two-photo system used elsewhere on
+// the site until there's dedicated photography to give each stream its own.
+const HERO_IMAGE: Record<InsightCategory, typeof addisSkyline> = {
+  "Legal Updates": addisTowerStreet,
+  Blog: addisSkyline,
+  News: addisTowerStreet,
+};
 
 const COPY: Record<InsightCategory, { title: string; lead: string }> = {
   "Legal Updates": {
@@ -42,6 +54,7 @@ export async function UpdatesListing({
           { label: "Updates", href: "/updates" },
           { label: category },
         ]}
+        image={HERO_IMAGE[category]}
       />
 
       <section className="bg-white py-16 lg:py-20">
@@ -65,10 +78,7 @@ export async function UpdatesListing({
         </div>
       </section>
 
-      <ContactCTA
-        heading="Have a question about a recent change?"
-        body="If a regulatory development affects your business, tell us about it and we will help you navigate what it means in practice."
-      />
+      <ClosingCTA text="If a regulatory development affects your business, tell us about it and we will help you navigate what it means in practice." />
     </>
   );
 }

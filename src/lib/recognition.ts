@@ -1,36 +1,65 @@
 /**
  * Client and market recognition, supplied by the firm. The testimonials are
- * shown on the home and about pages; the directory rankings (Chambers, IFLR1000)
- * are shown in the recognition band and, per partner, on the profile pages.
+ * shown on the home and about pages; the directory rankings (Legal 500,
+ * Chambers, IFLR1000) are shown in the recognition band, in the strip under the
+ * landing hero, and, per partner, on the profile pages.
  */
 
-export type Testimonial = { quote: string };
+export type Testimonial = {
+  quote: string;
+  /**
+   * Which directory the quote came from — "Legal 500", "Chambers and Partners"
+   * or "IFLR1000". The firm asked for every quote to name its source, and a
+   * quote only prints one when it carries one here: an attribution is a claim
+   * about a named publication, so it is never guessed.
+   *
+   * Two of the five were matched against legal500.com/rankings/ranking/
+   * c-ethiopia/leading-firms/240984-tbest-law-llp (checked 2026-10-01) — both
+   * appear there word for word, so they are marked "Legal 500" below.
+   *
+   * The other three do not appear on that page, on TBeST's Chambers and
+   * Partners profile, or on its IFLR1000 listing — IFLR1000's profile carries
+   * no client quotes for this firm at all. They are left unsourced rather than
+   * guessed; ask the firm where they came from.
+   */
+  source?: string;
+};
 
 export const testimonials: readonly Testimonial[] = [
   {
     quote:
       "A dynamic team that is responsive and eager to work on challenging issues.",
+    source: "Legal 500",
   },
   {
     quote:
       "A distinguished legal practice recognised for its strategic insight, sectoral depth, and commitment to client success.",
+    source: "Legal 500",
   },
   {
     quote:
       "What sets TBeST apart is not only the depth of knowledge within the team but also the collaborative, values-driven approach each member brings to their work.",
+    source: "",
   },
   {
     quote:
       "Ability to blend legal excellence with innovation, offering clients not just legal advice, but practical, forward-looking solutions.",
+    source: "",
   },
   {
     quote:
       "The strength of the practice lies in its people — professionals who combine legal expertise with strategic insight and a deep commitment to client service.",
+    source: "",
   },
 ];
 
 export type FirmRanking = {
   source: string;
+  /**
+   * The band or tier the firm holds. May be blank while the firm confirms it —
+   * the card and the strip then show the directory without a badge rather than
+   * printing a ranking nobody has verified.
+   */
   tier: string;
   category: string;
   knownFor?: string;
@@ -47,6 +76,23 @@ export type FirmRanking = {
 };
 
 export const rankings: readonly FirmRanking[] = [
+  {
+    // Added at the firm's request, so that all three directories are featured.
+    // Read from the firm's own public Legal 500 listing (checked 2026-10-01),
+    // the same way the Chambers and IFLR1000 cards below were sourced from
+    // theirs.
+    source: "Legal 500",
+    tier: "Leading Firm",
+    category: "Corporate and Commercial, Tax, M&A — Ethiopia",
+    knownFor:
+      "TBeST Law LLP advises clients across corporate, commercial and tax matters. With particular strength in M&A, debt financing and corporate governance, the firm is led by a capable trio of partners, and has recently expanded into fintech, data protection and public-private partnerships.",
+    // No separate pull-quotes here, unlike the Chambers card below: Legal 500's
+    // page carries only two client quotes, and both are already shown in the
+    // Testimonials section with "Legal 500" under them — repeating them here
+    // would print the same sentence twice on the same page.
+    href: "https://www.legal500.com/rankings/ranking/c-ethiopia/leading-firms/240984-tbest-law-llp",
+    hrefLabel: "View the Legal 500 ranking",
+  },
   {
     source: "Chambers and Partners",
     tier: "Band 3",

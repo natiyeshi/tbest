@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import { LogoMark } from "@/components/brand";
-import { ContactCTA } from "@/components/contact-cta";
+import { ClosingCTA } from "@/components/contact-cta";
 import { PageHero } from "@/components/page-hero";
 import { Recognition } from "@/components/sections/recognition";
 import { Testimonials } from "@/components/sections/testimonials";
-import { stats } from "@/lib/content";
-import { firmPhotos } from "@/lib/firm-images";
 import { pageMetadata } from "@/lib/seo";
+
+import addisTowerStreet from "../../../../public/hero/addis-tower-street.jpg";
 
 export const metadata: Metadata = pageMetadata({
   title: "About — TBeST Law LLP",
@@ -42,7 +41,8 @@ export default function AboutPage() {
         title="A leading full service firm for corporate and commercial work."
         lead="TBeST Law is a leading full service law firm that provides corporate and commercial legal services across a wide range of sectors and practice areas, drawing on years of experience of its partners in the academic and legal services sectors."
         crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
-        image={firmPhotos.boardroomFull.src}
+        image={addisTowerStreet}
+        imagePosition="center 60%"
       />
 
       {/* Positioning + the drafting credential */}
@@ -79,7 +79,7 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:col-span-6">
-              <div className="relative overflow-hidden rounded-2xl bg-brand-900 p-9 lg:p-12">
+              <div className="relative overflow-hidden rounded-2xl bg-navy-800 p-9 lg:p-12">
                 <LogoMark
                   ringWidth={4}
                   className="pointer-events-none absolute -right-12 -bottom-14 h-64 w-64 text-copper-500/15"
@@ -92,7 +92,7 @@ export default function AboutPage() {
                   Commercial Code, and the country&rsquo;s investment and tax
                   laws.
                 </p>
-                <p className="relative mt-6 text-sm leading-relaxed text-brand-100/70">
+                <p className="relative mt-6 text-sm leading-relaxed text-navy-100/70">
                   Our continuous engagement in legal and policy reform gives our
                   lawyers a distinctive insight into the understanding of
                   Ethiopian law — and an uncommon vantage point on the
@@ -102,52 +102,13 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Stats */}
-          <dl
-            className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-line sm:grid-cols-3"
-            data-reveal
-          >
-            {stats.map((stat) => (
-              <div key={stat.label} className="bg-white px-7 py-9">
-                <dt className="font-display text-5xl leading-none text-copper-500">
-                  {stat.value}
-                </dt>
-                <dd className="mt-4 max-w-[16rem] text-sm leading-relaxed text-muted">
-                  {stat.label}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {/* The firm, in one picture — between what we say about ourselves and how
-          we work with clients. */}
-      <section className="bg-white pb-20 lg:pb-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10" data-reveal>
-          <figure className="overflow-hidden rounded-3xl bg-brand-950">
-            <div className="relative aspect-[16/10] w-full sm:aspect-[16/8]">
-              <Image
-                src={firmPhotos.teamFull.src}
-                alt={firmPhotos.teamFull.alt}
-                fill
-                placeholder="blur"
-                quality={90}
-                sizes="(min-width: 1280px) 76rem, 100vw"
-                className="object-cover object-[center_28%]"
-              />
-            </div>
-            <figcaption className="px-7 py-5 text-sm text-brand-100/70 sm:px-9">
-              The lawyers of TBeST Law LLP, Addis Ababa.
-            </figcaption>
-          </figure>
         </div>
       </section>
 
       {/* Pillars */}
       <section className="border-t border-line bg-bone py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10" data-reveal>
-          <h2 className="max-w-2xl font-display text-3xl leading-tight tracking-tight text-brand-900 sm:text-4xl">
+          <h2 className="max-w-2xl font-display text-3xl leading-tight tracking-tight text-navy-800 sm:text-4xl">
             How we work with clients.
           </h2>
           <ul className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-line lg:grid-cols-3">
@@ -156,7 +117,7 @@ export default function AboutPage() {
                 <span className="font-display text-sm text-copper-500">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-5 font-display text-2xl leading-snug text-brand-900">
+                <h3 className="mt-5 font-display text-2xl leading-snug text-navy-800">
                   {pillar.title}
                 </h3>
                 <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted">
@@ -172,7 +133,7 @@ export default function AboutPage() {
 
       <Testimonials />
 
-      <ContactCTA />
+      <ClosingCTA />
     </>
   );
 }

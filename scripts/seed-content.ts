@@ -87,7 +87,6 @@ async function main() {
         slug: practice.slug,
         name: practice.name,
         blurb: practice.blurb,
-        statute: practice.statute,
         intro: [...practice.intro],
         servicesLead: practice.servicesLead,
         services: [...practice.services],

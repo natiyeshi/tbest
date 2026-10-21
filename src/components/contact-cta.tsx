@@ -1,18 +1,18 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { BrandArrow } from "@/components/brand";
 import { TypeIn } from "@/components/type-in";
 import { firm } from "@/lib/content";
-import { firmPhotos } from "@/lib/firm-images";
 
 /**
- * Closing call to action reused at the foot of interior pages.
+ * The firm's closing call to action.
  *
- * It stands on a photograph of the partners rather than a flat copper band: the
- * point of the section is that a person answers, so the section shows them. The
- * copy names the office and the partner hand-off for the same reason — "tell us
- * what you are working on" could have closed anyone's website.
+ * It used to stand on a photograph of the partners under two stacked gradients,
+ * and it ran at the foot of every page on the site. The firm asked for both to
+ * go: the stacked layers made the band read as a dark hole, and repeating the
+ * same photograph on nine pages spent it. So the section is now a plain navy
+ * band — one flat colour, no photograph, no scrim — and it appears once, on the
+ * Contact page. Everywhere else closes on `ClosingCTA` below.
  */
 export function ContactCTA({
   heading = "Start with a partner, not a form.",
@@ -22,36 +22,9 @@ export function ContactCTA({
   body?: string;
 }) {
   return (
-    <section
-      data-nav-tone="dark"
-      className="relative isolate flex min-h-[50svh] items-center overflow-hidden bg-brand-950 py-16 lg:py-20"
-    >
-      <Image
-        src={firmPhotos.partnersStanding.src}
-        alt=""
-        aria-hidden="true"
-        fill
-        placeholder="blur"
-        quality={90}
-        sizes="100vw"
-        className="object-cover"
-        // Held high in the frame: at 30% the band was clipping the tops of
-        // their heads.
-        style={{ objectPosition: "center 20%" }}
-      />
-
-      {/* Left-weighted so the copy holds, opening out across the photograph. */}
+    <section data-nav-tone="dark" className="bg-navy-800 py-16 lg:py-20">
       <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-r from-brand-950/90 via-brand-950/60 to-brand-950/25"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-brand-950/70 via-transparent to-brand-950/40"
-      />
-
-      <div
-        className="relative mx-auto flex w-full max-w-7xl flex-col items-start gap-8 px-6 lg:flex-row lg:items-center lg:justify-between lg:px-10"
+        className="mx-auto flex w-full max-w-7xl flex-col items-start gap-8 px-6 lg:flex-row lg:items-center lg:justify-between lg:px-10"
         data-reveal
       >
         <div className="max-w-2xl">
@@ -64,7 +37,7 @@ export function ContactCTA({
             text={heading}
             className="mt-6 block font-display text-3xl leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl"
           />
-          <p className="mt-5 text-base leading-relaxed text-brand-100/85 sm:text-lg">
+          <p className="mt-5 text-base leading-relaxed text-navy-100/85 sm:text-lg">
             {body}
           </p>
         </div>
@@ -79,11 +52,45 @@ export function ContactCTA({
           </Link>
           <a
             href={`mailto:${firm.email}`}
-            className="rounded-full border border-white/40 px-8 py-4 text-center text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white hover:bg-white/10"
+            className="rounded-full border border-white/40 px-8 py-4 text-center text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
           >
             {firm.email}
           </a>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * What every other page closes on now that the photographic band has been
+ * pulled back to Contact: one quiet line and a link, on the page's own paper.
+ * It stops a page ending mid-air without reintroducing a second heavy section.
+ */
+export function ClosingCTA({
+  text = "Tell us what you are working on and we will put you with the right lawyer.",
+}: {
+  text?: string;
+}) {
+  return (
+    <section
+      data-nav-tone="light"
+      className="border-t border-line bg-white py-12 lg:py-16"
+    >
+      <div
+        className="mx-auto flex max-w-7xl flex-col items-start gap-5 px-6 sm:flex-row sm:items-center sm:justify-between lg:px-10"
+        data-reveal
+      >
+        <p className="max-w-xl text-base leading-relaxed text-navy-700">
+          {text}
+        </p>
+        <Link
+          href="/contact-us"
+          className="group inline-flex shrink-0 items-center gap-3 text-sm font-semibold text-copper-500 transition-colors hover:text-copper-600"
+        >
+          Talk to us
+          <BrandArrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </Link>
       </div>
     </section>
   );

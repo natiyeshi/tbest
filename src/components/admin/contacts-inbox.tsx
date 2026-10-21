@@ -108,8 +108,8 @@ export function ContactsInbox({ contacts }: { contacts: ContactDoc[] }) {
                     <p
                       className={`truncate text-sm ${
                         isNew
-                          ? "font-semibold text-brand-900"
-                          : "font-medium text-brand-800"
+                          ? "font-semibold text-navy-800"
+                          : "font-medium text-navy-700"
                       }`}
                     >
                       {c.name}
@@ -129,7 +129,7 @@ export function ContactsInbox({ contacts }: { contacts: ContactDoc[] }) {
 
                 {isOpen && (
                   <div className="px-5 pb-5 pl-11 sm:px-6 sm:pl-12">
-                    <p className="mb-4 whitespace-pre-wrap text-sm leading-relaxed text-brand-800">
+                    <p className="mb-4 whitespace-pre-wrap text-sm leading-relaxed text-navy-700">
                       {c.message}
                     </p>
                     <div className="flex flex-wrap items-center gap-2 text-xs">
@@ -146,7 +146,7 @@ export function ContactsInbox({ contacts }: { contacts: ContactDoc[] }) {
                       {c.phone && (
                         <a
                           href={`tel:${c.phone}`}
-                          className="inline-flex items-center rounded-lg border border-line px-3 py-1.5 font-semibold text-brand-800 transition-colors hover:bg-bone"
+                          className="inline-flex items-center rounded-lg border border-line px-3 py-1.5 font-semibold text-navy-700 transition-colors hover:bg-bone"
                         >
                           {c.phone}
                         </a>
@@ -154,7 +154,7 @@ export function ContactsInbox({ contacts }: { contacts: ContactDoc[] }) {
                       <button
                         onClick={() => toggleStatus(c)}
                         disabled={pending}
-                        className="inline-flex items-center rounded-lg border border-line px-3 py-1.5 font-semibold text-brand-800 transition-colors hover:bg-bone disabled:opacity-60"
+                        className="inline-flex items-center rounded-lg border border-line px-3 py-1.5 font-semibold text-navy-700 transition-colors hover:bg-bone disabled:opacity-60"
                       >
                         Mark as {isNew ? "read" : "unread"}
                       </button>

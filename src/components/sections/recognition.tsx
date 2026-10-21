@@ -2,9 +2,9 @@ import { TypeIn } from "@/components/type-in";
 import { rankings } from "@/lib/recognition";
 
 /**
- * Directory recognition — Chambers and IFLR1000 — presented as two cards: the
- * firm-wide banding with the reviewer's summary and pull-quotes, and the
- * partners' individual rankings.
+ * Directory recognition — Legal 500, Chambers and IFLR1000 — presented as one
+ * card each: the firm-wide banding with the reviewer's summary and pull-quotes,
+ * and the partners' individual rankings.
  */
 export function Recognition({
   heading = "Recognised by the market.",
@@ -15,6 +15,7 @@ export function Recognition({
 }) {
   return (
     <section
+      id="recognition"
       data-nav-tone="light"
       className="border-t border-line bg-white py-24 lg:py-32"
     >
@@ -27,7 +28,7 @@ export function Recognition({
           <TypeIn
             as="h2"
             text={heading}
-            className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl"
+            className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-navy-800 sm:text-5xl"
           />
           <p className="mt-6 text-base leading-relaxed text-muted">{lead}</p>
         </div>
@@ -39,12 +40,14 @@ export function Recognition({
               className="flex flex-col rounded-2xl border border-line bg-bone p-8 lg:p-10"
             >
               <div className="flex items-center justify-between gap-4">
-                <p className="font-display text-2xl text-brand-900">
+                <p className="font-display text-2xl text-navy-800">
                   {ranking.source}
                 </p>
-                <span className="shrink-0 rounded-full bg-brand-900 px-4 py-1.5 text-xs font-semibold text-white">
-                  {ranking.tier}
-                </span>
+                {ranking.tier && (
+                  <span className="shrink-0 rounded-full bg-navy-800 px-4 py-1.5 text-xs font-semibold text-white">
+                    {ranking.tier}
+                  </span>
+                )}
               </div>
               <p className="mt-2 eyebrow text-copper-500">{ranking.category}</p>
 
@@ -59,7 +62,7 @@ export function Recognition({
                   {ranking.quotes.map((quote) => (
                     <li
                       key={quote}
-                      className="border-l-2 border-copper-400 pl-4 font-display text-lg italic leading-snug text-brand-900"
+                      className="border-l-2 border-copper-400 pl-4 font-display text-lg italic leading-snug text-navy-800"
                     >
                       &ldquo;{quote}&rdquo;
                     </li>
@@ -72,7 +75,7 @@ export function Recognition({
                   {ranking.partners.map((partner) => (
                     <li key={partner.name} className="py-4 first:pt-0">
                       <div className="flex items-baseline justify-between gap-4">
-                        <p className="font-display text-lg text-brand-900">
+                        <p className="font-display text-lg text-navy-800">
                           {partner.name}
                         </p>
                         <p className="shrink-0 text-right text-xs font-semibold text-copper-600">

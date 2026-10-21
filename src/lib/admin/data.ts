@@ -24,7 +24,6 @@ export type PracticeDoc = {
   slug: string;
   name: string;
   blurb: string;
-  statute: string;
   intro: string[];
   servicesLead: string;
   services: string[];

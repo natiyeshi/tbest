@@ -56,7 +56,7 @@ const sectorCards: Card[] = sectors.map((sector) => ({
 const insightCards: Card[] = insights.map((insight) => ({
   out: `updates/${insight.slug}.jpg`,
   layout: "wide",
-  photo: path(getInsightImage(insight.topic)),
+  photo: path(getInsightImage()),
   eyebrow: insight.category,
   title: insight.title,
   sub: insight.summary,

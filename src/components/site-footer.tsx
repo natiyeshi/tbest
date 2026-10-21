@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { DiamondFieldReveal } from "@/components/diamond-field-reveal";
 import { SocialIcon } from "@/components/social-icon";
 import { firm } from "@/lib/content";
 import type { PracticeLink } from "@/lib/practices";
@@ -14,19 +13,19 @@ const explore = [
   { label: "Contact", href: "/contact-us" },
 ];
 
-/** `practices` comes from the (site) layout, which reads them live. */
+/**
+ * `practices` comes from the (site) layout, which reads them live.
+ *
+ * The firm read the old footer as too dark, and the diamond field over it as
+ * one visual layer too many. So this is navy rather than near-black teal, and
+ * the pattern behind it is gone.
+ */
 export function SiteFooter({ practices }: { practices: PracticeLink[] }) {
   return (
     <footer
       data-nav-tone="dark"
-      className="relative isolate overflow-hidden bg-brand-950 pt-20 pb-10"
+      className="relative isolate overflow-hidden bg-navy-800 pt-20 pb-10"
     >
-      <DiamondFieldReveal
-        id="footer-diamond"
-        size={78}
-        className="text-brand-200/[0.04]"
-      />
-
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid gap-12 lg:grid-cols-12">
           {/* Identity + head office */}
@@ -38,10 +37,10 @@ export function SiteFooter({ practices }: { practices: PracticeLink[] }) {
               height={40}
               className="h-9 w-auto"
             />
-            <p className="mt-7 max-w-xs text-sm leading-relaxed text-brand-100/60">
+            <p className="mt-7 max-w-xs text-sm leading-relaxed text-navy-100/60">
               {firm.tagline}
             </p>
-            <address className="mt-7 space-y-1 text-sm not-italic text-brand-100/60">
+            <address className="mt-7 space-y-1 text-sm not-italic text-navy-100/60">
               <p>{firm.offices[0].line1}</p>
               <p>{firm.offices[0].street}, {firm.offices[0].country}</p>
               <p className="pt-2">
@@ -65,7 +64,7 @@ export function SiteFooter({ practices }: { practices: PracticeLink[] }) {
                 <li key={practice.slug}>
                   <Link
                     href={`/practices/${practice.slug}`}
-                    className="text-sm text-brand-100/70 transition-colors hover:text-white"
+                    className="text-sm text-navy-100/70 transition-colors hover:text-white"
                   >
                     {practice.name}
                   </Link>
@@ -82,7 +81,7 @@ export function SiteFooter({ practices }: { practices: PracticeLink[] }) {
                 <li key={sector.slug}>
                   <Link
                     href={`/sectors/${sector.slug}`}
-                    className="text-sm text-brand-100/70 transition-colors hover:text-white"
+                    className="text-sm text-navy-100/70 transition-colors hover:text-white"
                   >
                     {sector.name}
                   </Link>
@@ -99,7 +98,7 @@ export function SiteFooter({ practices }: { practices: PracticeLink[] }) {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-brand-100/70 transition-colors hover:text-white"
+                    className="text-sm text-navy-100/70 transition-colors hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -114,7 +113,7 @@ export function SiteFooter({ practices }: { practices: PracticeLink[] }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={item.label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-brand-100/70 transition-colors hover:border-copper-300/60 hover:bg-white/5 hover:text-white"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-navy-100/70 transition-colors hover:border-copper-300/60 hover:bg-white/5 hover:text-white"
                   >
                     <SocialIcon label={item.label} />
                   </a>
@@ -125,18 +124,18 @@ export function SiteFooter({ practices }: { practices: PracticeLink[] }) {
         </div>
 
         <div className="mt-16 flex flex-col gap-3 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-brand-100/50">
+          <p className="text-xs text-navy-100/50">
             &copy; {new Date().getFullYear()} {firm.name}. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <p className="text-xs text-brand-100/50">
+            <p className="text-xs text-navy-100/50">
               {firm.offices[0].street}, {firm.offices[0].country}
             </p>
             <a
               href="https://dama.et"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 text-xs text-brand-100/50 transition-colors hover:text-brand-100/80"
+              className="group inline-flex items-center gap-2 text-xs text-navy-100/50 transition-colors hover:text-navy-100/80"
             >
               <span>Made by</span>
               {/* Dama's own mark, in its own colour — plain <img> so the SVG is

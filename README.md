@@ -175,13 +175,25 @@ Production build, each page scrolled to the bottom:
 | ---- | -----: | ---------: |
 | `/team` | 0.84 MB | ~2.8 MB |
 | `/practices` | 0.4 MB | ~2.3 MB |
-| `/` | 0.78 MB | **33.4 MB of hero video** |
+| `/` | ~2.0 MB | ~3.6 MB |
 
-Images are no longer the problem anywhere. The landing page is dominated by
-`public/new/team/hero2.webm` at **33.4 MB** — about 40x the weight of every
-image on the page combined. `hero-web.webm` (2.9 MB) and `hero-web.mp4`
-(4.1 MB) are already in the repo as web-weight cuts of the earlier edit;
-`hero2.webm` is a newer cut that has never been encoded for the web.
+Images are no longer the problem anywhere, and neither is video: the landing
+page used to be dominated by `public/new/team/hero2.webm` at **33.4 MB**, about
+40x the weight of every image on the page combined. The firm asked for the
+footage to come out in favour of a still of the city, so the hero is now a
+photograph and that file is no longer requested.
+
+The landing hero's backdrop now follows the practice area rotating in the panel
+over it, so it is a stack of photographs rather than one. Only the frame on
+stage and the one after it are mounted — a full-bleed image is always in the
+viewport, so `loading="lazy"` holds nothing back and rendering all ten at once
+cost 4.4 MB before a reader had seen the second. See `sections/hero.tsx`.
+
+The footage is still in `public/new/` — `hero2.webm`, `hero-web.webm`,
+`hero-web.mp4`, and the eleven per-member clips that the profile pages used to
+play. Nothing references any of them. They are kept rather than deleted because
+they are the only copies, but they cost the deploy about 60 MB, so they are the
+first thing to remove if the firm confirms the clips are not coming back.
 
 To serve `<Image>` unoptimised again (camera bytes to the browser, ~39 MB on
 `/team`), set `images.unoptimized: true` in `next.config.ts`.
@@ -231,18 +243,6 @@ cannot read, so the script converts it in memory with `fontTools` — that needs
 import photographs, which mean nothing outside Next's build, so the manifest
 runs behind a pair of small loaders that stub each image import out to the path
 it came from.
-
-### Video in a share card
-
-Each member's page also emits `og:video` pointing at their clip. Be aware that
-**no major network will actually play it**: Facebook and X accept only MP4/H.264
-for `og:video`, LinkedIn ignores the tag entirely, and WhatsApp, Telegram and
-Slack show the image alone. The clips are WebM, so the tag is there for the
-handful of readers that honour it and the share card is what everyone will
-really see.
-
-Transcoding the clips to MP4 would change that, and needs ffmpeg, which is not
-installed here — the same tool the 33 MB `hero2.webm` is waiting on.
 
 ## Layout of the app
 

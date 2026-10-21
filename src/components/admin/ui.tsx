@@ -9,19 +9,19 @@ import { useEffect } from "react";
  */
 
 export const inputCls =
-  "w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm text-brand-900 outline-none transition-colors placeholder:text-muted/60 focus:border-copper-400 focus:ring-2 focus:ring-copper-400/20";
+  "w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm text-navy-800 outline-none transition-colors placeholder:text-muted/60 focus:border-copper-400 focus:ring-2 focus:ring-copper-400/20";
 
 export const primaryBtn =
   "inline-flex items-center gap-2 rounded-full bg-copper-500 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-copper-600 disabled:cursor-not-allowed disabled:opacity-60";
 
 export const secondaryBtn =
-  "inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-brand-800 transition-colors hover:bg-bone disabled:opacity-60";
+  "inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-navy-700 transition-colors hover:bg-bone disabled:opacity-60";
 
 export const dangerBtn =
   "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-red-600 transition-colors hover:bg-red-50 disabled:opacity-60";
 
 export const quietBtn =
-  "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-brand-800 transition-colors hover:bg-copper-500/10 disabled:opacity-60";
+  "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-navy-700 transition-colors hover:bg-copper-500/10 disabled:opacity-60";
 
 export function Field({
   label,
@@ -34,7 +34,7 @@ export function Field({
 }) {
   return (
     <div>
-      <label className="mb-1.5 block text-sm font-medium text-brand-800">
+      <label className="mb-1.5 block text-sm font-medium text-navy-700">
         {label}
         {hint && <span className="ml-2 text-xs font-normal text-muted">{hint}</span>}
       </label>
@@ -106,12 +106,12 @@ export function Modal({
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-brand-950/60 p-4 backdrop-blur-sm sm:p-8">
+    <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-navy-900/60 p-4 backdrop-blur-sm sm:p-8">
       <div
-        className={`relative my-auto w-full ${wide ? "max-w-3xl" : "max-w-xl"} rounded-2xl bg-white p-6 shadow-2xl shadow-brand-950/20 sm:p-8`}
+        className={`relative my-auto w-full ${wide ? "max-w-3xl" : "max-w-xl"} rounded-2xl bg-white p-6 shadow-2xl shadow-navy-900/20 sm:p-8`}
       >
         <div className="mb-6 flex items-center justify-between gap-4">
-          <h2 className="font-display text-xl tracking-tight text-brand-900">
+          <h2 className="font-display text-xl tracking-tight text-navy-800">
             {title}
           </h2>
           <button
@@ -140,7 +140,7 @@ export function PageHeader({
   return (
     <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 className="font-display text-2xl tracking-tight text-brand-900 sm:text-3xl">
+        <h1 className="font-display text-2xl tracking-tight text-navy-800 sm:text-3xl">
           {title}
         </h1>
         <p className="mt-1 text-sm text-muted">{description}</p>

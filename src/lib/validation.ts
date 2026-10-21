@@ -59,8 +59,6 @@ export const practiceSchema = z.object({
   slug: slugField(),
   name: trimmed(160, 2),
   blurb: trimmed(500, 10),
-  /** The instrument or body of law the practice works under. May be blank. */
-  statute: z.string().trim().max(300).optional().default(""),
   intro: z.array(trimmed(5000)).max(20).default([]),
   servicesLead: z.string().trim().max(300).optional().default(""),
   services: z.array(trimmed(500)).max(60).default([]),

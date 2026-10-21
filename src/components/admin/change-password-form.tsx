@@ -56,7 +56,7 @@ export function ChangePasswordForm() {
   return (
     <form onSubmit={handleSubmit} className="max-w-md space-y-5">
       <label className="block">
-        <span className="text-sm font-medium text-brand-800">
+        <span className="text-sm font-medium text-navy-700">
           Current password
         </span>
         <input
@@ -69,7 +69,7 @@ export function ChangePasswordForm() {
         />
       </label>
       <label className="block">
-        <span className="text-sm font-medium text-brand-800">New password</span>
+        <span className="text-sm font-medium text-navy-700">New password</span>
         <input
           type="password"
           required
@@ -84,7 +84,7 @@ export function ChangePasswordForm() {
         </span>
       </label>
       <label className="block">
-        <span className="text-sm font-medium text-brand-800">
+        <span className="text-sm font-medium text-navy-700">
           Confirm new password
         </span>
         <input
@@ -108,7 +108,7 @@ export function ChangePasswordForm() {
       {done && (
         <p
           role="status"
-          className="rounded-xl border border-brand-100 bg-brand-50 px-4 py-3 text-sm text-brand-700"
+          className="rounded-xl border border-navy-100 bg-brand-50 px-4 py-3 text-sm text-brand-700"
         >
           Password changed. Any other signed-in session has been signed out.
         </p>

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 
 const field =
-  "w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-brand-900 outline-none transition-colors placeholder:text-muted/60 focus:border-copper-400 focus:ring-2 focus:ring-copper-400/20";
+  "w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-navy-800 outline-none transition-colors placeholder:text-muted/60 focus:border-copper-400 focus:ring-2 focus:ring-copper-400/20";
 
 export function LoginForm() {
   const router = useRouter();
@@ -42,7 +42,7 @@ export function LoginForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <label className="block">
-        <span className="text-sm font-medium text-brand-800">Email</span>
+        <span className="text-sm font-medium text-navy-700">Email</span>
         <input
           type="email"
           required
@@ -53,7 +53,7 @@ export function LoginForm() {
         />
       </label>
       <label className="block">
-        <span className="text-sm font-medium text-brand-800">Password</span>
+        <span className="text-sm font-medium text-navy-700">Password</span>
         <input
           type="password"
           required

@@ -27,7 +27,7 @@ export function ServiceCard({
   return (
     <Link
       href={`${base}/${item.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition-shadow duration-300 hover:shadow-xl hover:shadow-brand-900/[0.06]"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition-shadow duration-300 hover:shadow-xl hover:shadow-navy-800/[0.06]"
     >
       {item.image ? (
         <div className="relative h-44 overflow-hidden">
@@ -38,13 +38,13 @@ export function ServiceCard({
             sizes="(min-width: 1024px) 24rem, (min-width: 640px) 45vw, 90vw"
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-950/55 via-brand-950/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-900/55 via-navy-900/10 to-transparent" />
           <span className="absolute left-5 top-4 font-display text-sm text-white/90">
             {String(index + 1).padStart(2, "0")}
           </span>
         </div>
       ) : item.icon ? (
-        <div className="relative flex h-36 items-center justify-center overflow-hidden bg-gradient-to-br from-brand-50 to-brand-100">
+        <div className="relative flex h-36 items-center justify-center overflow-hidden bg-gradient-to-br from-brand-50 to-navy-100">
           <span className="absolute left-5 top-4 font-display text-sm text-copper-500">
             {String(index + 1).padStart(2, "0")}
           </span>
@@ -60,7 +60,7 @@ export function ServiceCard({
           </span>
         )}
         <h3
-          className={`font-display text-2xl leading-snug text-brand-900 transition-colors group-hover:text-copper-600 ${
+          className={`font-display text-2xl leading-snug text-navy-800 transition-colors group-hover:text-copper-600 ${
             item.image || item.icon ? "" : "mt-5"
           }`}
         >
@@ -132,7 +132,7 @@ export function RelatedRail({
     <section className="border-t border-line bg-bone py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-10" data-reveal>
         <div className="flex items-end justify-between gap-6">
-          <h2 className="font-display text-2xl tracking-tight text-brand-900 sm:text-3xl">
+          <h2 className="font-display text-2xl tracking-tight text-navy-800 sm:text-3xl">
             {title}
           </h2>
           <Link

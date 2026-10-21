@@ -4,8 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { BrandArrow } from "@/components/brand";
-import { ContactCTA } from "@/components/contact-cta";
-import { PortraitClip } from "@/components/portrait-clip";
+import { ClosingCTA } from "@/components/contact-cta";
 import { JsonLd, breadcrumbJsonLd, personJsonLd } from "@/components/json-ld";
 import { firm, team, teamMemberBySlug } from "@/lib/content";
 import { partnerRecognitionBySlug } from "@/lib/recognition";
@@ -31,12 +30,6 @@ export async function generateMetadata({
     path: `/team/${member.slug}`,
     image: ogImage(`/og/team/${member.slug}.jpg`, "/og/team.jpg"),
     type: "profile",
-    // The member's own clip, for the handful of readers that render one. It
-    // is WebM, which the big networks will not play — the share card above is
-    // what they will actually show. See the README.
-    ...(member.clip
-      ? { video: { url: member.clip, type: "video/webm", width: 1080, height: 1080 } }
-      : {}),
   });
 }
 
@@ -47,7 +40,7 @@ export async function generateMetadata({
  */
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="font-display text-2xl leading-tight tracking-tight text-brand-900 sm:text-[1.75rem]">
+    <h2 className="font-display text-2xl leading-tight tracking-tight text-navy-800 sm:text-[1.75rem]">
       {children}
     </h2>
   );
@@ -75,9 +68,10 @@ export default async function TeamMemberPage({
           { name: member.name, path: `/team/${member.slug}` },
         ])}
       />
-      {/* One section, not two. The portrait sits at the very top of its column
-          so the clip is playing the moment the page opens, and then stays put
-          while the reader works down the biography beside it. */}
+      {/* One section, not two. The portrait sits at the very top of its
+          column and stays put while the reader works down the biography
+          beside it. The firm asked for the short clips to come out, so this is
+          the same photograph the Team page shows on the card. */}
       <section
         data-nav-tone="light"
         className="bg-white pt-28 pb-16 lg:pb-24"
@@ -90,7 +84,7 @@ export default async function TeamMemberPage({
                   Home
                 </Link>
               </li>
-              <li aria-hidden="true" className="text-brand-900/25">
+              <li aria-hidden="true" className="text-navy-800/25">
                 /
               </li>
               <li>
@@ -98,10 +92,10 @@ export default async function TeamMemberPage({
                   Team
                 </Link>
               </li>
-              <li aria-hidden="true" className="text-brand-900/25">
+              <li aria-hidden="true" className="text-navy-800/25">
                 /
               </li>
-              <li className="text-brand-900">{member.name}</li>
+              <li className="text-navy-800">{member.name}</li>
             </ol>
           </nav>
 
@@ -110,18 +104,21 @@ export default async function TeamMemberPage({
                 first thing on the page; pinned to the right from lg. */}
             <aside className="lg:sticky lg:top-28 lg:order-2 lg:col-span-5 lg:self-start">
               <div className="mx-auto w-full max-w-[420px] lg:max-w-none">
-                {/* From lg the frame is sized against the viewport rather than
-                    by ratio, so the clip lands whole on screen without a
-                    scroll — it shrinks on a short laptop and stops growing on
+                {/* From lg the frame is sized against the viewport rather
+                    than by ratio, so the portrait lands whole on screen without
+                    a scroll — it shrinks on a short laptop and stops growing on
                     a tall monitor. Narrow screens keep the ratio; they scroll
                     anyway. */}
-                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-3xl border border-line bg-brand-950 lg:aspect-auto lg:h-[calc(100svh-12rem)] lg:max-h-[34rem] lg:min-h-[22rem]">
-                  <PortraitClip
-                    clip={member.clip}
-                    photo={member.photo}
+                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-3xl border border-line bg-navy-900 lg:aspect-auto lg:h-[calc(100svh-12rem)] lg:max-h-[34rem] lg:min-h-[22rem]">
+                  <Image
+                    src={member.photo}
                     alt={`${member.name}, ${member.role} at TBeST Law LLP`}
-                    sizes="(min-width: 1024px) 32rem, (min-width: 640px) 26rem, 90vw"
+                    fill
                     priority
+                    placeholder="blur"
+                    quality={90}
+                    sizes="(min-width: 1024px) 32rem, (min-width: 640px) 26rem, 90vw"
+                    className="object-cover object-top"
                   />
                 </div>
 
@@ -132,7 +129,7 @@ export default async function TeamMemberPage({
                       {member.focus.map((area) => (
                         <li
                           key={area}
-                          className="rounded-full border border-line bg-bone px-3.5 py-1.5 text-xs text-brand-800"
+                          className="rounded-full border border-line bg-bone px-3.5 py-1.5 text-xs text-navy-700"
                         >
                           {area}
                         </li>
@@ -157,10 +154,10 @@ export default async function TeamMemberPage({
                 <span className="h-px w-8 bg-copper-400" />
                 {member.role}
               </p>
-              <h1 className="mt-5 font-display text-4xl leading-[1.06] tracking-tight text-brand-900 sm:text-5xl">
+              <h1 className="mt-5 font-display text-4xl leading-[1.06] tracking-tight text-navy-800 sm:text-5xl">
                 {member.name}
               </h1>
-              <p className="mt-6 text-lg leading-relaxed text-brand-800 sm:text-xl">
+              <p className="mt-6 text-lg leading-relaxed text-navy-700 sm:text-xl">
                 {member.strapline}
               </p>
 
@@ -195,7 +192,7 @@ export default async function TeamMemberPage({
                     {member.languages.map((language) => (
                       <li
                         key={language}
-                        className="rounded-full border border-line bg-bone px-3.5 py-1.5 text-xs text-brand-800"
+                        className="rounded-full border border-line bg-bone px-3.5 py-1.5 text-xs text-navy-700"
                       >
                         {language}
                       </li>
@@ -237,10 +234,10 @@ export default async function TeamMemberPage({
 
                   {recognition.iflr && (
                     <div className="mt-6 flex flex-wrap gap-2">
-                      <span className="rounded-full bg-brand-900 px-4 py-1.5 text-xs font-semibold text-white">
+                      <span className="rounded-full bg-navy-800 px-4 py-1.5 text-xs font-semibold text-white">
                         IFLR1000 · {recognition.iflr.rating}
                       </span>
-                      <span className="rounded-full border border-line px-4 py-1.5 text-xs text-brand-800">
+                      <span className="rounded-full border border-line px-4 py-1.5 text-xs text-navy-700">
                         {recognition.iflr.area}
                       </span>
                     </div>
@@ -261,7 +258,7 @@ export default async function TeamMemberPage({
                             {recognition.chambers.testimonials.map((quote) => (
                               <li
                                 key={quote}
-                                className="rounded-2xl border border-line bg-bone p-6 font-display text-lg leading-snug text-brand-900 sm:text-xl"
+                                className="rounded-2xl border border-line bg-bone p-6 font-display text-lg leading-snug text-navy-800 sm:text-xl"
                               >
                                 &ldquo;{quote}&rdquo;
                               </li>
@@ -308,7 +305,7 @@ export default async function TeamMemberPage({
               <li key={other.slug}>
                 <Link
                   href={`/team/${other.slug}`}
-                  className="group flex items-center gap-5 rounded-2xl border border-line bg-white p-5 transition-shadow duration-300 hover:shadow-xl hover:shadow-brand-900/[0.06]"
+                  className="group flex items-center gap-5 rounded-2xl border border-line bg-white p-5 transition-shadow duration-300 hover:shadow-xl hover:shadow-navy-800/[0.06]"
                 >
                   <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-gradient-to-b from-neutral-100 to-neutral-200">
                     <Image
@@ -320,7 +317,7 @@ export default async function TeamMemberPage({
                   </div>
                   <div>
                     <p className="eyebrow text-copper-500">{other.role}</p>
-                    <p className="mt-1 font-display text-xl text-brand-900 transition-colors group-hover:text-copper-600">
+                    <p className="mt-1 font-display text-xl text-navy-800 transition-colors group-hover:text-copper-600">
                       {other.name}
                     </p>
                   </div>
@@ -331,7 +328,7 @@ export default async function TeamMemberPage({
         </div>
       </section>
 
-      <ContactCTA />
+      <ClosingCTA />
     </>
   );
 }

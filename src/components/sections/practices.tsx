@@ -27,7 +27,7 @@ export function Practices({ practices }: { practices: PracticeLink[] }) {
             <TypeIn
               as="h2"
               text="Various practice areas, advised end to end."
-              className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl"
+              className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-navy-800 sm:text-5xl"
             />
           </div>
           <Link
@@ -52,14 +52,14 @@ export function Practices({ practices }: { practices: PracticeLink[] }) {
                 >
                   <span
                     className={`font-display text-sm transition-colors ${
-                      index === active ? "text-copper-600" : "text-brand-900/40"
+                      index === active ? "text-copper-600" : "text-navy-800/40"
                     }`}
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span
                     className={`flex-1 font-display text-2xl leading-snug transition-colors ${
-                      index === active ? "text-brand-900" : "text-brand-900/50"
+                      index === active ? "text-navy-800" : "text-navy-800/50"
                     }`}
                   >
                     {practice.name}
@@ -94,7 +94,7 @@ export function Practices({ practices }: { practices: PracticeLink[] }) {
                     }`}
                   />
                 ))}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-950/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/40 to-transparent" />
 
                 <div className="absolute inset-x-0 bottom-0 p-8">
                   <div className="relative min-h-[7rem]">
@@ -111,7 +111,7 @@ export function Practices({ practices }: { practices: PracticeLink[] }) {
                         <h3 className="font-display text-3xl leading-snug text-white">
                           {practice.name}
                         </h3>
-                        <p className="mt-3 max-w-md text-sm leading-relaxed text-brand-100/85">
+                        <p className="mt-3 max-w-md text-sm leading-relaxed text-navy-100/85">
                           {practice.blurb}
                         </p>
                       </div>
@@ -139,13 +139,13 @@ export function Practices({ practices }: { practices: PracticeLink[] }) {
                     sizes="(min-width: 640px) 45vw, 90vw"
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-950/70 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-900/70 to-transparent" />
                   <span className="absolute left-4 top-4 font-display text-xs text-copper-300">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-6">
-                  <h3 className="font-display text-xl leading-snug text-brand-900">
+                  <h3 className="font-display text-xl leading-snug text-navy-800">
                     {practice.name}
                   </h3>
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">

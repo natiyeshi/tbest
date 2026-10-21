@@ -28,7 +28,7 @@ export function Testimonials() {
           <TypeIn
             as="h2"
             text="What clients and the market say."
-            className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-brand-900 sm:text-5xl"
+            className="mt-7 block font-display text-4xl leading-[1.12] tracking-tight text-navy-800 sm:text-5xl"
           />
         </div>
 
@@ -43,26 +43,40 @@ export function Testimonials() {
             <li className="sm:col-span-2">
               <figure className="flex h-full flex-col rounded-2xl border border-line bg-bone p-8 lg:p-10">
                 <QuoteMark />
-                <blockquote className="mt-5 font-display text-2xl leading-snug tracking-tight text-brand-900 sm:text-[1.75rem]">
+                <blockquote className="mt-5 font-display text-2xl leading-snug tracking-tight text-navy-800 sm:text-[1.75rem]">
                   {lead.quote}
                 </blockquote>
+                <Source source={lead.source} />
               </figure>
             </li>
           )}
 
           {rest.map((item) => (
             <li key={item.quote}>
-              <figure className="flex h-full flex-col rounded-2xl border border-line bg-white p-7 transition-shadow duration-300 hover:shadow-xl hover:shadow-brand-900/[0.06]">
+              <figure className="flex h-full flex-col rounded-2xl border border-line bg-white p-7 transition-shadow duration-300 hover:shadow-xl hover:shadow-navy-800/[0.06]">
                 <QuoteMark />
-                <blockquote className="mt-4 text-[0.9375rem] leading-relaxed text-brand-800">
+                <blockquote className="mt-4 flex-1 text-[0.9375rem] leading-relaxed text-navy-700">
                   {item.quote}
                 </blockquote>
+                <Source source={item.source} />
               </figure>
             </li>
           ))}
         </ul>
       </div>
     </section>
+  );
+}
+
+/**
+ * Which directory the quote came from. The firm asked for every comment to name
+ * its source; a quote whose source has not been confirmed yet simply prints
+ * nothing rather than being attributed to a publication on a guess.
+ */
+function Source({ source }: { source?: string }) {
+  if (!source) return null;
+  return (
+    <figcaption className="mt-5 eyebrow text-copper-500">{source}</figcaption>
   );
 }
 

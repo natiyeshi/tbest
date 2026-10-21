@@ -18,6 +18,21 @@
   --color-brand-900: #002529;
   --color-brand-950: #00181b;
 
+  /* Brand navy — the firm asked for navy to carry the text, and for the dark
+     bands to lift off the near-black teal they were using. Type sits on
+     navy-800; navy-900/950 back the few sections that stay dark. */
+  --color-navy-50: #f3f6fa;
+  --color-navy-100: #e3eaf3;
+  --color-navy-200: #c6d4e6;
+  --color-navy-300: #97aecd;
+  --color-navy-400: #6183ad;
+  --color-navy-500: #3a5c8c;
+  --color-navy-600: #27456e;
+  --color-navy-700: #1d3557;
+  --color-navy-800: #172a45;
+  --color-navy-900: #121f33;
+  --color-navy-950: #0b1424;
+
   /* Brand copper — sampled from the logo artwork (#d36b34) */
   --color-copper-50: #fdf5ef;
   --color-copper-100: #f9e5d5;
@@ -28,9 +43,10 @@
   --color-copper-600: #bb5e28;
   --color-copper-700: #9a4c20;
 
-  /* Neutrals */
-  --color-ink: #0b1a1c;
-  --color-muted: #5f7273;
+  /* Neutrals. Body copy and the muted tone are navy-based rather than
+     teal-based, so every line of type on the site reads as navy. */
+  --color-ink: #172a45;
+  --color-muted: #5d6e88;
   --color-bone: #f7f5f1;
   --color-line: #e4e6e2;
 

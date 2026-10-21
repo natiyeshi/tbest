@@ -30,7 +30,6 @@ type FormState = {
   slug: string;
   name: string;
   blurb: string;
-  statute: string;
   intro: string[];
   servicesLead: string;
   services: string[];
@@ -41,7 +40,6 @@ const empty: FormState = {
   slug: "",
   name: "",
   blurb: "",
-  statute: "",
   intro: [],
   servicesLead: "Our services include:",
   services: [],
@@ -69,7 +67,6 @@ export function PracticesManager({ practices }: { practices: PracticeDoc[] }) {
       slug: p.slug,
       name: p.name,
       blurb: p.blurb,
-      statute: p.statute ?? "",
       intro: p.intro ?? [],
       servicesLead: p.servicesLead ?? "",
       services: p.services ?? [],
@@ -185,7 +182,7 @@ export function PracticesManager({ practices }: { practices: PracticeDoc[] }) {
                 )}
               </div>
               <div className="min-w-0 flex-1">
-                <p className="font-display text-base text-brand-900">{p.name}</p>
+                <p className="font-display text-base text-navy-800">{p.name}</p>
                 <p className="mt-0.5 truncate text-sm text-muted">{p.blurb}</p>
                 <p className="mt-1 text-xs text-muted/70">
                   /practices/{p.slug} · {p.services?.length ?? 0} services
@@ -257,18 +254,6 @@ export function PracticesManager({ practices }: { practices: PracticeDoc[] }) {
                 value={form.blurb}
                 onChange={(e) => setForm({ ...form, blurb: e.target.value })}
                 className={`${inputCls} resize-y`}
-              />
-            </Field>
-
-            <Field
-              label="Governing instrument"
-              hint="optional — shown beside the practice name"
-            >
-              <input
-                value={form.statute}
-                onChange={(e) => setForm({ ...form, statute: e.target.value })}
-                placeholder="Investment Proclamation No. 1180/2020"
-                className={inputCls}
               />
             </Field>
 
