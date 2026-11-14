@@ -30,7 +30,7 @@ export default function SectorsPage() {
       <PageHero
         eyebrow="Sectors"
         title="Sectors We Work In"
-        lead="Sector knowledge shapes the advice. These are the industries our partners return to most often."
+        lead="Industry Insight. Legal Excellence."
         crumbs={[{ label: "Home", href: "/" }, { label: "Sectors" }]}
         image={addisTowerStreet}
       />

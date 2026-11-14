@@ -109,7 +109,7 @@ const legalUpdates = [
     title:
       "A Revival of an Old Ethiopian Transfer Pricing Directive: How Does the Renumbered TP Directive Affect Taxpayers?",
     date: "2024-04-15",
-    authors: ["Dr. Taddese Lencho"],
+    authors: [],
     summary:
       "The dormant Transfer Pricing Directive of 2015 has been renumbered and reissued by the Ministry of Finance as Directive No. 981/2024.",
     topic: "Tax",
@@ -119,7 +119,7 @@ const legalUpdates = [
     title:
       "Foreign Investment Inflows: New Era for Wholesale, Retail, Import and Export Sectors",
     date: "2024-04-12",
-    authors: ["Dr. Taddese Lencho", "Sisay Habte"],
+    authors: ["Sisay Habte"],
     summary:
       "Wholesale, retail, import and export were long the exclusive preserve of Ethiopian nationals. Regulation No. 474/2020 changes that.",
     topic: "Investment",
@@ -148,7 +148,7 @@ const legalUpdates = [
     slug: "offshore-accounts-strategic-fdi",
     title: "Ethiopia Allows Offshore Accounts for Strategic FDI Investments",
     date: "2023-09-13",
-    authors: ["Dr. Taddese Lencho"],
+    authors: [],
     summary:
       "The National Bank of Ethiopia has authorised off-shore account opening and operation for strategic foreign direct investment.",
     topic: "Banking",
@@ -218,7 +218,7 @@ const blog = [
     slug: "of-dogs-humans-and-security-cameras",
     title: "Of Dogs, Humans and Security Cameras",
     date: "2021-04-29",
-    authors: ["Dr. Taddese Lencho"],
+    authors: [],
     summary:
       "A commentary on the general rule of tax deductibility under Ethiopia's Federal Income Tax Proclamation, and where its limits lie.",
     topic: "Tax",

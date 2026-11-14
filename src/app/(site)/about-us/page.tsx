@@ -6,6 +6,7 @@ import { ClosingCTA } from "@/components/contact-cta";
 import { PageHero } from "@/components/page-hero";
 import { Recognition } from "@/components/sections/recognition";
 import { Testimonials } from "@/components/sections/testimonials";
+import { getPublicTestimonials } from "@/lib/public-content";
 import { pageMetadata } from "@/lib/seo";
 
 import addisTowerStreet from "../../../../public/hero/addis-tower-street.jpg";
@@ -33,13 +34,17 @@ const pillars = [
   },
 ];
 
-export default function AboutPage() {
+// Served from the cache; a testimonial edit in the dashboard also revalidates
+// it straight away.
+export const revalidate = 300;
+
+export default async function AboutPage() {
+  const testimonials = await getPublicTestimonials();
   return (
     <>
       <PageHero
         eyebrow="About the firm"
         title="A leading full service firm for corporate and commercial work."
-        lead="TBeST Law is a leading full service law firm that provides corporate and commercial legal services across a wide range of sectors and practice areas, drawing on years of experience of its partners in the academic and legal services sectors."
         crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
         image={addisTowerStreet}
         imagePosition="center 60%"
@@ -131,7 +136,7 @@ export default function AboutPage() {
 
       <Recognition />
 
-      <Testimonials />
+      <Testimonials testimonials={testimonials} />
 
       <ClosingCTA />
     </>

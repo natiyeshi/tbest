@@ -1,3 +1,5 @@
+import { PatternPanel } from "@/components/pattern-panel";
+
 /**
  * The featured image on an insight card.
  *
@@ -45,27 +47,8 @@ export function InsightThumb({
   const color = topicColors[topic] ?? FALLBACK;
 
   return (
-    <div
-      aria-hidden="true"
-      className={`relative overflow-hidden ${color} ${className}`}
-    >
-      {/* The firm's diamond, oversized and held at low contrast so it reads as
-          texture rather than as a second element competing with the label. */}
-      <svg
-        viewBox="0 0 100 100"
-        preserveAspectRatio="xMaxYMid slice"
-        className="absolute -right-6 top-1/2 h-[150%] w-auto -translate-y-1/2 text-white/[0.07]"
-      >
-        <path d="M50 4 L96 50 L50 96 L4 50 Z" fill="currentColor" />
-        <path
-          d="M50 20 L80 50 L50 80 L20 50 Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3"
-        />
-      </svg>
-
-      <div className="relative flex h-full flex-col justify-end p-5">
+    <PatternPanel color={color} className={className}>
+      <div aria-hidden="true" className="relative flex h-full flex-col justify-end p-5">
         {category && (
           <p className="eyebrow text-white/70">{category}</p>
         )}
@@ -73,6 +56,6 @@ export function InsightThumb({
           {topic}
         </p>
       </div>
-    </div>
+    </PatternPanel>
   );
 }

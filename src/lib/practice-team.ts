@@ -13,6 +13,10 @@ import { team, type TeamMember } from "@/lib/content";
  * firm to correct — this file is the one place to edit, and the practice and
  * sector pages follow.
  *
+ * Only partners are shown as key contacts — the firm asked for associates to
+ * come off these cards — so anyone else listed below is filtered out at render
+ * time, and a page left with no partner falls back to all three.
+ *
  * Direct email addresses and phone numbers are read from each member's own
  * record in `content.ts`. Until the firm supplies them, a card shows the firm's
  * switchboard and inbox instead; nothing is invented.
@@ -55,7 +59,8 @@ const fallbackSlugs = ["tibebe-zewdu", "benyam-tafesse", "sisay-habte-gemeda"];
 function resolve(slugs: readonly string[]): TeamMember[] {
   return slugs
     .map((slug) => team.find((member) => member.slug === slug))
-    .filter((member): member is TeamMember => member !== undefined);
+    .filter((member): member is TeamMember => member !== undefined)
+    .filter((member) => member.role.includes("Partner"));
 }
 
 export function contactsForPractice(slug: string): TeamMember[] {

@@ -10,11 +10,12 @@ import { RecognitionStrip } from "@/components/recognition-strip";
 import { Sectors } from "@/components/sections/sectors";
 import { Testimonials } from "@/components/sections/testimonials";
 import { JsonLd, organizationJsonLd } from "@/components/json-ld";
-import { getPracticeLinks } from "@/lib/public-content";
+import { getPracticeLinks, getPublicTestimonials } from "@/lib/public-content";
 import { pageMetadata } from "@/lib/seo";
 
 // The landing page is served from the cache and refreshed on a schedule; a
-// practice edit in the dashboard also revalidates it straight away.
+// practice or testimonial edit in the dashboard also revalidates it straight
+// away.
 export const revalidate = 300;
 
 export const metadata: Metadata = pageMetadata({
@@ -26,19 +27,22 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default async function Home() {
-  const practices = await getPracticeLinks();
+  const [practices, testimonials] = await Promise.all([
+    getPracticeLinks(),
+    getPublicTestimonials(),
+  ]);
 
   return (
     <>
       <JsonLd data={organizationJsonLd()} />
-      <Hero practices={practices} />
+      <Hero />
       <RecognitionStrip />
       <Firm />
       <Practices practices={practices} />
       <Sectors />
       <People />
       <Recognition />
-      <Testimonials />
+      <Testimonials testimonials={testimonials} />
       <ClosingCTA />
     </>
   );

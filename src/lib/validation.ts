@@ -67,6 +67,12 @@ export const practiceSchema = z.object({
   order: z.coerce.number().int().min(0).default(0),
 });
 
+export const testimonialSchema = z.object({
+  quote: trimmed(1000, 5),
+  /** The directory it came from, e.g. "Legal 500". Blank prints no source. */
+  source: z.string().trim().max(120).optional().default(""),
+});
+
 export const contactSchema = z.object({
   name: trimmed(120, 2),
   email: z.email().max(254),
@@ -87,4 +93,5 @@ export const reorderSchema = z.array(z.string().min(1)).max(200);
 
 export type InsightInput = z.infer<typeof insightSchema>;
 export type PracticeInput = z.infer<typeof practiceSchema>;
+export type TestimonialInput = z.infer<typeof testimonialSchema>;
 export type ContactInput = z.infer<typeof contactSchema>;

@@ -78,7 +78,9 @@ export function Sectors() {
           className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-navy-900/30"
         />
 
-        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:px-10">
+        {/* Padded clear of the fixed header above and the controls below, so
+            on a short laptop screen neither runs into the copy. */}
+        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 pt-20 pb-24 lg:grid-cols-12 lg:px-10">
           {/* The sector currently on the stage */}
           <div className="lg:col-span-7">
             <p className="eyebrow flex items-center gap-3 text-copper-100">
@@ -90,29 +92,32 @@ export function Sectors() {
               </span>
             </p>
 
-            <div className="relative mt-7 min-h-[21rem]">
+            {/* Every sector shares one grid cell, so the holder is as tall
+                as the longest of them and nothing spills out under the
+                controls. */}
+            <div className="relative mt-7 grid">
               {sectors.map((sector, index) => (
                 <div
                   key={sector.slug}
                   aria-hidden={index !== active}
-                  className={`absolute inset-0 transition-all duration-700 ease-out ${
+                  className={`[grid-area:1/1] transition-all duration-700 ease-out ${
                     index === active
                       ? "translate-y-0 opacity-100"
                       : "pointer-events-none translate-y-8 opacity-0"
                   }`}
                 >
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/25 bg-white/10 text-white [&_svg]:h-7 [&_svg]:w-7">
+                  <div className="mb-6 flex h-14 w-14 [@media(max-height:800px)]:hidden items-center justify-center rounded-2xl border border-white/25 bg-white/10 text-white [&_svg]:h-7 [&_svg]:w-7">
                     {getSectorIcon(sector.slug)}
                   </div>
-                  <h2 className="font-display text-3xl leading-[1.06] tracking-tight text-white sm:text-5xl">
+                  <h2 className="font-display text-3xl leading-[1.06] tracking-tight text-white sm:text-5xl [@media(max-height:800px)]:sm:text-4xl">
                     {sector.name}
                   </h2>
-                  <p className="mt-5 max-w-xl text-sm leading-relaxed text-copper-50/90 sm:text-base">
+                  <p className="mt-5 max-w-xl text-sm leading-relaxed text-copper-50/90 sm:text-base [@media(max-height:800px)]:line-clamp-4 [@media(max-height:800px)]:sm:text-sm">
                     {sector.intro[0]}
                   </p>
                   <Link
                     href={`/sectors/${sector.slug}`}
-                    className="group mt-7 inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-copper-700 transition-colors hover:bg-copper-50"
+                    className="group mt-7 inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 [@media(max-height:800px)]:mt-5 [@media(max-height:800px)]:py-3 text-sm font-semibold text-copper-700 transition-colors hover:bg-copper-50"
                   >
                     Explore this sector
                     <BrandArrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -128,7 +133,7 @@ export function Sectors() {
               <li key={sector.slug} className="border-b border-white/15">
                 <Link
                   href={`/sectors/${sector.slug}`}
-                  className="flex items-baseline gap-4 py-3"
+                  className="flex items-baseline gap-4 py-3 [@media(max-height:800px)]:py-2"
                 >
                   <span
                     className={`font-display text-xs transition-colors ${
@@ -140,8 +145,8 @@ export function Sectors() {
                   <span
                     className={`font-display leading-snug transition-all duration-300 ${
                       index === active
-                        ? "text-xl text-white sm:text-2xl"
-                        : "text-lg text-white/45"
+                        ? "text-xl text-white sm:text-2xl [@media(max-height:800px)]:sm:text-xl"
+                        : "text-lg text-white/45 [@media(max-height:800px)]:text-base"
                     }`}
                   >
                     {sector.name}
@@ -152,8 +157,9 @@ export function Sectors() {
           </ul>
         </div>
 
-        {/* Escape controls — step out of the pinned section either way */}
-        <div className="absolute right-6 bottom-8 flex flex-col gap-2 lg:right-10">
+        {/* Escape controls — step out of the pinned section either way. Side
+            by side, centred at the foot of the stage. */}
+        <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-row gap-3">
           <button
             type="button"
             onClick={escapeUp}

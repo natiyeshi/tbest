@@ -6,7 +6,12 @@ import { notFound } from "next/navigation";
 import { BrandArrow } from "@/components/brand";
 import { ClosingCTA } from "@/components/contact-cta";
 import { JsonLd, breadcrumbJsonLd, personJsonLd } from "@/components/json-ld";
-import { firm, team, teamMemberBySlug } from "@/lib/content";
+import {
+  firm,
+  team,
+  teamMemberBySlug,
+  teamMemberExperience,
+} from "@/lib/content";
 import { partnerRecognitionBySlug } from "@/lib/recognition";
 import { pageMetadata } from "@/lib/seo";
 import { ogImage } from "@/lib/og-image";
@@ -56,6 +61,7 @@ export default async function TeamMemberPage({
   if (!member) notFound();
 
   const recognition = partnerRecognitionBySlug(member.slug);
+  const legacyExperience = teamMemberExperience(member.slug);
   const others = team.filter((m) => m.slug !== member.slug);
 
   return (
@@ -70,8 +76,9 @@ export default async function TeamMemberPage({
       />
       {/* One section, not two. The portrait sits at the very top of its
           column and stays put while the reader works down the biography
-          beside it. The firm asked for the short clips to come out, so this is
-          the same photograph the Team page shows on the card. */}
+          beside it. The firm asked for the short clips to come out, and for
+          this page to show the person's second frame — the one the Team page
+          card doesn't — so a click through to a profile shows something new. */}
       <section
         data-nav-tone="light"
         className="bg-white pt-28 pb-16 lg:pb-24"
@@ -102,7 +109,14 @@ export default async function TeamMemberPage({
           <div className="grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
             {/* Portrait column — first on a narrow screen so the clip is the
                 first thing on the page; pinned to the right from lg. */}
-            <aside className="lg:sticky lg:top-28 lg:order-2 lg:col-span-5 lg:self-start">
+            {/* Pinned only while it fits on screen: with the recognition
+                panel under it the column runs taller than the viewport, and a
+                sticky column that tall hides its own foot until the page ends. */}
+            <aside
+              className={`lg:order-2 lg:col-span-5 lg:self-start ${
+                recognition ? "" : "lg:sticky lg:top-28"
+              }`}
+            >
               <div className="mx-auto w-full max-w-[420px] lg:max-w-none">
                 {/* From lg the frame is sized against the viewport rather
                     than by ratio, so the portrait lands whole on screen without
@@ -111,7 +125,7 @@ export default async function TeamMemberPage({
                     anyway. */}
                 <div className="relative aspect-[3/4] w-full overflow-hidden rounded-3xl border border-line bg-navy-900 lg:aspect-auto lg:h-[calc(100svh-12rem)] lg:max-h-[34rem] lg:min-h-[22rem]">
                   <Image
-                    src={member.photo}
+                    src={member.cardAlt ?? member.photo}
                     alt={`${member.name}, ${member.role} at TBeST Law LLP`}
                     fill
                     priority
@@ -121,6 +135,49 @@ export default async function TeamMemberPage({
                     className="object-cover object-top"
                   />
                 </div>
+
+                {recognition && (
+                  <div className="mt-8">
+                    <h2 className="eyebrow text-copper-500">Recognition</h2>
+
+                    {recognition.iflr && (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <span className="rounded-full bg-navy-800 px-4 py-1.5 text-xs font-semibold text-white">
+                          IFLR1000 · {recognition.iflr.rating}
+                        </span>
+                        <span className="rounded-full border border-line px-4 py-1.5 text-xs text-navy-700">
+                          {recognition.iflr.area}
+                        </span>
+                      </div>
+                    )}
+
+                    {recognition.chambers && (
+                      <>
+                        <p className="mt-4 text-sm leading-relaxed text-muted">
+                          {recognition.chambers.summary}
+                        </p>
+
+                        {recognition.chambers.testimonials.length > 0 && (
+                          <div className="mt-6">
+                            <h3 className="eyebrow text-copper-500">
+                              Chambers &amp; Partners — client testimonials
+                            </h3>
+                            <ul className="mt-3 space-y-3">
+                              {recognition.chambers.testimonials.map((quote) => (
+                                <li
+                                  key={quote}
+                                  className="rounded-2xl border border-line bg-bone p-5 font-display text-base leading-snug text-navy-800"
+                                >
+                                  &ldquo;{quote}&rdquo;
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                )}
 
                 {member.focus.length > 0 && (
                   <div className="mt-6">
@@ -164,10 +221,17 @@ export default async function TeamMemberPage({
               <div className="mt-12">
                 <SectionHeading>Biography</SectionHeading>
               </div>
-              <p className="mt-6 text-base leading-relaxed text-muted sm:text-[1.0625rem]">
-                {member.bio ||
-                  `${member.name} is part of the team at TBeST Law LLP, working alongside our partners across the firm's corporate and commercial practice.`}
-              </p>
+              {/* A blank line in the bio starts a new paragraph. */}
+              <div className="mt-6 space-y-5 text-base leading-relaxed text-muted sm:text-[1.0625rem]">
+                {(
+                  member.bio ||
+                  `${member.name} is part of the team at TBeST Law LLP, working alongside our partners across the firm's corporate and commercial practice.`
+                )
+                  .split("\n\n")
+                  .map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+              </div>
 
               {member.credentials.length > 0 && (
                 <div className="mt-14">
@@ -228,46 +292,54 @@ export default async function TeamMemberPage({
                 </div>
               )}
 
-              {recognition && (
+              {/* The partners' matters, as their profiles on the old site set
+                  them out: one toggle per practice area, under the area names
+                  the firm used there, each folded shut behind a plus until the
+                  reader picks the topic they care about. Native <details>, so
+                  they open without script and the text stays in the page for
+                  search engines and find-in-page. */}
+              {legacyExperience.length > 0 && (
                 <div className="mt-14">
-                  <SectionHeading>Recognition</SectionHeading>
-
-                  {recognition.iflr && (
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      <span className="rounded-full bg-navy-800 px-4 py-1.5 text-xs font-semibold text-white">
-                        IFLR1000 · {recognition.iflr.rating}
-                      </span>
-                      <span className="rounded-full border border-line px-4 py-1.5 text-xs text-navy-700">
-                        {recognition.iflr.area}
-                      </span>
-                    </div>
-                  )}
-
-                  {recognition.chambers && (
-                    <>
-                      <p className="mt-6 text-base leading-relaxed text-muted">
-                        {recognition.chambers.summary}
-                      </p>
-
-                      {recognition.chambers.testimonials.length > 0 && (
-                        <div className="mt-10">
-                          <h3 className="eyebrow text-copper-500">
-                            Chambers &amp; Partners — client testimonials
+                  <SectionHeading>Selected experience</SectionHeading>
+                  <div className="mt-6 border-t border-line">
+                    {legacyExperience.map((group) => (
+                      <details key={group.area} className="group border-b border-line">
+                        <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
+                          <h3 className="font-display text-lg leading-snug text-navy-800 transition-colors group-hover:text-copper-600 sm:text-xl">
+                            {group.area}
                           </h3>
-                          <ul className="mt-5 space-y-5">
-                            {recognition.chambers.testimonials.map((quote) => (
-                              <li
-                                key={quote}
-                                className="rounded-2xl border border-line bg-bone p-6 font-display text-lg leading-snug text-navy-800 sm:text-xl"
-                              >
-                                &ldquo;{quote}&rdquo;
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </>
-                  )}
+                          <span
+                            aria-hidden="true"
+                            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line text-copper-500 transition-colors group-hover:border-copper-400 group-open:border-copper-500 group-open:bg-copper-500 group-open:text-white"
+                          >
+                            {/* A plus that turns a quarter-and-a-half into an
+                                x as the toggle opens. */}
+                            <svg
+                              viewBox="0 0 12 12"
+                              className="h-3 w-3 transition-transform duration-300 group-open:rotate-[135deg]"
+                            >
+                              <path
+                                d="M6 1v10M1 6h10"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                              />
+                            </svg>
+                          </span>
+                        </summary>
+                        <ul className="list-disc space-y-3 pb-6 pl-5 marker:text-copper-500">
+                          {group.items.map((item) => (
+                            <li
+                              key={item}
+                              className="pl-1 text-[0.9375rem] leading-relaxed text-muted"
+                            >
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    ))}
+                  </div>
                 </div>
               )}
 
@@ -275,10 +347,10 @@ export default async function TeamMemberPage({
                 <p className="text-sm leading-relaxed text-muted">
                   To reach {member.name.split(" ")[0]} directly, write to{" "}
                   <a
-                    href={`mailto:${firm.email}`}
+                    href={`mailto:${member.email ?? firm.email}`}
                     className="font-semibold text-copper-500 transition-colors hover:text-copper-600"
                   >
-                    {firm.email}
+                    {member.email ?? firm.email}
                   </a>
                   .
                 </p>

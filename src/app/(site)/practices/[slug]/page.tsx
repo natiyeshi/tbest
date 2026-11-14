@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { practiceColor } from "@/components/pattern-panel";
 import { ServiceDetail } from "@/components/service-detail";
-import { practiceArt } from "@/lib/practice-images";
 import { contactsForPractice } from "@/lib/practice-team";
 import { getPublicPractices } from "@/lib/public-content";
 import { pageMetadata } from "@/lib/seo";
@@ -15,7 +15,7 @@ import addisTowerStreet from "../../../../../public/hero/addis-tower-street.jpg"
 // afterwards renders on its first request and is then cached.
 export async function generateStaticParams() {
   const practices = await getPublicPractices();
-  return practices.map((practice) => ({ slug: practice.slug }));
+  return practices.map((practice, index) => ({ slug: practice.slug }));
 }
 
 export const revalidate = 300;
@@ -48,11 +48,11 @@ export default async function PracticePage({
   const practice = practices.find((p) => p.slug === slug);
   if (!practice) notFound();
 
-  const practiceCards = practices.map((item) => ({
+  const practiceCards = practices.map((item, index) => ({
     slug: item.slug,
     name: item.name,
     blurb: item.blurb,
-    image: practiceArt(item),
+    panel: practiceColor(index),
   }));
 
   // Corporate keeps its own photograph (the Commercial Bank tower, swapped in

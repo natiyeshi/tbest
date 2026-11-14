@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ClosingCTA } from "@/components/contact-cta";
 import { PageHero } from "@/components/page-hero";
 import { ServiceGrid } from "@/components/service-links";
-import { practiceArt } from "@/lib/practice-images";
+import { practiceColor } from "@/components/pattern-panel";
 import { getPublicPractices } from "@/lib/public-content";
 import { pageMetadata } from "@/lib/seo";
 
@@ -23,11 +23,11 @@ export const metadata: Metadata = pageMetadata({
 
 export default async function PracticesPage() {
   const practices = await getPublicPractices();
-  const practiceCards = practices.map((practice) => ({
+  const practiceCards = practices.map((practice, index) => ({
     slug: practice.slug,
     name: practice.name,
     blurb: practice.blurb,
-    image: practiceArt(practice),
+    panel: practiceColor(index),
   }));
 
   return (
@@ -35,7 +35,7 @@ export default async function PracticesPage() {
       <PageHero
         eyebrow="Practice Areas"
         title="Various practice areas, advised end to end."
-        lead="Quality legal advice and transactional services, delivered by lawyers who work across these areas rather than in isolation from one another."
+        lead="Comprehensive Legal Expertise. Tailored Solutions."
         crumbs={[{ label: "Home", href: "/" }, { label: "Practice Areas" }]}
         image={addisSkyline}
       />

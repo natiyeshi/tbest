@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import { PatternPanel } from "@/components/pattern-panel";
+
 export type ServiceItem = {
   slug: string;
   name: string;
@@ -12,6 +14,11 @@ export type ServiceItem = {
   image?: string | StaticImageData;
   /** Optional line icon, shown in a tinted header when there is no image. */
   icon?: ReactNode;
+  /**
+   * A background colour for a drawn header — the Updates tiles' flat colour and
+   * diamond — used in place of a photograph. Takes precedence over `image`.
+   */
+  panel?: string;
 };
 
 /** A single practice/sector card, image-forward when an image is provided. */
@@ -29,7 +36,13 @@ export function ServiceCard({
       href={`${base}/${item.slug}`}
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition-shadow duration-300 hover:shadow-xl hover:shadow-navy-800/[0.06]"
     >
-      {item.image ? (
+      {item.panel ? (
+        <PatternPanel color={item.panel} className="h-44 shrink-0">
+          <span className="absolute left-5 top-4 font-display text-sm text-white/90">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </PatternPanel>
+      ) : item.image ? (
         <div className="relative h-44 overflow-hidden">
           <Image
             src={item.image}
@@ -54,14 +67,14 @@ export function ServiceCard({
         </div>
       ) : null}
       <div className="flex flex-1 flex-col p-7 lg:p-8">
-        {!item.image && !item.icon && (
+        {!item.panel && !item.image && !item.icon && (
           <span className="font-display text-sm text-copper-500">
             {String(index + 1).padStart(2, "0")}
           </span>
         )}
         <h3
           className={`font-display text-2xl leading-snug text-navy-800 transition-colors group-hover:text-copper-600 ${
-            item.image || item.icon ? "" : "mt-5"
+            item.panel || item.image || item.icon ? "" : "mt-5"
           }`}
         >
           {item.name}

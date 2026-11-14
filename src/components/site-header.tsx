@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 
 import { navigation } from "@/lib/content";
 import { InsightThumb } from "@/components/insight-thumb";
-import { fallbackImage, getPracticeImage } from "@/lib/practice-images";
+import { PatternPanel, practiceColor } from "@/components/pattern-panel";
+import { fallbackImage } from "@/lib/practice-images";
 import type { PracticeLink } from "@/lib/practices";
 import { sectors } from "@/lib/sectors";
 
@@ -19,6 +20,11 @@ type MegaItem = {
   image?: string | StaticImageData;
   /** An insight topic, when the preview is a drawn colour panel instead. */
   topic?: string;
+  /**
+   * A background colour for a drawn panel, as the practice cards use. The
+   * whole preview takes the colour, not just its header.
+   */
+  panel?: string;
 };
 
 const staticMenus = {
@@ -71,11 +77,11 @@ export function SiteHeader({ practices }: { practices: PracticeLink[] }) {
   const menus = {
     practices: {
       href: "/practices",
-      items: practices.map((p) => ({
+      items: practices.map((p, index) => ({
         label: p.name,
         href: `/practices/${p.slug}`,
         blurb: p.blurb,
-        image: p.image || getPracticeImage(p.slug),
+        panel: practiceColor(index),
       })),
     },
     ...staticMenus,
@@ -241,7 +247,7 @@ export function SiteHeader({ practices }: { practices: PracticeLink[] }) {
             href="/contact-us"
             className={`ml-2 rounded-full px-6 py-2.5 text-[0.8125rem] font-semibold transition-colors ${ctaClass}`}
           >
-            Get in touch
+            Contact
           </Link>
         </nav>
 
@@ -290,7 +296,7 @@ export function SiteHeader({ practices }: { practices: PracticeLink[] }) {
               onClick={close}
               className="mt-5 rounded-full bg-copper-500 px-6 py-3.5 text-center text-sm font-semibold text-white"
             >
-              Get in touch
+              Contact
             </Link>
           </div>
         </nav>
@@ -337,9 +343,13 @@ function MegaMenu({
         <Link
           href={preview.href}
           onClick={onNavigate}
-          className="group relative flex flex-col overflow-hidden rounded-xl bg-navy-800"
+          className={`group relative flex flex-col overflow-hidden rounded-xl ${
+            preview.panel ?? "bg-navy-800"
+          }`}
         >
-          {preview.image ? (
+          {preview.panel ? (
+            <PatternPanel color={preview.panel} className="h-40" />
+          ) : preview.image ? (
             <div className="relative h-40 overflow-hidden">
               <Image
                 src={preview.image}
@@ -357,10 +367,18 @@ function MegaMenu({
             <p className="font-display text-lg leading-snug text-white">
               {preview.label}
             </p>
-            <p className="mt-2 text-xs leading-relaxed text-navy-100/75">
+            <p
+              className={`mt-2 text-xs leading-relaxed ${
+                preview.panel ? "text-white/80" : "text-navy-100/75"
+              }`}
+            >
               {preview.blurb}
             </p>
-            <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-copper-300">
+            <span
+              className={`mt-4 inline-flex items-center gap-2 text-xs font-semibold ${
+                preview.panel ? "text-white" : "text-copper-300"
+              }`}
+            >
               Read more
               <span aria-hidden="true">&rarr;</span>
             </span>

@@ -33,6 +33,15 @@ export type PracticeDoc = {
   updatedAt?: string;
 };
 
+export type TestimonialDoc = {
+  id: string;
+  quote: string;
+  source: string;
+  order: number;
+  createdAt: string;
+  updatedAt?: string;
+};
+
 export type ContactDoc = {
   id: string;
   name: string;
@@ -57,6 +66,7 @@ function serialize<T>(doc: WithId<Document>): T {
 export const collections = {
   insights: () => db.collection("insights"),
   practices: () => db.collection("practices"),
+  testimonials: () => db.collection("testimonials"),
   contacts: () => db.collection("contacts"),
 };
 
@@ -76,6 +86,15 @@ export async function getPractices(): Promise<PracticeDoc[]> {
     .sort({ order: 1, createdAt: 1 })
     .toArray();
   return docs.map((d) => serialize<PracticeDoc>(d));
+}
+
+export async function getTestimonials(): Promise<TestimonialDoc[]> {
+  const docs = await collections
+    .testimonials()
+    .find()
+    .sort({ order: 1, createdAt: 1 })
+    .toArray();
+  return docs.map((d) => serialize<TestimonialDoc>(d));
 }
 
 export async function getContacts(): Promise<ContactDoc[]> {

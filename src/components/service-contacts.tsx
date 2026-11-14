@@ -28,9 +28,6 @@ export function ServiceContacts({
   return (
     <div className="mt-10 border-t border-line pt-8">
       <p className="eyebrow text-copper-500">Key contacts</p>
-      <p className="mt-3 text-sm leading-relaxed text-muted">
-        The lawyers who lead our {name} work.
-      </p>
 
       <ul className="mt-6 space-y-5">
         {members.map((member) => {

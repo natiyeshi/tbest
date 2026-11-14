@@ -1,6 +1,8 @@
 /**
  * Client and market recognition, supplied by the firm. The testimonials are
- * shown on the home and about pages; the directory rankings (Legal 500,
+ * shown on the home and about pages; the admin edits them under
+ * /admin/testimonials, and the list below is only the fallback shown until any
+ * are saved there (and the set the import button and content seed copy in); the directory rankings (Legal 500,
  * Chambers, IFLR1000) are shown in the recognition band, in the strip under the
  * landing hero, and, per partner, on the profile pages.
  */

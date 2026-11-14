@@ -19,6 +19,7 @@ import { MongoClient } from "mongodb";
 import bodies from "../src/lib/insight-bodies.json";
 import { insights } from "../src/lib/insights";
 import { practices } from "../src/lib/practices";
+import { testimonials } from "../src/lib/recognition";
 
 const force = process.argv.includes("--force");
 
@@ -112,6 +113,28 @@ async function main() {
     console.log(
       `Practice areas: ${added} added, ${updated} overwritten, ${skipped} left alone (of ${practices.length}).`,
     );
+
+    // Testimonials have no natural key to match on, so they are only copied
+    // into an empty collection; --force replaces the whole set.
+    const testimonialsCol = db.collection("testimonials");
+    const existingTestimonials = await testimonialsCol.countDocuments();
+    if (existingTestimonials === 0 || force) {
+      if (force) await testimonialsCol.deleteMany({});
+      const now = new Date();
+      await testimonialsCol.insertMany(
+        testimonials.map((t, order) => ({
+          quote: t.quote,
+          source: t.source ?? "",
+          order,
+          createdAt: now,
+        })),
+      );
+      console.log(`Testimonials: ${testimonials.length} written.`);
+    } else {
+      console.log(
+        `Testimonials: ${existingTestimonials} already there, left alone.`,
+      );
+    }
 
     // The inbox is read newest-first and filtered by status; both want an index.
     await db.collection("contacts").createIndex({ createdAt: -1 });

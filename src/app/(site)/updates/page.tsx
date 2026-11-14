@@ -46,7 +46,6 @@ export default async function UpdatesPage() {
       <PageHero
         eyebrow="Updates"
         title="Legal updates and blogs."
-        lead="We publish regular legal updates and blogs so clients stay ahead of Ethiopia's fast-moving regulatory landscape."
         crumbs={[{ label: "Home", href: "/" }, { label: "Updates" }]}
         image={addisSkyline}
       />

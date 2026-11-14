@@ -27,7 +27,8 @@ import sisayPortraitAlt from "../../public/team/sisay-habte/sis-final-nobg.png";
 import tibebePortraitAlt from "../../public/team/tibebe-zewdu/5837172361756004268-nobg.png";
 
 // The newer shoot: full photographs, one straight-on frame and one
-// three-quarter frame each. These carry the cards and the detail pages; the
+// three-quarter frame each. n-a.png leads on the team page and n-b.png is the
+// detail-page photograph. These carry the cards and the detail pages; the
 // cut-outs above are kept for the standing lineup on the team page, which needs
 // transparency. Everyone on the roster was photographed in this round.
 //
@@ -43,32 +44,34 @@ import tibebePortraitAlt from "../../public/team/tibebe-zewdu/583717236175600426
 // portrait looks is that the file behind it is full-size: these were once
 // served from a `compressed/` folder at 1200x1800 and about 0.15 bits per
 // pixel — a fortieth of the data — which is what made every portrait soft.
-// TEST: background-cleaned frame under trial; the original is original/b6.jpg.
-import benyamNew from "../../public/new/benyam-tafesse/compressed/test-gray.jpg";
-import benyamNewAlt from "../../public/new/benyam-tafesse/original/b8.jpg";
-import beroketNew from "../../public/new/bereket-teshome/original/bb18.jpg";
-import beroketNewAlt from "../../public/new/bereket-teshome/original/b19.jpg";
-import bezawitFekedeNew from "../../public/new/bezawit-fekede/original/bb22.jpg";
-import bezawitFekedeNewAlt from "../../public/new/bezawit-fekede/original/b23.jpg";
-import bezawitYirgaNew from "../../public/new/bezawit-yirga/original/b12.jpg";
-import bezawitYirgaNewAlt from "../../public/new/bezawit-yirga/original/b13.jpg";
-import etsehiwotNew from "../../public/new/etsehiwot-samson/original/b52.jpg";
-import etsehiwotNewAlt from "../../public/new/etsehiwot-samson/original/b53.jpg";
-// Helina and Sisay: the firm picked which frame leads. b15 and b5 are the ones
-// they chose to show before the cursor reaches the card, so they are the
-// primary here and the other frame is the hover.
-import helinaNew from "../../public/new/helina-bezabih/original/b15.jpg";
-import helinaNewAlt from "../../public/new/helina-bezabih/original/b14.jpg";
-import lindaNew from "../../public/new/linda-tedla/original/b16.jpg";
-import lindaNewAlt from "../../public/new/linda-tedla/original/b17.jpg";
-import menenNew from "../../public/new/menen-mitiku/original/b20.jpg";
-import menenNewAlt from "../../public/new/menen-mitiku/original/b21.jpg";
-import rekebkiNew from "../../public/new/rekebki-tsega-abebe/original/bb10.jpg";
-import rekebkiNewAlt from "../../public/new/rekebki-tsega-abebe/original/b11.jpg";
-import sisayNew from "../../public/new/sisay-habte/original/b5.jpg";
-import sisayNewAlt from "../../public/new/sisay-habte/original/b1.jpg";
-import tibebeNew from "../../public/new/tibebe-zewdu/original/bb2.jpg";
-import tibebeNewAlt from "../../public/new/tibebe-zewdu/original/b3.jpg";
+import benyamNew from "../../public/new/benyam-tafesse/compressed/n-a.png";
+import benyamNewAlt from "../../public/new/benyam-tafesse/compressed/n-b.png";
+import beroketNew from "../../public/new/bereket-teshome/compressed/n-a.png";
+import beroketNewAlt from "../../public/new/bereket-teshome/compressed/n-b.png";
+import bezawitFekedeNew from "../../public/new/bezawit-fekede/compressed/n-a.png";
+import bezawitFekedeNewAlt from "../../public/new/bezawit-fekede/compressed/n-b.png";
+import bezawitYirgaNew from "../../public/new/bezawit-yirga/compressed/n-a.png";
+import bezawitYirgaNewAlt from "../../public/new/bezawit-yirga/compressed/n-b.png";
+import etsehiwotNew from "../../public/new/etsehiwot-samson/compressed/n-a.png";
+import etsehiwotNewAlt from "../../public/new/etsehiwot-samson/compressed/n-b.png";
+import helinaNew from "../../public/new/helina-bezabih/compressed/n-a.png";
+import helinaNewAlt from "../../public/new/helina-bezabih/compressed/n-b.png";
+import lindaNew from "../../public/new/linda-tedla/compressed/n-a.png";
+import lindaNewAlt from "../../public/new/linda-tedla/compressed/n-b.png";
+import menenNew from "../../public/new/menen-mitiku/compressed/n-a.png";
+import menenNewAlt from "../../public/new/menen-mitiku/compressed/n-b.png";
+import rekebkiNew from "../../public/new/rekebki-tsega-abebe/compressed/n-a.png";
+import rekebkiNewAlt from "../../public/new/rekebki-tsega-abebe/compressed/n-b.png";
+import sisayNew from "../../public/new/sisay-habte/compressed/n-a.png";
+import sisayNewAlt from "../../public/new/sisay-habte/compressed/n-b.png";
+import tibebeNew from "../../public/new/tibebe-zewdu/compressed/n-a.png";
+import tibebeNewAlt from "../../public/new/tibebe-zewdu/compressed/n-b.png";
+// Joined after the shoot above: one frame each, cropped from the original in
+// the same folder to the framing of everyone else's n-a.png. Until a second
+// frame comes in, it serves the card, the profile and the lineup alike.
+import hikmaNew from "../../public/new/Hikma-Tessema/compressed/n-a.png";
+import kidestNew from "../../public/new/Kidest-Abate/compressed/n-a.png";
+import mistreNew from "../../public/new/Mistre-Ashenafi/compressed/n-a.png";
 
 export const firm = {
   name: "TBeST Law LLP",
@@ -109,7 +112,6 @@ export const navigation = [
   { label: "Practices", href: "/practices", group: "practices" as const },
   { label: "Sectors", href: "/sectors", group: "sectors" as const },
   { label: "Updates", href: "/updates", group: "updates" as const },
-  { label: "Contact", href: "/contact-us" },
 ] as const;
 
 export type TeamMember = {
@@ -176,6 +178,7 @@ export const team: readonly TeamMember[] = [
       "M&A",
       "Criminal Law",
     ],
+    email: "tibebe@tbestlaw.com",
     strapline:
       "Tax, customs and corporate counsel, with over 10 years across government service and private practice.",
     bio: "Tibebe is a prominent corporate and tax lawyer with over 10 years of legal experience working in government and private practice. His practice at TBeST Law encompasses general corporate and commercial law, with a specialized expertise and focus in the law of taxation and customs. He also practices competition regulation, mergers and acquisitions, private equity, general investment matters and criminal law.",
@@ -201,6 +204,7 @@ export const team: readonly TeamMember[] = [
       "Employment & Immigration",
       "Aviation",
     ],
+    email: "benyam@tbestlaw.com",
     strapline:
       "A commercial lawyer of more than 15 years, across intellectual property, technology, employment and aviation.",
     bio: "Benyam is a seasoned commercial lawyer with more than 15 years' experience in private practice, academia and as in-house legal counsel. His areas of practice include intellectual property and technology, energy, infrastructure and PPP, employment & immigration and aviation law. Benyam is licensed to practice law before all levels of federal courts and he is also a licensed trademark agent.",
@@ -230,9 +234,10 @@ export const team: readonly TeamMember[] = [
       "NGO",
       "Insurance",
     ],
+    email: "sisay@tbestlaw.com",
     strapline:
       "Corporate and commercial counsel for the mining, real estate and NGO sectors.",
-    bio: "Sisay mainly advises on corporate and commercial matters, including in the mining, real estate and NGO sectors. She provides structural, regulatory and compliance-based advice to our clients on matters of investment, mergers and acquisitions and competition.",
+    bio: "Sisay Habte Gemeda is a Partner at TBeST Law LLP, where she leads the firm's Corporate and Commercial, Mining, NGO and Real Estate practices.\n\nShe advises on a broad range of corporate and commercial matters, including providing structural, regulatory and compliance-based advice on investment, mergers and acquisitions and competition matters. She also assists clients with financing issues, including loan and security agreements, as well as due diligence and transaction structures.",
     credentials: [
       "LL.B, University of Gondar, with Great Distinction (2012)",
       "LL.M, International Business Law, Central European University (2015)",
@@ -435,6 +440,50 @@ export const team: readonly TeamMember[] = [
     bio: "Bezawit Fekede is a Junior Accountant at TBeST Law. She graduated from Unity University in Accounting and Finance. Before joining TBeST Law she worked at Elias Damtew Certified Accountant, where she maintained accounting records and financial documentation, processed invoices, payment vouchers and expense claims, handled accounts payable and receivable, and supported payroll preparation and compliance.",
     credentials: ["BA in Accounting and Finance, Unity University (2024)"],
   },
+  {
+    slug: "hikma-tessema-wolde",
+    name: "Hikma Tessema Wolde",
+    role: "Associate II",
+    portrait: hikmaNew,
+    card: hikmaNew,
+    photo: hikmaNew,
+    focus: ["Tax", "Employment"],
+    strapline: "Associate whose practice focuses on employment and tax law.",
+    bio: "Hikma Tessema Wolde is an Associate whose practice focuses on Employment and Tax Law.\n\nShe holds a Master of Laws (LL.M.) in Business Law from Addis Ababa University, where she graduated with Very Great Distinction, and a Bachelor of Laws (LL.B.) from the same university, graduating with Distinction.\n\nPrior to joining the firm, Hikma worked at Mesfin Debebe Corporate Legal Services as a Tax and Corporate Legal Associate. She has also worked as a Junior Legal Associate at Iron Cord Investment Consultancy PLC. Her professional experience includes advising domestic and international clients on tax, employment, corporate and commercial law, investment, regulatory compliance, immigration and dispute resolution matters.\n\nBeyond corporate legal practice, Hikma has contributed to legal aid, community service, and capacity-building initiatives through engagements with the Danish Refugee Council (DRC), UNHCR, and Addis Ababa University's Center for Human Rights, providing legal assistance to refugees and vulnerable communities.",
+    credentials: [
+      "LL.M. in Business Law, Addis Ababa University",
+      "LL.B., Addis Ababa University",
+    ],
+    languages: ["English", "Amharic"],
+  },
+  {
+    slug: "kidest-abate",
+    name: "Kidest Abate",
+    role: "Associate",
+    portrait: kidestNew,
+    card: kidestNew,
+    photo: kidestNew,
+    focus: ["Corporate", "Immigration", "Investment", "Compliance"],
+    strapline:
+      "Associate advising on corporate, investment, immigration and compliance matters.",
+    bio: "Kidest Abate is an Associate at TBeST Law. She graduated from Debre Berhan University School of Law.\n\nPrior to joining TBeST Law, Kidest worked for three years at Tsegamlak Solomon & Associates Law Office, advising local and international clients on corporate, tax, investment, and compliance matters. Her work included legal due diligence for private equity investors, foreign direct investors, and startups, as well as contract drafting and negotiation, regulatory filings, and legal opinions.",
+    credentials: ["LL.B, Debre Berhan University (September 2022)"],
+    languages: ["English", "Amharic"],
+  },
+  {
+    slug: "mistre-ashenafi",
+    name: "Mistre Ashenafi",
+    role: "Junior Associate",
+    portrait: mistreNew,
+    card: mistreNew,
+    photo: mistreNew,
+    focus: [],
+    strapline:
+      "Junior associate supporting corporate, employment, NGO, commercial and tax matters.",
+    bio: "Mistre Ashenafi is a Junior Associate at TBeST Law. She graduated with great distinction from Hawassa University School of Law in 2026. Prior to joining TBeST Law, she worked as a Risk and Legal Analyst at Grant Thornton Advisory Ethiopia, where she supported the team with legal, risk, and compliance related work. She also gained practical legal experience through internships at Mehretab and Getu Advocates LLP and Haymanot and Advocates Law Office. Her experience includes legal research, analysis, and support in corporate, employment, NGO, commercial, and tax matters.",
+    credentials: ["LL.B, Hawassa University, with Great Distinction (June 2026)"],
+    languages: ["English", "Amharic"],
+  },
 ];
 
 /**
@@ -447,39 +496,20 @@ const businessServicesRoles: readonly string[] = [
 ];
 
 /**
- * The bands the roster is shown in, most senior first, each listing the titles
- * that fall into it. This single list does two jobs: it orders the roster, and
- * it groups it — so a new joiner lands in the right band on the strength of
- * their title alone. Listed rather than inferred for the same reason as the
- * business-services roles above; a title missing from here sorts to the end of
- * the roster rather than to the front of it, and shows in no band.
- *
- * Managing Partner and Partner share a band: that distinction belongs on the
- * card, not on a heading of its own. The headings are spelt out both ways
- * rather than pluralised with an "s", because "of counsel" does not take one.
+ * Lawyer titles, most senior first — the order the roster is shown in. Listed
+ * rather than inferred for the same reason as the business-services roles
+ * above; a title missing from here sorts to the end of the roster rather than
+ * to the front of it.
  */
-const lawyerBands: readonly {
-  /** Heading when the band holds one person, and when it holds several. */
-  one: string;
-  many: string;
-  ranks: readonly string[];
-}[] = [
-  { one: "Partner", many: "Partners", ranks: ["Managing Partner", "Partner"] },
-  { one: "Of counsel", many: "Of counsel", ranks: ["Of Counsel"] },
-  {
-    one: "Senior associate",
-    many: "Senior associates",
-    ranks: ["Senior Associate"],
-  },
-  { one: "Associate", many: "Associates", ranks: ["Associate"] },
-  {
-    one: "Junior associate",
-    many: "Junior associates",
-    ranks: ["Junior Associate"],
-  },
+const lawyerRanks: readonly string[] = [
+  "Managing Partner",
+  "Partner",
+  "Of Counsel",
+  "Senior Associate",
+  "Associate II",
+  "Associate",
+  "Junior Associate",
 ];
-
-const lawyerRanks = lawyerBands.flatMap((band) => band.ranks);
 
 function rankOf(member: TeamMember): number {
   const rank = lawyerRanks.indexOf(member.role);
@@ -501,35 +531,25 @@ export const partners = lawyers.filter((member) =>
   member.role.includes("Partner"),
 );
 
-export type LawyerTier = {
-  label: string;
-  members: readonly TeamMember[];
-};
-
-/**
- * The roster as the team page shows it: one labelled band per rank, most senior
- * first. Bands nobody currently holds drop out, so an empty rank never leaves a
- * heading with nothing under it.
- */
-export const lawyerTiers: readonly LawyerTier[] = lawyerBands
-  .map((band) => {
-    const members = lawyers.filter((member) => band.ranks.includes(member.role));
-    return { label: members.length === 1 ? band.one : band.many, members };
-  })
-  .filter((tier) => tier.members.length > 0);
-
 /** Everyone in business services. */
 export const businessServices = team.filter((member) =>
   businessServicesRoles.includes(member.role),
 );
 
 /**
- * Selected-experience bullets for a team member, where the firm publishes them.
- * Held in team-experience.json (migrated from the partners' profile pages) and
- * keyed by slug. Members without a published list return an empty array.
+ * Selected experience for a partner, grouped under the practice areas their
+ * profile on the old site used. Held in team-experience.json (migrated from
+ * those pages) and keyed by slug. Members without a published list return an
+ * empty array.
  */
-export function teamMemberExperience(slug: string): readonly string[] {
-  return (teamExperience as Record<string, string[]>)[slug] ?? [];
+export function teamMemberExperience(
+  slug: string,
+): NonNullable<TeamMember["experience"]> {
+  return (
+    (teamExperience as Record<string, { area: string; items: string[] }[]>)[
+      slug
+    ] ?? []
+  );
 }
 
 export function teamMemberBySlug(slug: string): TeamMember | undefined {

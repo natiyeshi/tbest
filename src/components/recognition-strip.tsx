@@ -7,9 +7,8 @@ import { rankings } from "@/lib/recognition";
  *
  * It used to count things — fifty years, nine practices, nine sectors. The firm
  * asked for that space to carry their directory recognition instead, so it now
- * names Legal 500, Chambers and Partners and IFLR1000, with the band or tier
- * beside each one where the firm has confirmed it, and links through to the
- * recognition section for the detail.
+ * names Legal 500, Chambers and Partners and IFLR1000 and links through to the
+ * recognition section, where the band or tier and category are shown.
  */
 export function RecognitionStrip() {
   return (
@@ -29,11 +28,6 @@ export function RecognitionStrip() {
                 <p className="eyebrow text-copper-300">Ranked by</p>
                 <p className="mt-2 font-display text-xl leading-tight text-white transition-colors group-hover:text-copper-200 sm:text-2xl">
                   {ranking.source}
-                </p>
-                <p className="mt-1.5 text-[0.8125rem] leading-snug text-navy-100/70">
-                  {ranking.tier
-                    ? `${ranking.tier} · ${ranking.category}`
-                    : ranking.category}
                 </p>
               </Link>
             </li>

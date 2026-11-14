@@ -10,7 +10,9 @@ import {
   insightSchema,
   practiceSchema,
   reorderSchema,
+  testimonialSchema,
 } from "@/lib/validation";
+import { testimonials as bundledTestimonials } from "@/lib/recognition";
 
 export type ActionResult = { ok: true } | { ok: false; error: string };
 
@@ -205,6 +207,118 @@ export async function reorderPractices(ids: unknown): Promise<ActionResult> {
       .filter((op): op is NonNullable<typeof op> => op !== null);
     if (ops.length) await collections.practices().bulkWrite(ops);
     revalidatePractices();
+    return { ok: true };
+  } catch (e) {
+    return fail(e);
+  }
+}
+
+/* ------------------------------- testimonials ------------------------------ */
+
+/** The section is shown on the home and about pages. */
+function revalidateTestimonials() {
+  revalidatePath("/admin/testimonials");
+  revalidatePath("/");
+  revalidatePath("/about-us");
+}
+
+export async function createTestimonial(input: unknown): Promise<ActionResult> {
+  try {
+    await assertAdmin();
+    const data = testimonialSchema.parse(input);
+    // A newcomer lands at the end of the list rather than the front.
+    const last = await collections
+      .testimonials()
+      .find()
+      .sort({ order: -1 })
+      .limit(1)
+      .next();
+    const order = (typeof last?.order === "number" ? last.order : -1) + 1;
+    await collections
+      .testimonials()
+      .insertOne({ ...data, order, createdAt: new Date() });
+    revalidateTestimonials();
+    return { ok: true };
+  } catch (e) {
+    return fail(e);
+  }
+}
+
+export async function updateTestimonial(
+  id: string,
+  input: unknown,
+): Promise<ActionResult> {
+  try {
+    await assertAdmin();
+    const _id = toObjectId(id);
+    if (!_id) return { ok: false, error: "Invalid id" };
+    const data = testimonialSchema.parse(input);
+    await collections
+      .testimonials()
+      .updateOne({ _id }, { $set: { ...data, updatedAt: new Date() } });
+    revalidateTestimonials();
+    return { ok: true };
+  } catch (e) {
+    return fail(e);
+  }
+}
+
+export async function deleteTestimonial(id: string): Promise<ActionResult> {
+  try {
+    await assertAdmin();
+    const _id = toObjectId(id);
+    if (!_id) return { ok: false, error: "Invalid id" };
+    await collections.testimonials().deleteOne({ _id });
+    revalidateTestimonials();
+    return { ok: true };
+  } catch (e) {
+    return fail(e);
+  }
+}
+
+/** Same shape as the practice reorder: ids in their new sequence. */
+export async function reorderTestimonials(ids: unknown): Promise<ActionResult> {
+  try {
+    await assertAdmin();
+    const list = reorderSchema.parse(ids);
+    const ops = list
+      .map((id, i) => {
+        const _id = toObjectId(id);
+        return _id
+          ? { updateOne: { filter: { _id }, update: { $set: { order: i } } } }
+          : null;
+      })
+      .filter((op): op is NonNullable<typeof op> => op !== null);
+    if (ops.length) await collections.testimonials().bulkWrite(ops);
+    revalidateTestimonials();
+    return { ok: true };
+  } catch (e) {
+    return fail(e);
+  }
+}
+
+/**
+ * Copy the quotes bundled with the site into the database, so the admin starts
+ * from what is already published rather than an empty list. Only runs while
+ * the collection is empty, so it can never duplicate or overwrite an edit.
+ */
+export async function importBundledTestimonials(): Promise<ActionResult> {
+  try {
+    await assertAdmin();
+    const count = await collections.testimonials().countDocuments();
+    if (count > 0) {
+      return { ok: false, error: "Testimonials have already been imported." };
+    }
+    const now = new Date();
+    await collections.testimonials().insertMany(
+      bundledTestimonials.map((t, order) => ({
+        quote: t.quote,
+        source: t.source ?? "",
+        order,
+        createdAt: now,
+      })),
+    );
+    revalidateTestimonials();
     return { ok: true };
   } catch (e) {
     return fail(e);

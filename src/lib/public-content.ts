@@ -15,6 +15,10 @@ import {
   type Practice,
   type PracticeLink,
 } from "@/lib/practices";
+import {
+  testimonials as bundledTestimonials,
+  type Testimonial,
+} from "@/lib/recognition";
 
 /**
  * The public, read-only data layer. Pages call these from Server Components and
@@ -197,4 +201,30 @@ export async function getPracticeLinks(): Promise<PracticeLink[]> {
     blurb: p.blurb,
     image: p.image,
   }));
+}
+
+/* ------------------------------- testimonials ------------------------------ */
+
+/**
+ * The quotes in the admin's order. Until the admin has saved any, the bundled
+ * set in `recognition.ts` is shown.
+ */
+export async function getPublicTestimonials(): Promise<Testimonial[]> {
+  try {
+    const docs = await collections
+      .testimonials()
+      .find()
+      .sort({ order: 1, createdAt: 1 })
+      .toArray();
+    if (docs.length === 0) return [...bundledTestimonials];
+    return docs
+      .map((doc) => {
+        const d = plain(doc);
+        return { quote: str(d.quote), source: str(d.source) };
+      })
+      .filter((t) => t.quote);
+  } catch (e) {
+    console.error("[public-content] testimonials read failed, using bundled copy", e);
+    return [...bundledTestimonials];
+  }
 }

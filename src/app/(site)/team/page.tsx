@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { ClosingCTA } from "@/components/contact-cta";
 import { PageHero } from "@/components/page-hero";
-import { PortraitSwap } from "@/components/portrait-swap";
 import type { TeamMember } from "@/lib/content";
-import { businessServices, lawyers, lawyerTiers } from "@/lib/content";
+import { businessServices, lawyers } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 import addisTowerStreet from "../../../../public/hero/addis-tower-street.jpg";
@@ -18,7 +18,10 @@ export const metadata: Metadata = pageMetadata({
   image: "/og/team.jpg",
 });
 
-/** One person's card: photograph, role, name. */
+/**
+ * One person's card: photograph, role, name. The photograph holds still on
+ * hover; the person's second frame is kept for their own profile page.
+ */
 function MemberCard({ member, sizes }: { member: TeamMember; sizes: string }) {
   return (
     <li>
@@ -27,12 +30,12 @@ function MemberCard({ member, sizes }: { member: TeamMember; sizes: string }) {
             so anything drawn back here is only ever seen while the image is
             still loading. */}
         <div className="relative aspect-4/5 w-full overflow-hidden rounded-2xl bg-neutral-100">
-          <PortraitSwap
-            portrait={member.card}
-            portraitAlt={member.cardAlt}
+          <Image
+            src={member.card}
             alt={`${member.name}, ${member.role} at TBeST Law LLP`}
+            placeholder="blur"
             sizes={sizes}
-            fit="cover"
+            className="absolute inset-0 h-full w-full object-cover object-top"
           />
         </div>
         <p className="mt-4 eyebrow text-copper-500">{member.role}</p>
@@ -45,34 +48,17 @@ function MemberCard({ member, sizes }: { member: TeamMember; sizes: string }) {
 }
 
 /**
- * A row of cards. The container is 1200px wide at `lg` (a max-w-7xl of 1280px
- * less two 40px gutters), so three to a row makes each card 384px and four
- * makes it 282px — hence the two `sizes`, which were understated at 16rem and
- * left a 1x screen stretching a 256px file. Both class strings are written out
- * rather than interpolated so Tailwind can see them.
+ * A grid of cards, four to a row at `lg`. The container is 1200px wide there (a
+ * max-w-7xl of 1280px less two 40px gutters), so each card is 282px.
  */
-function MemberGrid({
-  members,
-  columns,
-}: {
-  members: readonly TeamMember[];
-  columns: 3 | 4;
-}) {
+function MemberGrid({ members }: { members: readonly TeamMember[] }) {
   return (
-    <ul
-      className={`grid grid-cols-2 gap-6 sm:grid-cols-3 ${
-        columns === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"
-      }`}
-    >
+    <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
       {members.map((member) => (
         <MemberCard
           key={member.slug}
           member={member}
-          sizes={
-            columns === 3
-              ? "(min-width: 1024px) 24rem, (min-width: 640px) 30vw, 45vw"
-              : "(min-width: 1024px) 18rem, (min-width: 640px) 30vw, 45vw"
-          }
+          sizes="(min-width: 1024px) 18rem, (min-width: 640px) 30vw, 45vw"
         />
       ))}
     </ul>
@@ -131,7 +117,7 @@ export default function TeamPage() {
       <PageHero
         eyebrow="The team"
         title="The people you will work with."
-        lead="Our partners, associates and business services staff advise companies across corporate, commercial and investment law in Ethiopia."
+        lead="Expertise Driven by People."
         crumbs={[{ label: "Home", href: "/" }, { label: "Team" }]}
         image={addisTowerStreet}
       />
@@ -142,38 +128,24 @@ export default function TeamPage() {
         <div className="mx-auto max-w-7xl space-y-20 px-6 lg:px-10">
           <div data-reveal>
             <Roster
-              title="Lawyers"
+              title="Our partners"
               blurb="Partners and associates advising on corporate, commercial, investment and tax matters."
               count={lawyers.length}
             >
-              {/* One band per rank, most senior first, each starting its own
-                  row — so a rank holding a single person still gets a row of
-                  their own rather than being tucked onto the end of the one
-                  above. The top band runs three across when it holds exactly
-                  three, which fills its row flush and leaves the partners'
-                  cards reading a size larger than the bands below; everything
-                  else runs at the standard four. */}
-              {lawyerTiers.map((tier, index) => (
-                <div key={tier.label}>
-                  <TierHeading label={tier.label} />
-                  <MemberGrid
-                    members={tier.members}
-                    columns={index === 0 && tier.members.length === 3 ? 3 : 4}
-                  />
-                </div>
-              ))}
+              {/* Every lawyer in one continuous grid, most senior first. The
+                  role on each card says the rank, so the bands no longer start
+                  a new row per rank. */}
+              <MemberGrid members={lawyers} />
             </Roster>
           </div>
 
+          {/* Business support stays apart from the lawyers, under the same
+              quiet divider the rank bands used to carry rather than a second
+              bold heading. */}
           {businessServices.length > 0 && (
             <div className="border-t border-line pt-16" data-reveal>
-              <Roster
-                title="Business services"
-                blurb="The team that keeps the practice running, from the office itself to its accounts."
-                count={businessServices.length}
-              >
-                <MemberGrid members={businessServices} columns={4} />
-              </Roster>
+              <TierHeading label="Business support" />
+              <MemberGrid members={businessServices} />
             </div>
           )}
         </div>

@@ -26,7 +26,6 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Tell us what you are working on."
-        lead="Send a short note describing the matter and we will come back to you with the right partner for it."
         crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
         image={addisSkyline}
       />

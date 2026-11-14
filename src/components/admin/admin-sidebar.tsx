@@ -11,6 +11,7 @@ const links = [
   { href: "/admin", label: "Overview" },
   { href: "/admin/insights", label: "Updates" },
   { href: "/admin/practices", label: "Practice areas" },
+  { href: "/admin/testimonials", label: "Testimonials" },
   { href: "/admin/contacts", label: "Enquiries" },
   { href: "/admin/settings", label: "Security" },
 ];

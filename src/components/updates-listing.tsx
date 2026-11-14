@@ -16,19 +16,10 @@ const HERO_IMAGE: Record<InsightCategory, typeof addisSkyline> = {
   News: addisTowerStreet,
 };
 
-const COPY: Record<InsightCategory, { title: string; lead: string }> = {
-  "Legal Updates": {
-    title: "Legal updates.",
-    lead: "Concise notes on the regulatory developments shaping business in Ethiopia — investment, tax, banking, data protection and more.",
-  },
-  Blog: {
-    title: "From the blog.",
-    lead: "Longer-form commentary and reflections from the firm's lawyers on the questions behind the headlines.",
-  },
-  News: {
-    title: "Firm news.",
-    lead: "Announcements, events and milestones from TBeST Law.",
-  },
+const TITLE: Record<InsightCategory, string> = {
+  "Legal Updates": "Legal updates.",
+  Blog: "From the blog.",
+  News: "Firm news.",
 };
 
 /**
@@ -41,14 +32,12 @@ export async function UpdatesListing({
   category: InsightCategory;
 }) {
   const items = await getPublicInsightsByCategory(category);
-  const copy = COPY[category];
 
   return (
     <>
       <PageHero
         eyebrow="Updates"
-        title={copy.title}
-        lead={copy.lead}
+        title={TITLE[category]}
         crumbs={[
           { label: "Home", href: "/" },
           { label: "Updates", href: "/updates" },
