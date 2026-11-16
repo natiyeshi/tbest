@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import localFont from "next/font/local";
+import NextTopLoader from "nextjs-toploader";
 
 import "./globals.css";
 
@@ -81,7 +82,13 @@ export default function RootLayout({
       {/* Only the shell: the fonts, the stylesheet and the document. The
           public site's header and footer live in (site)/layout.tsx, so the
           dashboard under /admin can render without them. */}
-      <body className="flex min-h-full flex-col bg-white">{children}</body>
+      <body className="flex min-h-full flex-col bg-white">
+        {/* A thin copper bar across the top of the window while a page is
+            loading, so a click on a link answers straight away even when the
+            next page takes a moment to arrive. Copper-500 from the brand kit. */}
+        <NextTopLoader color="#d36b34" height={3} showSpinner={false} shadow={false} />
+        {children}
+      </body>
     </html>
   );
 }

@@ -4,17 +4,8 @@ import { PageHero } from "@/components/page-hero";
 import type { InsightCategory } from "@/lib/insights";
 import { getPublicInsightsByCategory } from "@/lib/public-content";
 
-import addisSkyline from "../../public/hero/addis-skyline.jpg";
-import addisTowerStreet from "../../public/hero/addis-tower-street.jpg";
-
-// Alternates between the firm's two real photographs rather than repeating
-// one across all three streams, the same two-photo system used elsewhere on
-// the site until there's dedicated photography to give each stream its own.
-const HERO_IMAGE: Record<InsightCategory, typeof addisSkyline> = {
-  "Legal Updates": addisTowerStreet,
-  Blog: addisSkyline,
-  News: addisTowerStreet,
-};
+// Every Updates page opens on the landing hero's first photograph.
+import corporateNew from "../../public/hero/corporate-new.jpg";
 
 const TITLE: Record<InsightCategory, string> = {
   "Legal Updates": "Legal updates.",
@@ -43,7 +34,7 @@ export async function UpdatesListing({
           { label: "Updates", href: "/updates" },
           { label: category },
         ]}
-        image={HERO_IMAGE[category]}
+        image={corporateNew}
       />
 
       <section className="bg-white py-16 lg:py-20">

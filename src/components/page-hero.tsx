@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { LogoMark } from "@/components/brand";
+import { PatternMark } from "@/components/pattern-panel";
 import { TypeIn } from "@/components/type-in";
 
 export type Crumb = { label: string; href?: string };
@@ -37,6 +38,7 @@ export function PageHero({
   crumbs,
   image,
   imagePosition = "center 42%",
+  panel,
   index,
   count,
 }: {
@@ -52,18 +54,30 @@ export function PageHero({
    * one to keep more of the bottom.
    */
   imagePosition?: string;
+  /**
+   * Paint the band as one of the brand-colour pattern panels instead of a
+   * photograph — a background utility from `practiceColor`, e.g.
+   * `bg-copper-600` — so a detail page carries the same tile its card does on
+   * the listing. Takes precedence over `image`.
+   */
+  panel?: string;
   /** This page's position in a numbered set, e.g. 3 of 10. Pass both or neither. */
   index?: number;
   count?: number;
 }) {
   const numbered = index !== undefined && count !== undefined;
+  // Copper on copper disappears, so on a copper panel the eyebrow and its rule
+  // turn white; on navy they keep the copper they carry everywhere else.
+  const onCopper = panel?.includes("copper") ?? false;
 
   return (
     <section
       data-nav-tone="dark"
-      className="relative isolate overflow-hidden bg-navy-900 pt-32 pb-16 lg:pt-40 lg:pb-20"
+      className={`relative isolate overflow-hidden ${panel ?? "bg-navy-900"} pt-32 pb-16 lg:pt-40 lg:pb-20`}
     >
-      {image ? (
+      {panel ? (
+        <PatternMark />
+      ) : image ? (
         <>
           <Image
             src={image}
@@ -118,8 +132,12 @@ export function PageHero({
 
         <div className="flex items-end justify-between gap-8">
           <div>
-            <p className="eyebrow flex items-center gap-3 text-copper-300">
-              <span className="h-px w-8 bg-copper-400" />
+            <p
+              className={`eyebrow flex items-center gap-3 ${onCopper ? "text-white/85" : "text-copper-300"}`}
+            >
+              <span
+                className={`h-px w-8 ${onCopper ? "bg-white/60" : "bg-copper-400"}`}
+              />
               <TypeIn text={eyebrow} />
             </p>
 

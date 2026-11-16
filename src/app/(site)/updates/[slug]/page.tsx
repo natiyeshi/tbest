@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ClosingCTA } from "@/components/contact-cta";
-import { InsightThumb } from "@/components/insight-thumb";
+import { InsightThumb, topicColor } from "@/components/insight-thumb";
+import { PatternMark } from "@/components/pattern-panel";
 import { JsonLd, articleJsonLd, breadcrumbJsonLd } from "@/components/json-ld";
 import { formatInsightDate, type InsightCategory } from "@/lib/insights";
 import { pageMetadata } from "@/lib/seo";
@@ -72,13 +73,14 @@ export default async function UpdatePage({
           { name: insight.title, path: `/updates/${insight.slug}` },
         ])}
       />
-      {/* Article header. Flat brand colour rather than a photograph under a
-          scrim: the firm asked for photographs to come off the updates, and
-          the listing card this page opens from is a colour panel too. */}
+      {/* Article header: the same brand-colour pattern band the practice
+          area pages open on — the topic's colour, the one its card carries on
+          the listing, with the firm's diamond held behind it. */}
       <header
         data-nav-tone="dark"
-        className="relative isolate overflow-hidden bg-navy-800 pt-32 pb-16 lg:pt-40 lg:pb-20"
+        className={`relative isolate overflow-hidden ${topicColor(insight.topic)} pt-32 pb-16 lg:pt-40 lg:pb-20`}
       >
+        <PatternMark />
 
         <div className="relative mx-auto max-w-3xl px-6 lg:px-10" data-reveal>
           <nav aria-label="Breadcrumb" className="mb-7">
@@ -114,7 +116,7 @@ export default async function UpdatePage({
           </nav>
 
           <div className="flex flex-wrap items-center gap-3 text-xs">
-            <span className="rounded-full bg-copper-500/20 px-3 py-1 font-semibold text-copper-200">
+            <span className="rounded-full bg-white/15 px-3 py-1 font-semibold text-white">
               {insight.topic}
             </span>
             <time dateTime={insight.date} className="text-navy-100/70">

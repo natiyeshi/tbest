@@ -19,6 +19,7 @@ export function ServiceDetail({
   services,
   contacts,
   image,
+  panel,
   index,
   count,
   crumbLabel,
@@ -34,6 +35,8 @@ export function ServiceDetail({
   contacts: readonly TeamMember[];
   /** A bundled import, or a URL for artwork uploaded through the admin. */
   image?: string | StaticImageData;
+  /** A brand-colour pattern band in place of a photograph; see PageHero. */
+  panel?: string;
   /** This item's position in its set, e.g. the 3rd of 10 practice areas. */
   index?: number;
   count?: number;
@@ -55,6 +58,7 @@ export function ServiceDetail({
         title={name}
         lead={intro[0]}
         image={image}
+        panel={panel}
         index={index}
         count={count}
         crumbs={[

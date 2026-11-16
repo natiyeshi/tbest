@@ -34,6 +34,11 @@ const topicColors: Record<string, string> = {
 
 const FALLBACK = "bg-navy-800";
 
+/** The panel colour for a topic — shared with the article page's header. */
+export function topicColor(topic: string): string {
+  return topicColors[topic] ?? FALLBACK;
+}
+
 export function InsightThumb({
   topic,
   category,
@@ -44,7 +49,7 @@ export function InsightThumb({
   /** Sizing and rounding come from the card; this only paints the panel. */
   className?: string;
 }) {
-  const color = topicColors[topic] ?? FALLBACK;
+  const color = topicColor(topic);
 
   return (
     <PatternPanel color={color} className={className}>

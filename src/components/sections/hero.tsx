@@ -7,8 +7,11 @@ import { useEffect, useState } from "react";
 
 import { BrandArrow } from "@/components/brand";
 
-import addisSkyline from "../../../public/hero/addis-skyline.jpg";
+import corporateNew from "../../../public/hero/corporate-new.jpg";
 import addisTowerStreet from "../../../public/hero/addis-tower-street.jpg";
+// The full 4032px camera original, kept untouched for quality: visitors never
+// download it, the optimiser sends each screen a copy resized to its width.
+import newHero from "../../../public/hero/new.jpg";
 
 /** How long each statement holds the stage. */
 const ROTATE_MS = 5000;
@@ -37,26 +40,30 @@ const STATEMENTS = [
 ] as const;
 
 /*
- * The landing hero used to play a silent loop of the firm behind the copy. The
- * firm asked for it to come out — the logo is being redrawn and the footage
- * carries the old one. The backdrop still changes with the copy, drawing only
- * on the firm's own Addis Ababa photography — the skyline and the Commercial
- * Bank tower — alternating statement by statement. Add a photograph here the
- * day the firm has more to give it.
+ * The backdrop changes on every turn of the copy, cycling through these three
+ * photographs in order. It runs off its own count rather than the statement
+ * index, so with four statements the photograph still changes when the copy
+ * wraps from the last statement back to the first.
  */
-const BACKDROPS = [addisSkyline, addisTowerStreet];
+const BACKDROPS = [corporateNew, addisTowerStreet, newHero];
 
 export function Hero() {
   const count = STATEMENTS.length;
 
-  const [active, setActive] = useState(0);
+  // Every turn of the copy — timed or manual — moves this one step. The
+  // statement and the photograph are both read off it, each wrapping at its
+  // own length, so the two always change together.
+  const [step, setStep] = useState(0);
+  const mod = (n: number, m: number) => ((n % m) + m) % m;
+  const active = mod(step, count);
+  const backdrop = mod(step, BACKDROPS.length);
   // Bumped whenever the reader takes manual control, to restart the timer so a
   // statement they just chose isn't whisked away a moment later. It also re-keys
   // the progress bar so it starts its sweep again.
   const [nudge, setNudge] = useState(0);
 
-  const select = (index: number) => {
-    setActive(index);
+  const go = (delta: number) => {
+    setStep((s) => s + delta);
     setNudge((n) => n + 1);
   };
 
@@ -73,36 +80,40 @@ export function Hero() {
     if (reduced.matches) return;
 
     const timer = window.setInterval(
-      () => setActive((current) => (current + 1) % count),
+      () => setStep((s) => s + 1),
       ROTATE_MS,
     );
     return () => window.clearInterval(timer);
-  }, [nudge, count]);
+  }, [nudge]);
 
   return (
     <section
       id="top"
       data-nav-tone="dark"
-      className="relative isolate flex min-h-[600px] flex-col overflow-hidden bg-navy-900 lg:h-svh"
+      className="relative isolate flex min-h-screen flex-col overflow-hidden bg-navy-900"
     >
       {/* The city the firm practises in, held still behind the copy but not
           frozen: a slow one-shot zoom (ken-burns, defined in globals.css), the
-          same motion every other hero on the site carries. One photograph is
-          mounted per statement and cross-fades in as that statement becomes
-          active — a plain opacity transition, so there's never a blank frame
+          same motion every other hero on the site carries. Each of the three
+          photographs is mounted once and cross-fades in when its turn
+          comes — a plain opacity transition, so there's never a blank frame
           between photographs. */}
-      {STATEMENTS.map((statement, index) => (
+      {BACKDROPS.map((photo, index) => (
         <Image
-          key={statement.lead}
-          src={BACKDROPS[index % BACKDROPS.length]}
+          key={photo.src}
+          src={photo}
           alt=""
           aria-hidden="true"
           fill
           priority={index === 0}
+          // The static imports carry a tiny blurred preview, so a photograph
+          // that is still downloading when its turn comes fades in as a soft
+          // version of itself instead of a blank navy frame.
+          placeholder="blur"
           quality={90}
           sizes="100vw"
           className={`object-cover object-center transition-opacity duration-1000 ease-out motion-safe:animate-[ken-burns_22s_ease-out_forwards] ${
-            index === active ? "opacity-100" : "opacity-0"
+            index === backdrop ? "opacity-100" : "opacity-0"
           }`}
         />
       ))}
@@ -159,9 +170,7 @@ export function Hero() {
               <div className="mt-5 flex items-center gap-4">
                 <button
                   type="button"
-                  onClick={() =>
-                    select((active - 1 + count) % count)
-                  }
+                  onClick={() => go(-1)}
                   aria-label="Previous statement"
                   className="flex h-8 w-6 items-center justify-center text-white/70 transition-colors hover:text-copper-300"
                 >
@@ -171,7 +180,7 @@ export function Hero() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => select((active + 1) % count)}
+                  onClick={() => go(1)}
                   aria-label="Next statement"
                   className="flex h-8 w-6 items-center justify-center text-white/70 transition-colors hover:text-copper-300"
                 >
@@ -182,7 +191,7 @@ export function Hero() {
 
                 <div className="relative h-px flex-1 bg-white/25">
                   <span
-                    key={`${active}-${nudge}`}
+                    key={`${step}-${nudge}`}
                     className="absolute inset-y-0 left-0 w-full origin-left bg-copper-400 motion-safe:animate-[hero-progress_var(--hero-rotate)_linear_forwards]"
                     style={{ "--hero-rotate": `${ROTATE_MS}ms` } as CSSProperties}
                   />

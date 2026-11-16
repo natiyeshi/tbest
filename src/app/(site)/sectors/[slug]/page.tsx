@@ -7,8 +7,7 @@ import { sectorBySlug, sectors } from "@/lib/sectors";
 import { pageMetadata } from "@/lib/seo";
 import { ogImage } from "@/lib/og-image";
 
-import addisSkyline from "../../../../../public/hero/addis-skyline.jpg";
-import addisTowerStreet from "../../../../../public/hero/addis-tower-street.jpg";
+import corporateNew from "../../../../../public/hero/corporate-new.jpg";
 
 export function generateStaticParams() {
   return sectors.map((sector) => ({ slug: sector.slug }));
@@ -40,11 +39,10 @@ export default async function SectorPage({
   const sector = sectorBySlug(slug);
   if (!sector) notFound();
 
-  // No sector has photography of its own, so the masthead alternates between
-  // the two real Addis photos the firm has, rather than repeating one across
-  // all nine — the ghost numeral still tells each page apart from the last.
+  // No sector has photography of its own, so every sector page opens on the
+  // landing hero's first photograph; the ghost numeral still tells each page
+  // apart from the last.
   const sectorIndex = sectors.findIndex((item) => item.slug === sector.slug);
-  const heroImage = sectorIndex % 2 === 0 ? addisSkyline : addisTowerStreet;
 
   return (
     <ServiceDetail
@@ -54,7 +52,7 @@ export default async function SectorPage({
       servicesLead={sector.servicesLead}
       services={sector.services}
       contacts={contactsForSector(sector.slug)}
-      image={heroImage}
+      image={corporateNew}
       index={sectorIndex + 1}
       count={sectors.length}
       crumbLabel="Sectors"

@@ -10,7 +10,7 @@ import { formatInsightDate, insightCategories } from "@/lib/insights";
 import { getPublicInsights } from "@/lib/public-content";
 import { pageMetadata } from "@/lib/seo";
 
-import addisSkyline from "../../../../public/hero/addis-skyline.jpg";
+import corporateNew from "../../../../public/hero/corporate-new.jpg";
 
 // Served from the cache and refreshed on a schedule; an admin edit also
 // revalidates this path straight away.
@@ -47,7 +47,7 @@ export default async function UpdatesPage() {
         eyebrow="Updates"
         title="Legal updates and blogs."
         crumbs={[{ label: "Home", href: "/" }, { label: "Updates" }]}
-        image={addisSkyline}
+        image={corporateNew}
       />
 
       {/* Featured — most recent across every stream. Guarded, because the

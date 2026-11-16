@@ -18,24 +18,33 @@ export function PatternPanel({
 }) {
   return (
     <div className={`relative overflow-hidden ${color} ${className}`}>
-      {/* The firm's diamond, oversized and held at low contrast so it reads as
-          texture rather than as a second element competing with the label. */}
-      <svg
-        viewBox="0 0 100 100"
-        preserveAspectRatio="xMaxYMid slice"
-        aria-hidden="true"
-        className="absolute -right-6 top-1/2 h-[150%] w-auto -translate-y-1/2 text-white/[0.07]"
-      >
-        <path d="M50 4 L96 50 L50 96 L4 50 Z" fill="currentColor" />
-        <path
-          d="M50 20 L80 50 L50 80 L20 50 Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3"
-        />
-      </svg>
+      <PatternMark />
       {children}
     </div>
+  );
+}
+
+/**
+ * The firm's diamond, oversized and held at low contrast so it reads as
+ * texture rather than as a second element competing with the label. Sits
+ * against the right edge of whatever positioned box it is placed in.
+ */
+export function PatternMark({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      preserveAspectRatio="xMaxYMid slice"
+      aria-hidden="true"
+      className={`pointer-events-none absolute -right-6 top-1/2 h-[150%] w-auto -translate-y-1/2 text-white/[0.07] ${className}`}
+    >
+      <path d="M50 4 L96 50 L50 96 L4 50 Z" fill="currentColor" />
+      <path
+        d="M50 20 L80 50 L50 80 L20 50 Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+    </svg>
   );
 }
 
