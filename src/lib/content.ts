@@ -356,7 +356,7 @@ export const team: readonly TeamMember[] = [
   {
     slug: "hikma-tessema-wolde",
     name: "Hikma Tessema Wolde",
-    role: "Associate II",
+    role: "Associate",
     email: "hikma@tbestlaw.com",
     portrait: hikmaNew,
     card: hikmaNew,
@@ -422,7 +422,6 @@ const lawyerRanks: readonly string[] = [
   "Partner",
   "Of Counsel",
   "Senior Associate",
-  "Associate II",
   "Associate",
   "Junior Associate",
 ];

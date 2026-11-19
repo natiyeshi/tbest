@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { ClosingCTA } from "@/components/contact-cta";
 import { Firm } from "@/components/sections/firm";
 import { Hero } from "@/components/sections/hero";
-import { People } from "@/components/sections/people";
 import { Practices } from "@/components/sections/practices";
 import { Recognition } from "@/components/sections/recognition";
 import { RecognitionStrip } from "@/components/recognition-strip";
@@ -40,7 +39,6 @@ export default async function Home() {
       <Firm />
       <Practices practices={practices} />
       <Sectors />
-      <People />
       <Recognition />
       <Testimonials testimonials={testimonials} />
       <ClosingCTA />
