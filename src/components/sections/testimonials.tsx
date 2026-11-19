@@ -165,6 +165,12 @@ function QuoteCard({ item }: { item: Testimonial }) {
       <blockquote className="mt-4 flex-1 text-[0.9375rem] leading-relaxed text-navy-700">
         <Quoted text={item.quote} />
       </blockquote>
+      {/* The firm asked for every card to carry the same credit, whatever
+          source the dashboard holds for the quote. */}
+      <figcaption className="mt-6 flex items-center gap-3 eyebrow text-copper-500">
+        <span aria-hidden="true" className="h-px w-6 shrink-0 bg-copper-400/70" />
+        Gathered by Legal 500
+      </figcaption>
     </figure>
   );
 }

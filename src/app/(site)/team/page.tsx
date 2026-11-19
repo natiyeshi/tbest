@@ -80,28 +80,21 @@ function TierHeading({ label }: { label: string }) {
   );
 }
 
-/** A named group of people, with a count beside the heading. */
+/** A named group of people under a heading. */
 function Roster({
   title,
   blurb,
-  count,
   children,
 }: {
   title: string;
   blurb: string;
-  count: number;
   children: React.ReactNode;
 }) {
   return (
     <div>
-      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-        <h2 className="font-display text-2xl leading-tight tracking-tight text-navy-800 sm:text-3xl">
-          {title}
-        </h2>
-        <span className="font-display text-sm text-copper-500">
-          {String(count).padStart(2, "0")}
-        </span>
-      </div>
+      <h2 className="font-display text-2xl leading-tight tracking-tight text-navy-800 sm:text-3xl">
+        {title}
+      </h2>
       <p className="mt-3 max-w-2xl text-[0.9375rem] leading-relaxed text-muted">
         {blurb}
       </p>
@@ -130,7 +123,6 @@ export default function TeamPage() {
             <Roster
               title="Our partners"
               blurb="Partners and associates advising on corporate, commercial, investment and tax matters."
-              count={lawyers.length}
             >
               {/* Every lawyer in one continuous grid, most senior first. The
                   role on each card says the rank, so the bands no longer start

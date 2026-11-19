@@ -34,7 +34,7 @@ export default async function Home() {
   return (
     <>
       <JsonLd data={organizationJsonLd()} />
-      <Hero />
+      <Hero testimonials={testimonials} />
       <RecognitionStrip />
       <Firm />
       <Practices practices={practices} />

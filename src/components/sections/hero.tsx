@@ -6,6 +6,10 @@ import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 
 import { BrandArrow } from "@/components/brand";
+import {
+  testimonials as bundledTestimonials,
+  type Testimonial,
+} from "@/lib/recognition";
 
 import towers from "../../../public/hero/Towers.jpg";
 import addisTowerStreet from "../../../public/hero/addis-tower-street.jpg";
@@ -13,52 +17,47 @@ import addisTowerStreet from "../../../public/hero/addis-tower-street.jpg";
 // download it, the optimiser sends each screen a copy resized to its width.
 import newHero from "../../../public/hero/new.jpg";
 
-/** How long each statement holds the stage. */
-const ROTATE_MS = 5000;
+/** How long each testimonial holds the stage — long enough to read one. */
+const ROTATE_MS = 7000;
 
 /**
- * The four lines that rotated through the old site's home slider, word for
- * word, with the lead the old slider picked out in colour kept as `lead`.
- * They replaced the rotating practice areas here: the practices already have
- * their own section a scroll below, and these say what the firm is like rather
- * than listing what it does.
+ * The rotating line under the headline is a client testimonial, in quotation
+ * marks and credited underneath. It replaced the four statements carried over
+ * from the old site's slider, at the firm's request. Every quote is credited
+ * "Gathered by Legal 500" for now, as the firm asked, until the writers'
+ * names come in.
  */
-const STATEMENTS = [
-  { lead: "Trusted", rest: "legal services informed by wealth of experience." },
-  {
-    lead: "Legally compliant,",
-    rest: "bold solutions tailored to specific needs of clients.",
-  },
-  {
-    lead: "Highly skilled",
-    rest: "in negotiations, transactional lawyering and deals.",
-  },
-  {
-    lead: "Specialized",
-    rest: "knowledge of Ethiopian laws and cross-border transactions.",
-  },
-] as const;
+const CREDIT = "Gathered by Legal 500";
+
+/** Strip any quotation marks typed into the dashboard so they never double up. */
+const bare = (quote: string) =>
+  quote.trim().replace(/^["“”']+|["“”']+$/g, "").trim();
 
 /*
  * The backdrop changes on every turn of the copy, cycling through these three
- * photographs in order. It runs off its own count rather than the statement
- * index, so with four statements the photograph still changes when the copy
- * wraps from the last statement back to the first.
+ * photographs in order. It runs off its own count rather than the quote
+ * index, so whatever the number of quotes the photograph still changes when
+ * the copy wraps from the last one back to the first.
  */
 const BACKDROPS = [towers, addisTowerStreet, newHero];
 
-export function Hero() {
-  const count = STATEMENTS.length;
+export function Hero({
+  testimonials,
+}: {
+  testimonials: readonly Testimonial[];
+}) {
+  const quotes = testimonials.length > 0 ? testimonials : bundledTestimonials;
+  const count = quotes.length;
 
   // Every turn of the copy — timed or manual — moves this one step. The
-  // statement and the photograph are both read off it, each wrapping at its
+  // quote and the photograph are both read off it, each wrapping at its
   // own length, so the two always change together.
   const [step, setStep] = useState(0);
   const mod = (n: number, m: number) => ((n % m) + m) % m;
   const active = mod(step, count);
   const backdrop = mod(step, BACKDROPS.length);
   // Bumped whenever the reader takes manual control, to restart the timer so a
-  // statement they just chose isn't whisked away a moment later. It also re-keys
+  // quote they just chose isn't whisked away a moment later. It also re-keys
   // the progress bar so it starts its sweep again.
   const [nudge, setNudge] = useState(0);
 
@@ -139,27 +138,32 @@ export function Hero() {
               A Full Service Law Firm in Ethiopia
             </h1>
 
-            {/* Rotating statement — a masthead rule rather than a glass card,
-                so the photograph keeps reading as itself behind the type. The
-                lead word takes the copper the old slider gave it. Layers are
-                absolutely positioned in a fixed-height box so nothing shifts
-                as they cross-fade; the box is sized for the longest line at
-                three lines on a 320px screen and two from sm. */}
+            {/* Rotating testimonial — a masthead rule rather than a glass card,
+                so the photograph keeps reading as itself behind the type. All
+                the quotes share one grid cell, so the box is as tall as the
+                longest of them and nothing below shifts as they cross-fade. */}
             <div className="relative mt-10 border-t border-white/20 pt-6">
-              <div className="relative h-[6.25rem] sm:h-[5.5rem]">
-                {STATEMENTS.map((statement, index) => (
-                  <p
-                    key={statement.lead}
+              <div className="grid">
+                {quotes.map((item, index) => (
+                  <figure
+                    key={item.quote}
                     aria-hidden={index !== active}
-                    className={`absolute inset-x-0 top-0 font-display text-2xl leading-[1.15] tracking-tight text-white transition-all duration-700 ease-out [text-shadow:0_1px_3px_rgba(0,0,0,0.55),0_2px_24px_rgba(0,0,0,0.7)] sm:text-3xl ${
+                    className={`[grid-area:1/1] transition-all duration-700 ease-out ${
                       index === active
                         ? "translate-y-0 opacity-100"
                         : "pointer-events-none translate-y-3 opacity-0"
                     }`}
                   >
-                    <span className="text-copper-300">{statement.lead}</span>{" "}
-                    {statement.rest}
-                  </p>
+                    <blockquote className="font-display text-xl leading-[1.25] tracking-tight text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.55),0_2px_24px_rgba(0,0,0,0.7)] sm:text-2xl">
+                      <span className="text-copper-300">&ldquo;</span>
+                      {bare(item.quote)}
+                      <span className="text-copper-300">&rdquo;</span>
+                    </blockquote>
+                    <figcaption className="mt-3 flex items-center gap-3 eyebrow text-copper-300 [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]">
+                      <span aria-hidden="true" className="h-px w-6 shrink-0 bg-copper-300/70" />
+                      {CREDIT}
+                    </figcaption>
+                  </figure>
                 ))}
               </div>
 
@@ -171,7 +175,7 @@ export function Hero() {
                 <button
                   type="button"
                   onClick={() => go(-1)}
-                  aria-label="Previous statement"
+                  aria-label="Previous testimonial"
                   className="flex h-8 w-6 items-center justify-center text-white/70 transition-colors hover:text-copper-300"
                 >
                   <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" aria-hidden="true">
@@ -181,7 +185,7 @@ export function Hero() {
                 <button
                   type="button"
                   onClick={() => go(1)}
-                  aria-label="Next statement"
+                  aria-label="Next testimonial"
                   className="flex h-8 w-6 items-center justify-center text-white/70 transition-colors hover:text-copper-300"
                 >
                   <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" aria-hidden="true">
