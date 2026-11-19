@@ -26,52 +26,29 @@ import rekebkiPortraitAlt from "../../public/team/rekebki-tsega-abebe/rekebki-2-
 import sisayPortraitAlt from "../../public/team/sisay-habte/sis-final-nobg.png";
 import tibebePortraitAlt from "../../public/team/tibebe-zewdu/5837172361756004268-nobg.png";
 
-// The newer shoot: full photographs, one straight-on frame and one
-// three-quarter frame each. n-a.png leads on the team page and n-b.png is the
-// detail-page photograph. These carry the cards and the detail pages; the
-// cut-outs above are kept for the standing lineup on the team page, which needs
-// transparency. Everyone on the roster was photographed in this round.
-//
-// These are the untouched camera files. The firm asked for darker backgrounds
-// behind the team profile pictures, and recolouring the studio wall in these
-// frames was tried and rejected: it left a pale fringe in some people's hair,
-// and it put lawyers who are wearing black against a dark ground, which lost
-// the silhouette. A darker background here needs a re-shoot, or a backdrop
-// choice made with the photographer — not a repaint of these files.
-//
-// The optimiser resizes each of these per device from the file behind it and
-// compresses at quality 90 (next.config.ts). What matters for how sharp a
-// portrait looks is that the file behind it is full-size: these were once
-// served from a `compressed/` folder at 1200x1800 and about 0.15 bits per
-// pixel — a fortieth of the data — which is what made every portrait soft.
-import benyamNew from "../../public/new/benyam-tafesse/compressed/n-a.png";
-import benyamNewAlt from "../../public/new/benyam-tafesse/compressed/n-b.png";
-import beroketNew from "../../public/new/bereket-teshome/compressed/n-a.png";
-import beroketNewAlt from "../../public/new/bereket-teshome/compressed/n-b.png";
-import bezawitFekedeNew from "../../public/new/bezawit-fekede/compressed/n-a.png";
-import bezawitFekedeNewAlt from "../../public/new/bezawit-fekede/compressed/n-b.png";
-import bezawitYirgaNew from "../../public/new/bezawit-yirga/compressed/n-a.png";
-import bezawitYirgaNewAlt from "../../public/new/bezawit-yirga/compressed/n-b.png";
-import etsehiwotNew from "../../public/new/etsehiwot-samson/compressed/n-a.png";
-import etsehiwotNewAlt from "../../public/new/etsehiwot-samson/compressed/n-b.png";
-import helinaNew from "../../public/new/helina-bezabih/compressed/n-a.png";
-import helinaNewAlt from "../../public/new/helina-bezabih/compressed/n-b.png";
-import lindaNew from "../../public/new/linda-tedla/compressed/n-a.png";
-import lindaNewAlt from "../../public/new/linda-tedla/compressed/n-b.png";
-import menenNew from "../../public/new/menen-mitiku/compressed/n-a.png";
-import menenNewAlt from "../../public/new/menen-mitiku/compressed/n-b.png";
-import rekebkiNew from "../../public/new/rekebki-tsega-abebe/compressed/n-a.png";
-import rekebkiNewAlt from "../../public/new/rekebki-tsega-abebe/compressed/n-b.png";
+// The firm's edited profile pictures (edited.jpg / edited.png in each member's
+// folder). One picture per member, used on both the team card and the detail
+// page, so a member's photograph never changes between the two and there is no
+// hover swap. Sisay (no edited picture supplied) and Hikma (the firm asked to
+// keep her current one) still use the earlier n-a.png / n-b.png frames.
+import benyamNew from "../../public/new/benyam-tafesse/edited.jpg";
+import beroketNew from "../../public/new/bereket-teshome/edited.jpg";
+import bezawitFekedeNew from "../../public/new/bezawit-fekede/edited.jpg";
+import bezawitYirgaNew from "../../public/new/bezawit-yirga/edited.jpg";
+import etsehiwotNew from "../../public/new/etsehiwot-samson/edited.jpg";
+import helinaNew from "../../public/new/helina-bezabih/edited.png";
+import lindaNew from "../../public/new/linda-tedla/edited.jpg";
+import menenNew from "../../public/new/menen-mitiku/edited.jpg";
+import rekebkiNew from "../../public/new/rekebki-tsega-abebe/edited.jpg";
 import sisayNew from "../../public/new/sisay-habte/compressed/n-a.png";
 import sisayNewAlt from "../../public/new/sisay-habte/compressed/n-b.png";
-import tibebeNew from "../../public/new/tibebe-zewdu/compressed/n-a.png";
-import tibebeNewAlt from "../../public/new/tibebe-zewdu/compressed/n-b.png";
+import tibebeNew from "../../public/new/tibebe-zewdu/edited.jpg";
 // Joined after the shoot above: one frame each, cropped from the original in
 // the same folder to the framing of everyone else's n-a.png. Until a second
 // frame comes in, it serves the card, the profile and the lineup alike.
 import hikmaNew from "../../public/new/Hikma-Tessema/compressed/n-a.png";
-import kidestNew from "../../public/new/Kidest-Abate/compressed/n-a.png";
-import mistreNew from "../../public/new/Mistre-Ashenafi/compressed/n-a.png";
+import kidestNew from "../../public/new/Kidest-Abate/edited.jpg";
+import mistreNew from "../../public/new/Mistre-Ashenafi/edited.jpg";
 
 export const firm = {
   name: "TBeST Law LLP",
@@ -167,7 +144,6 @@ export const team: readonly TeamMember[] = [
     portrait: tibebePortraitAlt,
     portraitAlt: tibebePortrait,
     card: tibebeNew,
-    cardAlt: tibebeNewAlt,
     photo: tibebeNew,
     clip: "/new/tibebe-zewdu/compressed/p3_00539253.webm",
     focus: [
@@ -195,7 +171,6 @@ export const team: readonly TeamMember[] = [
     portrait: benyamPortrait,
     portraitAlt: benyamPortraitAlt,
     card: benyamNew,
-    cardAlt: benyamNewAlt,
     photo: benyamNew,
     clip: "/new/benyam-tafesse/compressed/p3_01348962.webm",
     focus: [
@@ -250,7 +225,6 @@ export const team: readonly TeamMember[] = [
     role: "Office Manager",
     portrait: menenPortrait,
     card: menenNew,
-    cardAlt: menenNewAlt,
     photo: menenNew,
     clip: "/new/menen-mitiku/compressed/p3_01353747.webm",
     focus: [],
@@ -265,7 +239,6 @@ export const team: readonly TeamMember[] = [
     portrait: helinaPortraitAlt,
     portraitAlt: helinaPortrait,
     card: helinaNew,
-    cardAlt: helinaNewAlt,
     photo: helinaNew,
     clip: "/new/helina-bezabih/compressed/p3_01351167.webm",
     focus: ["Corporate", "Commercial", "Investment", "Competition"],
@@ -284,7 +257,6 @@ export const team: readonly TeamMember[] = [
     portrait: lindaPortrait,
     portraitAlt: lindaPortraitAlt,
     card: lindaNew,
-    cardAlt: lindaNewAlt,
     photo: lindaNew,
     clip: "/new/linda-tedla/compressed/p3_01352242.webm",
     focus: ["Intellectual Property", "Corporate", "Commercial"],
@@ -302,7 +274,6 @@ export const team: readonly TeamMember[] = [
     portrait: beroketPortrait,
     portraitAlt: beroketPortraitAlt,
     card: beroketNew,
-    cardAlt: beroketNewAlt,
     photo: beroketNew,
     clip: "/new/bereket-teshome/compressed/p3_01353487.webm",
     focus: ["Corporate", "Investment", "Capital Market", "Employment"],
@@ -320,7 +291,6 @@ export const team: readonly TeamMember[] = [
     portrait: etsehiwotPortraitAlt,
     portraitAlt: etsehiwotPortrait,
     card: etsehiwotNew,
-    cardAlt: etsehiwotNewAlt,
     photo: etsehiwotNew,
     clip: "/new/etsehiwot-samson/compressed/p3_01349257.webm",
     focus: ["Corporate", "Investment"],
@@ -339,7 +309,6 @@ export const team: readonly TeamMember[] = [
     portrait: bezawitYirgaPortraitAlt,
     portraitAlt: bezawitYirgaPortrait,
     card: bezawitYirgaNew,
-    cardAlt: bezawitYirgaNewAlt,
     photo: bezawitYirgaNew,
     clip: "/new/bezawit-yirga/compressed/p3_01349762.webm",
     focus: [
@@ -355,60 +324,6 @@ export const team: readonly TeamMember[] = [
       "LL.B, Jimma University School of Law, with Great Distinction (2019)",
     ],
     languages: ["English", "Amharic"],
-    experience: [
-      {
-        area: "Non-profit organizations",
-        items: [
-          "Advised foreign-based NGOs and religious associations on various matters related to Ethiopia's civil societies law.",
-          "Assisted non-profits, including Resolve to Save Lives and Last Mile Health, with registration.",
-          "Advised a Canadian non-profit on the dissolution and winding-up of its Ethiopian country office.",
-          "Advised an Israeli non-profit on compliance with Ethiopian NGO laws.",
-          "Assisted a UK-based non-profit in drafting a framework agreement.",
-          "Prepared compliance legal memoranda for international non-profits.",
-          "Prepared legal health check calendars for non-profit clients, to ensure ongoing regulatory compliance.",
-        ],
-      },
-      {
-        area: "Employment and corporate immigration",
-        items: [
-          "Drafted and reviewed employment contracts, staff handbooks and HR policies for embassies, diplomatic missions and international non-profits.",
-          "Advised a U.S. government agency on workforce reduction under Ethiopian labor laws.",
-          "Delivered training sessions on Ethiopian employment law, covering its key features and workplace sexual harassment.",
-          "Provided employment law assistance to a beverage company and various non-profits, including drafting HR manuals, contracts, consulting agreements, and warning and termination letters.",
-          "Conducted due diligence for companies in the poultry, horticulture and beverage sectors on employment, health, safety and environmental law.",
-          "Advised international organizations on employment matters including employee benefits, insurance, remote work, COVID-19 vaccination requirements and confidentiality agreements.",
-          "Provided immigration law advice to international and multinational organizations operating in Ethiopia.",
-          "Delivered training to a leading accounting firm on immigration matters, including visa and permit applications, trends and challenges.",
-          "Assisted clients with new, renewed and cancelled work and residence permits, visa applications, and registration on the immigration portal.",
-          "Represented a client before Immigration and Citizenship Services to resolve complex matters, including lifting an entry ban.",
-          "Provided legal guidance on hiring expatriates in Ethiopia, including on quota limitations and compliance.",
-        ],
-      },
-      {
-        area: "Corporate",
-        items: [
-          "Assisted companies from Mauritius, Côte d'Ivoire, Morocco, China and the Netherlands with registering project offices, subsidiaries and commercial representative offices in Ethiopia.",
-          "Processed one of the first business conversions from a sole proprietorship to a private limited company.",
-          "Advised a Chinese telecom company on Ethiopia's electronic signature laws as they apply to commercial contracts.",
-          "Drafted a software transfer agreement and a loan agreement for a tech startup studio.",
-          "Reviewed corporate contracts and service agreements for compliance with Ethiopian law.",
-          "Investigated an insurance claim for a major Ethiopian company, including site visits and reporting.",
-        ],
-      },
-      {
-        area: "Data protection and privacy",
-        items: [
-          "Advised international and multinational companies on data protection and privacy laws, including reviewing agreements, internal policies and risk assessments.",
-          "Conducted legal research and prepared a report on Ethiopia's cybersecurity and data protection laws.",
-          "Drafted data protection agreements and executive summaries for companies on Ethiopia's data privacy regulations.",
-          "Advised a leading biotech and pharmaceutical company on its employee share purchase plan under Ethiopian data protection and employment law.",
-          "Prepared legal updates on the recently issued Personal Data Protection Law.",
-          "Provided market entry due diligence on data protection and privacy matters.",
-          "Conducted privacy risk assessments for new segments of a technology company.",
-          "Reviewed parental consent notices and data handling policies of a religious institution.",
-        ],
-      },
-    ],
   },
   {
     slug: "rekebki-tsega-abebe",
@@ -417,7 +332,6 @@ export const team: readonly TeamMember[] = [
     portrait: rekebkiPortraitAlt,
     portraitAlt: rekebkiPortrait,
     card: rekebkiNew,
-    cardAlt: rekebkiNewAlt,
     photo: rekebkiNew,
     clip: "/new/rekebki-tsega-abebe/compressed/p3_01349517.webm",
     focus: [],
@@ -432,7 +346,6 @@ export const team: readonly TeamMember[] = [
     portrait: bezawitFekedePortrait,
     portraitAlt: bezawitFekedePortraitAlt,
     card: bezawitFekedeNew,
-    cardAlt: bezawitFekedeNewAlt,
     photo: bezawitFekedeNew,
     clip: "/new/bezawit-fekede/compressed/p3_01354197.webm",
     focus: [],

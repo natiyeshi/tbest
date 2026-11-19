@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 import { BrandArrow } from "@/components/brand";
 
-import corporateNew from "../../../public/hero/corporate-new.jpg";
+import towers from "../../../public/hero/Towers.jpg";
 import addisTowerStreet from "../../../public/hero/addis-tower-street.jpg";
 // The full 4032px camera original, kept untouched for quality: visitors never
 // download it, the optimiser sends each screen a copy resized to its width.
@@ -45,7 +45,7 @@ const STATEMENTS = [
  * index, so with four statements the photograph still changes when the copy
  * wraps from the last statement back to the first.
  */
-const BACKDROPS = [corporateNew, addisTowerStreet, newHero];
+const BACKDROPS = [towers, addisTowerStreet, newHero];
 
 export function Hero() {
   const count = STATEMENTS.length;

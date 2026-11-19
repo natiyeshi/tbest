@@ -97,7 +97,8 @@ export const rankings: readonly FirmRanking[] = [
   },
   {
     source: "Chambers and Partners",
-    tier: "Band 3",
+    // The firm asked for the band to be dropped in favour of a plain statement.
+    tier: "Ranked under Chambers",
     category: "General Business Law — Ethiopia",
     knownFor:
       "TBeST Law provides expert legal advice on a wide range of corporate and commercial matters, specialising in M&A transactions, equity and debt financing, corporate governance, restructuring and regulatory compliance, with deep expertise in Ethiopian tax law.",
@@ -105,17 +106,16 @@ export const rankings: readonly FirmRanking[] = [
       "TBeST Law's ability to address highly complex and sophisticated matters is truly astonishing and we are very proud to retain its services.",
       "TBeST Law is able to gracefully navigate complicated negotiations.",
     ],
-    // Paste the firm's Chambers profile URL here to show a link on the card:
-    // href: "https://chambers.com/...",
-    // hrefLabel: "View the Chambers ranking",
+    href: "https://chambers.com/department/tbest-law-llp-general-business-law-global-2:852:79:1:23524041",
+    hrefLabel: "View the Chambers ranking",
   },
   {
     source: "IFLR1000",
-    tier: "Tier 3",
+    // The firm asked for the tier to be dropped in favour of a plain statement.
+    tier: "Ranked under IFLR",
     category: "Ethiopia",
-    // Paste the firm's IFLR1000 profile URL here to show a link on the card:
-    // href: "https://www.iflr1000.com/...",
-    // hrefLabel: "View the IFLR1000 ranking",
+    href: "https://www.iflr.com/iflr1000/firms/tbest-law-ethiopia#practitioners",
+    hrefLabel: "View the IFLR1000 ranking",
     partners: [
       {
         name: "Sisay Habte Gemeda",
