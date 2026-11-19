@@ -29,8 +29,8 @@ import tibebePortraitAlt from "../../public/team/tibebe-zewdu/583717236175600426
 // The firm's edited profile pictures (edited.jpg / edited.png in each member's
 // folder). One picture per member, used on both the team card and the detail
 // page, so a member's photograph never changes between the two and there is no
-// hover swap. Sisay (no edited picture supplied) and Hikma (the firm asked to
-// keep her current one) still use the earlier n-a.png / n-b.png frames.
+// hover swap. Hikma (the firm asked to keep her current one) still uses her
+// earlier n-a.png frame; Sisay uses compressed/last-v.jpeg, supplied separately.
 import benyamNew from "../../public/new/benyam-tafesse/edited.jpg";
 import beroketNew from "../../public/new/bereket-teshome/edited.jpg";
 import bezawitFekedeNew from "../../public/new/bezawit-fekede/edited.jpg";
@@ -40,8 +40,7 @@ import helinaNew from "../../public/new/helina-bezabih/edited.png";
 import lindaNew from "../../public/new/linda-tedla/edited.jpg";
 import menenNew from "../../public/new/menen-mitiku/edited.jpg";
 import rekebkiNew from "../../public/new/rekebki-tsega-abebe/edited.jpg";
-import sisayNew from "../../public/new/sisay-habte/compressed/n-a.png";
-import sisayNewAlt from "../../public/new/sisay-habte/compressed/n-b.png";
+import sisayNew from "../../public/new/sisay-habte/compressed/last-v.jpeg";
 import tibebeNew from "../../public/new/tibebe-zewdu/edited.jpg";
 // Joined after the shoot above: one frame each, cropped from the original in
 // the same folder to the framing of everyone else's n-a.png. Until a second
@@ -196,7 +195,6 @@ export const team: readonly TeamMember[] = [
     portrait: sisayPortrait,
     portraitAlt: sisayPortraitAlt,
     card: sisayNew,
-    cardAlt: sisayNewAlt,
     photo: sisayNew,
     clip: "/new/sisay-habte/compressed/p3_01354717.webm",
     focus: [
