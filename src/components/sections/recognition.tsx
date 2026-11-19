@@ -92,7 +92,11 @@ export function Recognition({
               )}
 
               {ranking.quotes && (
-                <ul className="relative mt-6 space-y-4">
+                <>
+                <p className="relative mt-7 eyebrow text-navy-800/45">
+                  Client testimonials, gathered by {ranking.source}
+                </p>
+                <ul className="relative mt-3 space-y-4">
                   {ranking.quotes.map((quote) => (
                     <li
                       key={quote}
@@ -108,6 +112,7 @@ export function Recognition({
                     </li>
                   ))}
                 </ul>
+                </>
               )}
 
               {ranking.partners && (

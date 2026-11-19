@@ -55,7 +55,7 @@ export function Testimonials({
         >
           <QuoteMark className="h-9 text-copper-400 sm:h-12 lg:h-14" />
           <blockquote className="relative mt-6 font-display text-2xl leading-[1.25] tracking-tight text-navy-800 sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-[1.2]">
-            {lead.quote}
+            <Quoted text={lead.quote} />
           </blockquote>
           <Source source={lead.source} className="mt-8" />
         </figure>
@@ -163,17 +163,28 @@ function QuoteCard({ item }: { item: Testimonial }) {
       />
       <QuoteMark className="h-5 text-copper-400" />
       <blockquote className="mt-4 flex-1 text-[0.9375rem] leading-relaxed text-navy-700">
-        {item.quote}
+        <Quoted text={item.quote} />
       </blockquote>
-      <Source source={item.source} className="mt-6" />
     </figure>
   );
 }
 
 /**
- * Which directory the quote came from. The firm asked for every comment to name
- * its source; a quote whose source has not been confirmed yet simply prints
- * nothing rather than being attributed to a publication on a guess.
+ * The quote between quotation marks, so it reads as a client's own words. Any
+ * marks already typed into the dashboard are stripped first so they never
+ * double up.
+ */
+function Quoted({ text }: { text: string }) {
+  const bare = text.trim().replace(/^["“”']+|["“”']+$/g, "").trim();
+  return <>&ldquo;{bare}&rdquo;</>;
+}
+
+/**
+ * Which directory gathered the quote. The firm asked for every comment to name
+ * its source, and to make plain that these are clients' words collected by the
+ * directory, not the directory's own verdict. A quote whose source has not
+ * been confirmed yet simply prints nothing rather than being attributed to a
+ * publication on a guess.
  */
 function Source({
   source,
@@ -187,8 +198,8 @@ function Source({
     <figcaption
       className={`flex items-center gap-3 eyebrow text-copper-500 ${className}`}
     >
-      <span aria-hidden="true" className="h-px w-6 bg-copper-400/70" />
-      {source}
+      <span aria-hidden="true" className="h-px w-6 shrink-0 bg-copper-400/70" />
+      Client testimonial, gathered by {source}
     </figcaption>
   );
 }

@@ -29,8 +29,7 @@ import tibebePortraitAlt from "../../public/team/tibebe-zewdu/583717236175600426
 // The firm's edited profile pictures (edited.jpg / edited.png in each member's
 // folder). One picture per member, used on both the team card and the detail
 // page, so a member's photograph never changes between the two and there is no
-// hover swap. Hikma (the firm asked to keep her current one) still uses her
-// earlier n-a.png frame; Sisay uses compressed/last-v.jpeg, supplied separately.
+// hover swap. Sisay uses compressed/last-v.jpeg, supplied separately.
 import benyamNew from "../../public/new/benyam-tafesse/edited.jpg";
 import beroketNew from "../../public/new/bereket-teshome/edited.jpg";
 import bezawitFekedeNew from "../../public/new/bezawit-fekede/edited.jpg";
@@ -42,10 +41,7 @@ import menenNew from "../../public/new/menen-mitiku/edited.jpg";
 import rekebkiNew from "../../public/new/rekebki-tsega-abebe/edited.jpg";
 import sisayNew from "../../public/new/sisay-habte/compressed/last-v.jpeg";
 import tibebeNew from "../../public/new/tibebe-zewdu/edited.jpg";
-// Joined after the shoot above: one frame each, cropped from the original in
-// the same folder to the framing of everyone else's n-a.png. Until a second
-// frame comes in, it serves the card, the profile and the lineup alike.
-import hikmaNew from "../../public/new/Hikma-Tessema/compressed/n-a.png";
+import hikmaNew from "../../public/new/Hikma-Tessema/edited.jpg";
 import kidestNew from "../../public/new/Kidest-Abate/edited.jpg";
 import mistreNew from "../../public/new/Mistre-Ashenafi/edited.jpg";
 
@@ -234,6 +230,7 @@ export const team: readonly TeamMember[] = [
     slug: "helina-bezabih",
     name: "Helina Bezabih",
     role: "Associate",
+    email: "helina@tbestlaw.com",
     portrait: helinaPortraitAlt,
     portraitAlt: helinaPortrait,
     card: helinaNew,
@@ -252,6 +249,7 @@ export const team: readonly TeamMember[] = [
     slug: "linda-tedla",
     name: "Linda Tedla",
     role: "Associate",
+    email: "linda@tbestlaw.com",
     portrait: lindaPortrait,
     portraitAlt: lindaPortraitAlt,
     card: lindaNew,
@@ -269,6 +267,7 @@ export const team: readonly TeamMember[] = [
     slug: "bereket-teshome",
     name: "Bereket Teshome",
     role: "Junior Associate",
+    email: "bereket@tbestlaw.com",
     portrait: beroketPortrait,
     portraitAlt: beroketPortraitAlt,
     card: beroketNew,
@@ -286,6 +285,7 @@ export const team: readonly TeamMember[] = [
     slug: "etsehiwot-samson",
     name: "Etsehiwot Samson",
     role: "Junior Associate",
+    email: "etsehiwot@tbestlaw.com",
     portrait: etsehiwotPortraitAlt,
     portraitAlt: etsehiwotPortrait,
     card: etsehiwotNew,
@@ -304,6 +304,7 @@ export const team: readonly TeamMember[] = [
     slug: "bezawit-yirga",
     name: "Bezawit Yirga",
     role: "Senior Associate",
+    email: "bezawit@tbestlaw.com",
     portrait: bezawitYirgaPortraitAlt,
     portraitAlt: bezawitYirgaPortrait,
     card: bezawitYirgaNew,
@@ -327,6 +328,7 @@ export const team: readonly TeamMember[] = [
     slug: "rekebki-tsega-abebe",
     name: "Rekebki Tsega Abebe",
     role: "Associate",
+    email: "rekebki@tbestlaw.com",
     portrait: rekebkiPortraitAlt,
     portraitAlt: rekebkiPortrait,
     card: rekebkiNew,
@@ -355,6 +357,7 @@ export const team: readonly TeamMember[] = [
     slug: "hikma-tessema-wolde",
     name: "Hikma Tessema Wolde",
     role: "Associate II",
+    email: "hikma@tbestlaw.com",
     portrait: hikmaNew,
     card: hikmaNew,
     photo: hikmaNew,
@@ -371,6 +374,7 @@ export const team: readonly TeamMember[] = [
     slug: "kidest-abate",
     name: "Kidest Abate",
     role: "Associate",
+    email: "kidest@tbestlaw.com",
     portrait: kidestNew,
     card: kidestNew,
     photo: kidestNew,
@@ -385,6 +389,7 @@ export const team: readonly TeamMember[] = [
     slug: "mistre-ashenafi",
     name: "Mistre Ashenafi",
     role: "Junior Associate",
+    email: "mistre@tbestlaw.com",
     portrait: mistreNew,
     card: mistreNew,
     photo: mistreNew,
