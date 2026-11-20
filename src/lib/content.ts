@@ -41,7 +41,7 @@ import menenNew from "../../public/new/menen-mitiku/edited.jpg";
 import rekebkiNew from "../../public/new/rekebki-tsega-abebe/edited.jpg";
 import sisayNew from "../../public/new/sisay-habte/compressed/last-v.jpeg";
 import tibebeNew from "../../public/new/tibebe-zewdu/edited.jpg";
-import hikmaNew from "../../public/new/Hikma-Tessema/hikma-1st.jpg";
+import hikmaNew from "../../public/new/Hikma-Tessema/vvv.png";
 import kidestNew from "../../public/new/Kidest-Abate/kidst-last-v.jpeg";
 import mistreNew from "../../public/new/Mistre-Ashenafi/mistre-last-v.jpeg";
 
@@ -186,7 +186,7 @@ export const team: readonly TeamMember[] = [
   },
   {
     slug: "sisay-habte-gemeda",
-    name: "Sisay Habte Gemeda",
+    name: "Sisay Habte",
     role: "Partner",
     portrait: sisayPortrait,
     portraitAlt: sisayPortraitAlt,
@@ -206,7 +206,7 @@ export const team: readonly TeamMember[] = [
     email: "sisay@tbestlaw.com",
     strapline:
       "Corporate and commercial counsel for the mining, real estate and NGO sectors.",
-    bio: "Sisay Habte Gemeda is a Partner at TBeST Law LLP, where she leads the firm's Corporate and Commercial, Mining, NGO and Real Estate practices.\n\nShe advises on a broad range of corporate and commercial matters, including providing structural, regulatory and compliance-based advice on investment, mergers and acquisitions and competition matters. She also assists clients with financing issues, including loan and security agreements, as well as due diligence and transaction structures.",
+    bio: "Sisay Habte is a Partner at TBeST Law LLP, where she leads the firm's Corporate and Commercial, Mining, NGO and Real Estate practices.\n\nShe advises on a broad range of corporate and commercial matters, including providing structural, regulatory and compliance-based advice on investment, mergers and acquisitions and competition matters. She also assists clients with financing issues, including loan and security agreements, as well as due diligence and transaction structures.",
     credentials: [
       "LL.B, University of Gondar, with Great Distinction (2012)",
       "LL.M, International Business Law, Central European University (2015)",
@@ -355,7 +355,7 @@ export const team: readonly TeamMember[] = [
   },
   {
     slug: "hikma-tessema-wolde",
-    name: "Hikma Tessema Wolde",
+    name: "Hikma Tessema",
     role: "Associate",
     email: "hikma@tbestlaw.com",
     portrait: hikmaNew,
@@ -363,7 +363,7 @@ export const team: readonly TeamMember[] = [
     photo: hikmaNew,
     focus: ["Tax", "Employment"],
     strapline: "Associate whose practice focuses on employment and tax law.",
-    bio: "Hikma Tessema Wolde is an Associate whose practice focuses on Employment and Tax Law.\n\nShe holds a Master of Laws (LL.M.) in Business Law from Addis Ababa University, where she graduated with Very Great Distinction, and a Bachelor of Laws (LL.B.) from the same university, graduating with Distinction.\n\nPrior to joining the firm, Hikma worked at Mesfin Debebe Corporate Legal Services as a Tax and Corporate Legal Associate. She has also worked as a Junior Legal Associate at Iron Cord Investment Consultancy PLC. Her professional experience includes advising domestic and international clients on tax, employment, corporate and commercial law, investment, regulatory compliance, immigration and dispute resolution matters.\n\nBeyond corporate legal practice, Hikma has contributed to legal aid, community service, and capacity-building initiatives through engagements with the Danish Refugee Council (DRC), UNHCR, and Addis Ababa University's Center for Human Rights, providing legal assistance to refugees and vulnerable communities.",
+    bio: "Hikma Tessema is an Associate whose practice focuses on Employment and Tax Law.\n\nShe holds a Master of Laws (LL.M.) in Business Law from Addis Ababa University, where she graduated with Very Great Distinction, and a Bachelor of Laws (LL.B.) from the same university, graduating with Distinction.\n\nPrior to joining the firm, Hikma worked at Mesfin Debebe Corporate Legal Services as a Tax and Corporate Legal Associate. She has also worked as a Junior Legal Associate at Iron Cord Investment Consultancy PLC. Her professional experience includes advising domestic and international clients on tax, employment, corporate and commercial law, investment, regulatory compliance, immigration and dispute resolution matters.\n\nBeyond corporate legal practice, Hikma has contributed to legal aid, community service, and capacity-building initiatives through engagements with the Danish Refugee Council (DRC), UNHCR, and Addis Ababa University's Center for Human Rights, providing legal assistance to refugees and vulnerable communities.",
     credentials: [
       "LL.M. in Business Law, Addis Ababa University",
       "LL.B., Addis Ababa University",

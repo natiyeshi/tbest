@@ -118,7 +118,7 @@ export const rankings: readonly FirmRanking[] = [
     hrefLabel: "View the IFLR1000 ranking",
     partners: [
       {
-        name: "Sisay Habte Gemeda",
+        name: "Sisay Habte",
         area: "Corporate and M&A",
         rating: "Rising Star Partner · Women Leaders",
       },
