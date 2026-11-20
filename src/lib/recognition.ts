@@ -98,7 +98,7 @@ export const rankings: readonly FirmRanking[] = [
   {
     source: "Chambers and Partners",
     // The firm asked for the band to be dropped in favour of a plain statement.
-    tier: "Ranked under Chambers",
+    tier: "Ranked by Chambers",
     category: "General Business Law — Ethiopia",
     knownFor:
       "TBeST Law provides expert legal advice on a wide range of corporate and commercial matters, specialising in M&A transactions, equity and debt financing, corporate governance, restructuring and regulatory compliance, with deep expertise in Ethiopian tax law.",
@@ -112,7 +112,7 @@ export const rankings: readonly FirmRanking[] = [
   {
     source: "IFLR1000",
     // The firm asked for the tier to be dropped in favour of a plain statement.
-    tier: "Ranked under IFLR",
+    tier: "Ranked by IFLR",
     category: "Ethiopia",
     href: "https://www.iflr.com/iflr1000/firms/tbest-law-ethiopia#practitioners",
     hrefLabel: "View the IFLR1000 ranking",

@@ -41,7 +41,7 @@ import menenNew from "../../public/new/menen-mitiku/edited.jpg";
 import rekebkiNew from "../../public/new/rekebki-tsega-abebe/edited.jpg";
 import sisayNew from "../../public/new/sisay-habte/compressed/last-v.jpeg";
 import tibebeNew from "../../public/new/tibebe-zewdu/edited.jpg";
-import hikmaNew from "../../public/new/Hikma-Tessema/edited.jpg";
+import hikmaNew from "../../public/new/Hikma-Tessema/hikma-1st.jpg";
 import kidestNew from "../../public/new/Kidest-Abate/kidst-last-v.jpeg";
 import mistreNew from "../../public/new/Mistre-Ashenafi/mistre-last-v.jpeg";
 

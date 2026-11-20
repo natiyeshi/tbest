@@ -214,9 +214,6 @@ export default async function TeamMemberPage({
               <h1 className="mt-5 font-display text-4xl leading-[1.06] tracking-tight text-navy-800 sm:text-5xl">
                 {member.name}
               </h1>
-              <p className="mt-6 text-lg leading-relaxed text-navy-700 sm:text-xl">
-                {member.strapline}
-              </p>
 
               <div className="mt-12">
                 <SectionHeading>Biography</SectionHeading>
