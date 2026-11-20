@@ -43,7 +43,7 @@ import sisayNew from "../../public/new/sisay-habte/compressed/last-v.jpeg";
 import tibebeNew from "../../public/new/tibebe-zewdu/edited.jpg";
 import hikmaNew from "../../public/new/Hikma-Tessema/vvv.png";
 import kidestNew from "../../public/new/Kidest-Abate/kidst-last-v.jpeg";
-import mistreNew from "../../public/new/Mistre-Ashenafi/mistre-last-v.jpeg";
+import mistreNew from "../../public/new/Mistre-Ashenafi/vvv.jpeg";
 
 export const firm = {
   name: "TBeST Law LLP",
