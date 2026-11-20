@@ -35,8 +35,8 @@ export function Firm() {
           >
             <p className="max-w-xl text-base leading-relaxed text-muted sm:text-lg">
               We act as trusted advisors across a wide range of sectors and
-              practice areas &mdash; and our lawyers helped draft the Ethiopian
-              Commercial Code, and the country&rsquo;s investment and tax laws.
+              practice areas. Our lawyers have contributed to the development
+              of various laws, including investment law and tax law.
             </p>
 
             <Link
