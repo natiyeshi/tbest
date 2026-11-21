@@ -84,7 +84,7 @@ export const rankings: readonly FirmRanking[] = [
     // the same way the Chambers and IFLR1000 cards below were sourced from
     // theirs.
     source: "Legal 500",
-    tier: "Leading Firm",
+    tier: "Tier 1",
     category: "Corporate and Commercial, Tax, M&A — Ethiopia",
     knownFor:
       "TBeST Law LLP advises clients across corporate, commercial and tax matters. With particular strength in M&A, debt financing and corporate governance, the firm is led by a capable trio of partners, and has recently expanded into fintech, data protection and public-private partnerships.",

@@ -36,7 +36,8 @@ export function Firm() {
             <p className="max-w-xl text-base leading-relaxed text-muted sm:text-lg">
               We act as trusted advisors across a wide range of sectors and
               practice areas. Our lawyers have contributed to the development
-              of various laws, including investment law and tax law.
+              of various policies and laws, including investment, intellectual
+              property and tax laws.
             </p>
 
             <Link
